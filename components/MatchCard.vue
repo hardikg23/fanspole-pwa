@@ -19,7 +19,7 @@
                 {{match.series.name}}  
               </div>
               <div class="pa-2 fontw500" color='primary'>
-                <Countdown :date="match.event_time/1000"></Countdown>  
+                <Countdown :date="match.event_time/1000"></Countdown>
               </div>
             </v-card-text>
           </v-flex>

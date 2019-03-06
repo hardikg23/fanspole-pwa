@@ -1,12 +1,12 @@
 import Vuex from 'vuex';
 
-import Home from './modules/Home';
+import Matches from './modules/Matches';
 import PaidLeagues from './modules/PaidLeagues';
 
 export default () => {
   return new Vuex.Store({
     modules: {
-      Home,
+      Matches,
       PaidLeagues
     }
   });

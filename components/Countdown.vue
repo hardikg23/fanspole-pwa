@@ -6,7 +6,7 @@
     {{ days }}d {{ hours }}h
   </div>
   <div v-else-if="days < 1 && hours > 1">
-    {{ hours }}h {{ minutes }}m
+    {{ hours }}h {{ minutes }}m {{ seconds }}s
   </div>
   <div v-else>
     {{ minutes }}m {{ seconds }}s
@@ -21,12 +21,13 @@
             coerce: str => Math.trunc(Date.parse(str) / 1000)
         }
     },
-    // created() {
-    //     this.setInterval(() => {
-    //       console.log("hi");
-    //         this.now = Math.trunc((new Date()).getTime() / 1000);
-    //     }, 1000);
-    // },
+    mounted() {
+      if (process.browser) {
+        window.setInterval(() => {
+          this.now = Math.trunc((new Date()).getTime() / 1000);
+        }, 1000);
+      }
+    },
     data() {
         return {
             now: Math.trunc((new Date()).getTime() / 1000)

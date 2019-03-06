@@ -11,7 +11,7 @@
 <script>
   export default {
     async asyncData({ route, store , redirect}) {
-      await store.dispatch('Home/GET_MATCHES');
+      await store.dispatch('Matches/GET_MATCHES');
     },
     components: {
       MatchCard: () => import('~/components/MatchCard'),
@@ -23,7 +23,7 @@
         return 'DAILY MODE'
       },
       getMatches() {
-        return this.$store.getters['Home/matches'];
+        return this.$store.getters['Matches/matches'];
       }
     },
     data() {

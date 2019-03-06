@@ -1,3 +1,6 @@
+let appEnv = process.env.NODE_ENV || 'development';
+import { MasterKeys } from './config.js';
+
 const pkg = require('./package')
 
 const nodeExternals = require('webpack-node-externals')
@@ -53,14 +56,14 @@ module.exports = {
   */
   axios: {
     proxy: true,
-    baseUrl: 'https://www.fanspole.com/api/v3/'
+    baseUrl: MasterKeys[appEnv].apiEndPoint
   },
 
   proxy: {
     '/api': {
-      target: 'https://www.fanspole.com/api/v3/',
+      target: MasterKeys[appEnv].apiEndPoint,
       pathRewrite: { '^/api/': '' },
-      headers: { 'X-Fanspole-Client': '254b4f821a12144966c43444039dca21b97dde0be39b1fc1d2f573228dea6bbb', 'Authorization': 'Bearer 8ae776c8e3353cb64df52f4e25588ff5d8ec1c4b2b0e67ca88cad685925e556d' }
+      headers: { 'X-Fanspole-Client': MasterKeys[appEnv].clientId, 'Authorization': 'Bearer 8ae776c8e3353cb64df52f4e25588ff5d8ec1c4b2b0e67ca88cad685925e556d' }
     },
     // '/post_login': {
     //   target: `${process.env.API_END_POINT}oauth/token`,
