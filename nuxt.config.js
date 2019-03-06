@@ -58,7 +58,7 @@ module.exports = {
 
   proxy: {
     '/api': {
-      target: 'http://localhost:3000/api/v3/',
+      target: 'https://www.fanspole.com/api/v3/',
       pathRewrite: { '^/api/': '' },
       headers: { 'X-Fanspole-Client': '254b4f821a12144966c43444039dca21b97dde0be39b1fc1d2f573228dea6bbb', 'Authorization': 'Bearer 8ae776c8e3353cb64df52f4e25588ff5d8ec1c4b2b0e67ca88cad685925e556d' }
     },
