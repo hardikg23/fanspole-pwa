@@ -16,6 +16,7 @@ const mutations = {
       payload['matches'].forEach(match => {
         state.matches.matches.push(match);
       });
+      console.log("inside api 4" + state.matches);
     }
   },
 }
@@ -27,6 +28,7 @@ const actions = {
       .get(`/api/matches.json?fields=id,event_time,series{name},team1,team2`)
       .then(response => {
         if (response.status == 200) {
+          console.log("inside api 3" + response.data);
           commit('SET_MATCHES', response.data);
         }
       })
