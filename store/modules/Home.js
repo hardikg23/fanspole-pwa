@@ -27,7 +27,7 @@ const actions = {
     await this.$axios
       .get(`/api/matches.json?fields=id,event_time,series{name},team1,team2`)
       .then(response => {
-        console.log("inside api response" + response);
+        console.log("inside api response" + response.data);
         if (response.status == 200) {
           console.log("inside api response.data" + response.data);
           commit('SET_MATCHES', response.data);
