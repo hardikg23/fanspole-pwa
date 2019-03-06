@@ -12,7 +12,7 @@ const getters = {
 
 const mutations = {
   SET_MATCHES: (state, payload) => {
-    console.log("inside api payload['matches']" + payload['matches']);
+    console.log("inside api payload['matches']" + payload);
     if (payload['matches']) {
       payload['matches'].forEach(match => {
         console.log("inside api match" + match);
