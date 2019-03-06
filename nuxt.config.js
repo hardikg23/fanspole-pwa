@@ -53,7 +53,7 @@ module.exports = {
   */
   axios: {
     proxy: true,
-    baseUrl: 'http://localhost:3000/api/v3/'
+    baseUrl: 'https://www.fanspole.com/api/v3/'
   },
 
   proxy: {
