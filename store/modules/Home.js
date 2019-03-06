@@ -27,6 +27,8 @@ const actions = {
       .get(`/api/matches.json?fields=id,event_time,series{name},team1,team2`)
       .then(response => {
         console.log("inside api response");
+        console.log(response);
+        console.log(response.status);
         console.log(response.data);
         // console.log("inside api match" + response.values());
         if (response.status == 200) {
