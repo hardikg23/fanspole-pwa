@@ -60,7 +60,7 @@ module.exports = {
     '/api': {
       target: 'https://www.fanspole.com/api/v3/',
       pathRewrite: { '^/api/': '' },
-      headers: { 'X-Fanspole-Client': '5d438de94d6f71c201b323ac16d065b0037f51dd3fb548521c1dcc320b6e618f', 'Authorization': 'Bearer 8ae776c8e3353cb64df52f4e25588ff5d8ec1c4b2b0e67ca88cad685925e556d' }
+      headers: { 'X-Fanspole-Client': '254b4f821a12144966c43444039dca21b97dde0be39b1fc1d2f573228dea6bbb', 'Authorization': 'Bearer 8ae776c8e3353cb64df52f4e25588ff5d8ec1c4b2b0e67ca88cad685925e556d' }
     },
     // '/post_login': {
     //   target: `${process.env.API_END_POINT}oauth/token`,

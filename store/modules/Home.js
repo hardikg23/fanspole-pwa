@@ -12,12 +12,12 @@ const getters = {
 
 const mutations = {
   SET_MATCHES: (state, payload) => {
-    console.log("inside api payload" + payload);
     if (payload['matches']) {
       payload['matches'].forEach(match => {
+        console.log("inside api match" + match);
         state.matches.matches.push(match);
       });
-      console.log("inside api 4" + state.matches);
+      
     }
   },
 }
@@ -32,7 +32,6 @@ const actions = {
         }
       })
       .catch(error => {
-        console.log("inside api error store/HOME.js");
         return error;
       });
   }

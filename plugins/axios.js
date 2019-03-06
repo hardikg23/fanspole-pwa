@@ -1,7 +1,7 @@
 export default function({ $axios, __isRetryRequest, store, app, redirect }) {
   $axios.onRequest(config => {
     // if (config.url != '/post_login/') {
-      config.headers['X-Fanspole-Client'] = '5d438de94d6f71c201b323ac16d065b0037f51dd3fb548521c1dcc320b6e618f';
+      config.headers['X-Fanspole-Client'] = '254b4f821a12144966c43444039dca21b97dde0be39b1fc1d2f573228dea6bbb';
       config.headers['Authorization'] = 'Bearer 14b05095dead7e2e5da78d6182729f4f07ca4065f46a75bd4c29455797fc137c';
     // }
   });
