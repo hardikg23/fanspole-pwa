@@ -1,5 +1,8 @@
 <template>
-  <div v-if="days >= 2">
+  <div v-if="remaining < 0">
+    <div class="red--text darken-4">locked</div>
+  </div>
+  <div v-else-if="days >= 2">
     {{ days }}d
   </div>
   <div v-else-if="days < 2 && days >= 1">
@@ -34,20 +37,23 @@
         }
     },
     computed: {
+      remaining(){
+        return (this.date - this.now);
+      },
       seconds() {
-          return (this.date - this.now) % 60;
+        return (this.date - this.now) % 60;
       },
 
       minutes() {
-          return Math.trunc((this.date - this.now) / 60) % 60;
+        return Math.trunc((this.date - this.now) / 60) % 60;
       },
 
       hours() {
-          return Math.trunc((this.date - this.now) / 60 / 60) % 24;
+        return Math.trunc((this.date - this.now) / 60 / 60) % 24;
       },
 
       days() {
-          return Math.trunc((this.date - this.now) / 60 / 60 / 24);
+        return Math.trunc((this.date - this.now) / 60 / 60 / 24);
       }
     }
   }
