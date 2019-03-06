@@ -27,12 +27,14 @@ const actions = {
     await this.$axios
       .get(`/api/matches.json?fields=id,event_time,series{name},team1,team2`)
       .then(response => {
+        console.log("inside api response" + response);
         if (response.status == 200) {
-          console.log("inside api 3" + response.data);
+          console.log("inside api response.data" + response.data);
           commit('SET_MATCHES', response.data);
         }
       })
       .catch(error => {
+        console.log("inside api error store/HOME.js");
         return error;
       });
   }
