@@ -1,0 +1,29 @@
+{
+  "name": "fanspole-vue",
+  "version": "1.0.0",
+  "description": "My gnarly Nuxt.js project",
+  "author": "Hardik Gondaliya",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.3.0",
+    "nuxt": "^1.0.0",
+    "vuetify": "^1.2.1"
+  },
+  "devDependencies": {
+    "cross-env": "^5.0.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.1"
+  },
+  "config": {
+    "nuxt": {
+      "host": "10.0.4.91",
+      "port": "4000"
+    }
+  }
+}

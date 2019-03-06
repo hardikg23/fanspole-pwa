@@ -1,0 +1,53 @@
+<template>
+  <div v-if="days >= 2">
+    {{ days }}d
+  </div>
+  <div v-else-if="days < 2 && days >= 1">
+    {{ days }}d {{ hours }}h
+  </div>
+  <div v-else-if="days < 1 && hours > 1">
+    {{ hours }}h {{ minutes }}m
+  </div>
+  <div v-else>
+    {{ minutes }}m {{ seconds }}s
+  </div>
+</template>
+
+<script>
+  export default {
+    props : {
+        date : {
+            type: Number,
+            coerce: str => Math.trunc(Date.parse(str) / 1000)
+        }
+    },
+    // created() {
+    //     this.setInterval(() => {
+    //       console.log("hi");
+    //         this.now = Math.trunc((new Date()).getTime() / 1000);
+    //     }, 1000);
+    // },
+    data() {
+        return {
+            now: Math.trunc((new Date()).getTime() / 1000)
+        }
+    },
+    computed: {
+      seconds() {
+          return (this.date - this.now) % 60;
+      },
+
+      minutes() {
+          return Math.trunc((this.date - this.now) / 60) % 60;
+      },
+
+      hours() {
+          return Math.trunc((this.date - this.now) / 60 / 60) % 24;
+      },
+
+      days() {
+          return Math.trunc((this.date - this.now) / 60 / 60 / 24);
+      }
+    }
+  }
+</script>
