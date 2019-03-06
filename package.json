@@ -4,11 +4,17 @@
   "description": "My gnarly Nuxt.js project",
   "author": "Hardik Gondaliya",
   "private": true,
+  // "scripts": {
+  //   "dev": "nuxt",
+  //   "build": "nuxt build",
+  //   "start": "nuxt start",
+  //   "generate": "nuxt generate"
+  // },
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate"
+  "dev": "nuxt",
+  "build": "nuxt build",
+  "start": "nuxt start",
+  "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.0",
