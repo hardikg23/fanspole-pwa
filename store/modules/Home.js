@@ -23,7 +23,7 @@ const mutations = {
 
 const actions = {
   async GET_MATCHES({ commit, dispatch }, payload) {
-    console.log("inside api 2");
+    console.log("inside api 2" + process.env._AXIOS_BASE_URL_);
     await this.$axios
       .get(`/api/matches.json?fields=id,event_time,series{name},team1,team2`)
       .then(response => {
