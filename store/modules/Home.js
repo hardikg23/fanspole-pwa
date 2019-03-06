@@ -12,14 +12,16 @@ const getters = {
 
 const mutations = {
   SET_MATCHES: (state, payload) => {
-    console.log("inside api payload['matches']" + payload);
-    if (payload['matches']) {
-      payload['matches'].forEach(match => {
-        console.log("inside api match" + match);
-        state.matches.matches.push(match);
-      });
+    console.log("inside api payload" + payload);
+    console.log("inside api payload.data" + payload.data);
+    console.log("inside api payload['data']" + payload['data']);
+    // if (payload['matches']) {
+    //   payload['matches'].forEach(match => {
+    //     console.log("inside api match" + match);
+    //     state.matches.matches.push(match);
+    //   });
       
-    }
+    // }
   },
 }
 
@@ -28,8 +30,9 @@ const actions = {
     await this.$axios
       .get(`/api/matches.json?fields=id,event_time,series{name},team1,team2`)
       .then(response => {
+        console.log("inside api response" + response);
         if (response.status == 200) {
-          commit('SET_MATCHES', response.data);
+          commit('SET_MATCHES', response);
         }
       })
       .catch(error => {
