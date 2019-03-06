@@ -12,6 +12,7 @@ const getters = {
 
 const mutations = {
   SET_MATCHES: (state, payload) => {
+    console.log("inside api payload" + payload);
     if (payload['matches']) {
       payload['matches'].forEach(match => {
         state.matches.matches.push(match);
@@ -23,13 +24,10 @@ const mutations = {
 
 const actions = {
   async GET_MATCHES({ commit, dispatch }, payload) {
-    console.log("inside api 2" + process.env._AXIOS_BASE_URL_);
     await this.$axios
       .get(`/api/matches.json?fields=id,event_time,series{name},team1,team2`)
       .then(response => {
-        console.log("inside api response" + response.data);
         if (response.status == 200) {
-          console.log("inside api response.data" + response.data);
           commit('SET_MATCHES', response.data);
         }
       })

@@ -11,7 +11,6 @@
 <script>
   export default {
     async asyncData({ route, store , redirect}) {
-      console.log("inside api 1");
       await store.dispatch('Home/GET_MATCHES');
     },
     components: {
