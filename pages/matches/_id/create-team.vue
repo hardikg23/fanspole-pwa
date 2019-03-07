@@ -20,7 +20,7 @@
               <div class="text-xs-center">
                 <div class="font8 opacity06">Players</div>
                 <div>
-                  <span class="font-weight-bold font12">0</span><span class="font8 opacity06">/ 11</span>
+                  <span class="font-weight-bold font12">{{selected_players_count}}</span><span class="font8 opacity06">/ 11</span>
                 </div>
               </div>
             </v-flex>
@@ -28,7 +28,7 @@
               <div class="text-xs-center">
                 <div class="font8 opacity06">Credit Left</div>
                 <div>
-                  <span class="font-weight-bold font12">100.0</span>
+                  <span class="font-weight-bold font12">{{budget}}</span>
                 </div>
               </div>
             </v-flex>
@@ -40,10 +40,10 @@
     <template>
       <div>
         <v-tabs grow centered slider-color="primary">
-          <v-tab ripple :key="1">WK (0)</v-tab>
-          <v-tab ripple :key="2">BAT (0)</v-tab>
-          <v-tab ripple :key="3">AR (0)</v-tab>
-          <v-tab ripple :key="4">BOWL (0)</v-tab>
+          <v-tab ripple :key="1">WK ({{selected_wk}})</v-tab>
+          <v-tab ripple :key="2">BAT ({{selected_bat}})</v-tab>
+          <v-tab ripple :key="3">AR ({{selected_ar}})</v-tab>
+          <v-tab ripple :key="4">BOWL ({{selected_bowl}})</v-tab>
           <v-tab-item :key="1">
             <div class="text-xs-center font-weight-bold pa-2">PICK 1 WICKET-KEEPER</div>
             <v-data-table
@@ -56,16 +56,21 @@
               expand
             >
               <template v-slot:items="props">
-                <td class="text-xs-left pa-0 pl-1">
-                  <img :alt="props.item.team.name_attr" v-bind:src="props.item.team.jersey_photo" style="width:32px;height: 32px;">
-                </td>
-                <td class="text-xs-left pa-2">
-                  <div class="font-weight-bold font11">{{props.item.name}}</div>
-                  <div class="font9"><span class="font-weight-bold">{{props.item.team.name_attr}}</span> - <span>{{getStyle(props.item.style)}}</span></div>
-                </td>
-                <td class="text-xs-center pa-0"><div>{{props.item.last_series_score}}</div></td>
-                <td class="text-xs-center font-weight-bold pa-0"><div>{{props.item.value}}</div></td>
-                <td class="pa-0"><v-icon class='green--text text--accent-4'>add_circle_outline</v-icon></td>
+                <tr @click="click_on_players(props.item)" v-bind:class="{'player-selected': selected_players.indexOf(props.item.id) != -1}">
+                  <td class="text-xs-left pa-0 pl-1">
+                    <img :alt="props.item.team.name_attr" v-bind:src="props.item.team.jersey_photo" style="width:32px;height: 32px;">
+                  </td>
+                  <td class="text-xs-left pa-2">
+                    <div class="font-weight-bold font11">{{props.item.name}}</div>
+                    <div class="font9"><span class="font-weight-bold">{{props.item.team.name_attr}}</span> - <span>{{getStyle(props.item.style)}}</span></div>
+                  </td>
+                  <td class="text-xs-center pa-0"><div>{{props.item.last_series_score}}</div></td>
+                  <td class="text-xs-center font-weight-bold pa-0"><div>{{props.item.value}}</div></td>
+                  <td class="pa-0 pr-2">
+                    <v-icon v-if="selected_players.indexOf(props.item.id) == -1" class='green--text text--accent-4'>add_circle_outline</v-icon>
+                    <v-icon v-if="selected_players.indexOf(props.item.id) != -1" class='red--text text--accent-4'>remove_circle_outline</v-icon>
+                  </td>
+                </tr>
               </template>
             </v-data-table>
           </v-tab-item>
@@ -81,16 +86,21 @@
               expand
             >
               <template v-slot:items="props">
-                <td class="text-xs-left pa-0 pl-1">
-                  <img :alt="props.item.team.name_attr" v-bind:src="props.item.team.jersey_photo" style="width:32px;height: 32px;">
-                </td>
-                <td class="text-xs-left pa-2">
-                  <div class="font-weight-bold font11">{{props.item.name}}</div>
-                  <div class="font9"><span class="font-weight-bold">{{props.item.team.name_attr}}</span> - <span>{{getStyle(props.item.style)}}</span></div>
-                </td>
-                <td class="text-xs-center pa-0"><div>{{props.item.last_series_score}}</div></td>
-                <td class="text-xs-center font-weight-bold pa-0"><div>{{props.item.value}}</div></td>
-                <td class="pa-0"><v-icon class='green--text text--accent-4'>add_circle_outline</v-icon></td>
+                <tr @click="click_on_players(props.item)" v-bind:class="{'player-selected': selected_players.indexOf(props.item.id) != -1}">
+                  <td class="text-xs-left pa-0 pl-1">
+                    <img :alt="props.item.team.name_attr" v-bind:src="props.item.team.jersey_photo" style="width:32px;height: 32px;">
+                  </td>
+                  <td class="text-xs-left pa-2">
+                    <div class="font-weight-bold font11">{{props.item.name}}</div>
+                    <div class="font9"><span class="font-weight-bold">{{props.item.team.name_attr}}</span> - <span>{{getStyle(props.item.style)}}</span></div>
+                  </td>
+                  <td class="text-xs-center pa-0"><div>{{props.item.last_series_score}}</div></td>
+                  <td class="text-xs-center font-weight-bold pa-0"><div>{{props.item.value}}</div></td>
+                  <td class="pa-0 pr-2">
+                    <v-icon v-if="selected_players.indexOf(props.item.id) == -1" class='green--text text--accent-4'>add_circle_outline</v-icon>
+                    <v-icon v-if="selected_players.indexOf(props.item.id) != -1" class='red--text text--accent-4'>remove_circle_outline</v-icon>
+                  </td>
+                </tr>
               </template>
             </v-data-table>
           </v-tab-item>
@@ -106,16 +116,21 @@
               expand
             >
               <template v-slot:items="props">
-                <td class="text-xs-left pa-0 pl-1">
-                  <img :alt="props.item.team.name_attr" v-bind:src="props.item.team.jersey_photo" style="width:32px;height: 32px;">
-                </td>
-                <td class="text-xs-left pa-2">
-                  <div class="font-weight-bold font11">{{props.item.name}}</div>
-                  <div class="font9"><span class="font-weight-bold">{{props.item.team.name_attr}}</span> - <span>{{getStyle(props.item.style)}}</span></div>
-                </td>
-                <td class="text-xs-center pa-0"><div>{{props.item.last_series_score}}</div></td>
-                <td class="text-xs-center font-weight-bold pa-0"><div>{{props.item.value}}</div></td>
-                <td class="pa-0"><v-icon class='green--text text--accent-4'>add_circle_outline</v-icon></td>
+                <tr @click="click_on_players(props.item)" v-bind:class="{'player-selected': selected_players.indexOf(props.item.id) != -1}">
+                  <td class="text-xs-left pa-0 pl-1">
+                    <img :alt="props.item.team.name_attr" v-bind:src="props.item.team.jersey_photo" style="width:32px;height: 32px;">
+                  </td>
+                  <td class="text-xs-left pa-2">
+                    <div class="font-weight-bold font11">{{props.item.name}}</div>
+                    <div class="font9"><span class="font-weight-bold">{{props.item.team.name_attr}}</span> - <span>{{getStyle(props.item.style)}}</span></div>
+                  </td>
+                  <td class="text-xs-center pa-0"><div>{{props.item.last_series_score}}</div></td>
+                  <td class="text-xs-center font-weight-bold pa-0"><div>{{props.item.value}}</div></td>
+                  <td class="pa-0 pr-2">
+                    <v-icon v-if="selected_players.indexOf(props.item.id) == -1" class='green--text text--accent-4'>add_circle_outline</v-icon>
+                    <v-icon v-if="selected_players.indexOf(props.item.id) != -1" class='red--text text--accent-4'>remove_circle_outline</v-icon>
+                  </td>
+                </tr>
               </template>
             </v-data-table>
           </v-tab-item>
@@ -131,16 +146,21 @@
               expand
             >
               <template v-slot:items="props">
-                <td class="text-xs-left pa-0 pl-1">
-                  <img :alt="props.item.team.name_attr" v-bind:src="props.item.team.jersey_photo" style="width:32px;height: 32px;">
-                </td>
-                <td class="text-xs-left pa-2">
-                  <div class="font-weight-bold font11">{{props.item.name}}</div>
-                  <div class="font9"><span class="font-weight-bold">{{props.item.team.name_attr}}</span> - <span>{{getStyle(props.item.style)}}</span></div>
-                </td>
-                <td class="text-xs-center pa-0"><div>{{props.item.last_series_score}}</div></td>
-                <td class="text-xs-center font-weight-bold pa-0"><div>{{props.item.value}}</div></td>
-                <td class="pa-0"><v-icon class='green--text text--accent-4'>add_circle_outline</v-icon></td>
+                <tr @click="click_on_players(props.item)" v-bind:class="{'player-selected': selected_players.indexOf(props.item.id) != -1}">
+                  <td class="text-xs-left pa-0 pl-1">
+                    <img :alt="props.item.team.name_attr" v-bind:src="props.item.team.jersey_photo" style="width:32px;height: 32px;">
+                  </td>
+                  <td class="text-xs-left pa-2">
+                    <div class="font-weight-bold font11">{{props.item.name}}</div>
+                    <div class="font9"><span class="font-weight-bold">{{props.item.team.name_attr}}</span> - <span>{{getStyle(props.item.style)}}</span></div>
+                  </td>
+                  <td class="text-xs-center pa-0"><div>{{props.item.last_series_score}}</div></td>
+                  <td class="text-xs-center font-weight-bold pa-0"><div>{{props.item.value}}</div></td>
+                  <td class="pa-0 pr-2">
+                    <v-icon v-if="selected_players.indexOf(props.item.id) == -1" class='green--text text--accent-4'>add_circle_outline</v-icon>
+                    <v-icon v-if="selected_players.indexOf(props.item.id) != -1" class='red--text text--accent-4'>remove_circle_outline</v-icon>
+                  </td>
+                </tr>
               </template>
             </v-data-table>
           </v-tab-item>
@@ -177,26 +197,26 @@
         return match;
       },
       getWK(){
-        const wk = this.$store.getters['Players/players'];
-        return wk.filter((item) => {
+        const players = this.$store.getters['Players/players'];
+        return players.filter((item) => {
           return item.style === 5 || item.style === 7;
         });
       },
       getBAT(){
-        const wk = this.$store.getters['Players/players'];
-        return wk.filter((item) => {
-          return item.style === 1 || item.style === 3;
+        const players = this.$store.getters['Players/players'];
+        return players.filter((item) => {
+          return item.style === 1 || item.style === 3 || item.style === 5;
         });
       },
       getAR(){
-        const wk = this.$store.getters['Players/players'];
-        return wk.filter((item) => {
-          return item.style === 9 || item.style === 11;
+        const players = this.$store.getters['Players/players'];
+        return players.filter((item) => {
+          return item.style === 3 || item.style === 9 || item.style === 11;
         });
       },
       getBOWL(){
-        const wk = this.$store.getters['Players/players'];
-        return wk.filter((item) => {
+        const players = this.$store.getters['Players/players'];
+        return players.filter((item) => {
           return item.style === 11 || item.style === 13;
         });
       }
@@ -218,11 +238,68 @@
         }else if(style == 13){
           return 'BOWL'
         }
+      },
+      click_on_players(item){
+        if(this.selected_players.indexOf(item.id) == -1){
+          this.selected_players.push(item.id);
+          this.selected_players_hash.push(item);
+        }else{
+          this.selected_players.splice(this.selected_players.indexOf(item.id), 1);
+          this.selected_players_hash.splice(this.selected_players.indexOf(item.id), 1);
+        }
+        this.selected_players_count = this.selected_players.length;
+        let budget = 0;
+        let selected_bat = 0;
+        let selected_wk = 0;
+        let selected_ar = 0;
+        let selected_bowl = 0;
+        this.selected_players_hash.forEach(function(element) {
+          budget = budget + parseFloat(element.value);
+          switch(element.style) {
+            case 1:
+              selected_bat++
+              break;
+            case 3:
+              selected_bat++
+              selected_ar++
+              break;
+            case 5:
+              selected_bat++
+              selected_wk++
+              break;
+            case 7:
+              selected_wk++
+              break;
+            case 9:
+              selected_ar++
+              break;
+            case 11:
+              selected_bowl++
+              selected_ar++
+              break;
+            default:
+              selected_bowl++
+              break;
+          }
+        });
+        this.budget = 100.0 - budget;
+        this.selected_wk = selected_wk;
+        this.selected_bat = selected_bat;
+        this.selected_ar = selected_ar;
+        this.selected_bowl = selected_bowl;
       }
     },
     data() {
       return {
         title: 'CREATE TEAM',
+        selected_players_count: 0,
+        selected_players: [],
+        selected_players_hash: [],
+        selected_wk: 0,
+        selected_bat: 0,
+        selected_ar: 0,
+        selected_bowl: 0,
+        budget: 100.0,
         pagination: {
           page: 1,
           rowsPerPage: -1,
@@ -242,4 +319,7 @@
 </script>
 
 <style scoped>
+  .player-selected{
+    background-color: #FFF8E1 !important;
+  }
 </style>
