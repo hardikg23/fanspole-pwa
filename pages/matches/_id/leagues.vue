@@ -36,7 +36,7 @@
     <template>
       <div class="footer primary text-xs-center">
         <nuxt-link :to="`/matches/${this.$route.params.id}/create-team`">
-          <v-btn v-if="!getTeamCreated">create team</v-btn>
+          <v-btn v-if="!getTeamCreated" style='padding: 0px 32px;'>create team</v-btn>
         </nuxt-link>
         <v-btn v-if="getTeamCreated">not create team</v-btn>
       </div>
