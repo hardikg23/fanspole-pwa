@@ -10,22 +10,22 @@ const getters = {
   },
   get_wk_players: (state) => (match_id) => {
     return state.players.filter((player) => {
-      return (parseInt(player.match_id) == parseInt(match_id)) && player.style === 5 || player.style === 7;
+      return (parseInt(player.match_id) == parseInt(match_id)) && (player.style === 5 || player.style === 7);
     });
   },
   get_bat_players: (state) => (match_id) => {
     return state.players.filter((player) => {
-      return (parseInt(player.match_id) == parseInt(match_id)) && player.style === 1 || player.style === 3 || player.style === 5;
+      return (parseInt(player.match_id) == parseInt(match_id)) && (player.style === 1 || player.style === 3 || player.style === 5);
     });
   },
   get_ar_players: (state) => (match_id) => {
     return state.players.filter((player) => {
-      return (parseInt(player.match_id) == parseInt(match_id)) && player.style === 3 || player.style === 9 || player.style === 11;
+      return (parseInt(player.match_id) == parseInt(match_id)) && (player.style === 3 || player.style === 9 || player.style === 11);
     });
   },
   get_bowl_players: (state) => (match_id) => {
     return state.players.filter((player) => {
-      return (parseInt(player.match_id) == parseInt(match_id)) && player.style === 11 || player.style === 13;
+      return (parseInt(player.match_id) == parseInt(match_id)) && (player.style === 11 || player.style === 13);
     });
   },
 }
