@@ -26,7 +26,7 @@ const mutations = {
       });
     }
   },
-  SET_DAILY_MATCHE: (state, payload) => {
+  SET_DAILY_MATCH: (state, payload) => {
     if (payload['match']) {
       state.matches.daily_matches.push(payload['match']);
     }
@@ -46,12 +46,12 @@ const actions = {
         return error;
     });
   },
-  async GET_DAILY_MATCHE({ commit, dispatch }, payload) {
+  async GET_DAILY_MATCH({ commit, dispatch }, payload) {
     await this.$axios
       .get(`/api/matches/${payload}json?fields=id,event_time,series{name},team1,team2`)
       .then(response => {
         if (response.status == 200) {
-          commit('SET_DAILY_MATCHE', response.data);
+          commit('SET_DAILY_MATCH', response.data);
         }
       })
       .catch(error => {

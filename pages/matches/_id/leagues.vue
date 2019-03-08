@@ -49,7 +49,7 @@
   export default {
     async asyncData({store, params}) {
       if (store.getters['Matches/daily_match'](params.id) == undefined){
-        await store.dispatch('Matches/GET_DAILY_MATCHE', params.id);  
+        await store.dispatch('Matches/GET_DAILY_MATCH', params.id);  
       }
       await store.commit('PaidLeagues/RESET_PAID_LEAGUES');
       await store.dispatch('PaidLeagues/GET_PAID_LEAGUES', params.id);

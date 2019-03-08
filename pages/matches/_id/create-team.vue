@@ -174,7 +174,7 @@
   export default {
     async asyncData({store, params}) {
       if (store.getters['Matches/daily_match'](params.id) == undefined){
-        await store.dispatch('Matches/GET_DAILY_MATCHE', params.id);  
+        await store.dispatch('Matches/GET_DAILY_MATCH', params.id);  
       }
       if (store.getters['Players/players'](params.id).length == 0){
         await store.dispatch('Players/GET_PLAYERS', params.id);
