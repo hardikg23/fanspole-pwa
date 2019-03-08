@@ -1,49 +1,57 @@
 const state = () => ({
   matches: {
-    matches: []
+    daily_matches: []
   }
 })
 
 const getters = {
-  matches: state => {
-    return state.matches;
+  daily_matches: state => {
+    return state.matches.daily_matches;
+  },
+  daily_match: (state) => (id) => {
+    let match = state.matches.daily_matches.find((match) => {
+      if(match.id == id){
+        return match;
+      }
+    });
+    return match;
   }
 }
 
 const mutations = {
-  SET_MATCHES: (state, payload) => {
+  SET_DAILY_MATCHES: (state, payload) => {
     if (payload['matches']) {
       payload['matches'].forEach(match => {
-        state.matches.matches.push(match);
+        state.matches.daily_matches.push(match);
       });
     }
   },
-  SET_MATCH: (state, payload) => {
+  SET_DAILY_MATCHE: (state, payload) => {
     if (payload['match']) {
-      state.matches.matches.push(payload['match']);
+      state.matches.daily_matches.push(payload['match']);
     }
   },
 }
 
 const actions = {
-  async GET_MATCHES({ commit, dispatch }, payload) {
+  async GET_DAILY_MATCHES({ commit, dispatch }, payload) {
     await this.$axios
       .get(`/api/matches.json?fields=id,event_time,series{name},team1,team2`)
       .then(response => {
         if (response.status == 200) {
-          commit('SET_MATCHES', response.data);
+          commit('SET_DAILY_MATCHES', response.data);
         }
       })
       .catch(error => {
         return error;
     });
   },
-  async GET_MATCH({ commit, dispatch }, payload) {
+  async GET_DAILY_MATCHE({ commit, dispatch }, payload) {
     await this.$axios
-      .get(`/api/matches/${payload}json?fields=id,event_time,team1,team2`)
+      .get(`/api/matches/${payload}json?fields=id,event_time,series{name},team1,team2`)
       .then(response => {
         if (response.status == 200) {
-          commit('SET_MATCH', response.data);
+          commit('SET_DAILY_MATCHE', response.data);
         }
       })
       .catch(error => {

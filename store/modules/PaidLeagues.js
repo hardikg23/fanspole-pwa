@@ -1,8 +1,6 @@
 const state = () => ({
-  paid_leagues: {
-    team_created: false,
-    paid_leagues: []
-  }
+  team_created: false,
+  paid_leagues: []
 })
 
 const getters = {
@@ -18,12 +16,15 @@ const mutations = {
   SET_PAID_LEAGUES: (state, payload) => {
     if (payload['paid_leagues']) {
       payload['paid_leagues'].forEach(league => {
-        state.paid_leagues.paid_leagues.push(league);
+        state.paid_leagues.push(league);
       });
     }
     if(payload['team_created']){
-      state.paid_leagues.team_created = true;
+      state.team_created = true;
     }
+  },
+  RESET_PAID_LEAGUES: (state, payload) => {
+    state.paid_leagues = [];
   },
 }
 

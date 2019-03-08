@@ -6,7 +6,7 @@
           <v-flex xs4>
             <v-card-text class="px-0">
               <div>
-                <img :alt="match.team1.flag_photo" v-bind:src="match.team1.flag_photo" style="width:42px;height: 42px;" class="round_image box_shadow">
+                <img :alt="match.team1.flag_photo" v-bind:src="match.team1.flag_photo" style="width:26px;height: 26px;" class="round_image box_shadow">
               </div>
               <div class="font-weight-bold">
                 {{match.team1.name_attr}}
@@ -26,7 +26,7 @@
           <v-flex xs4>
             <v-card-text class="px-0">
               <div>
-                <img :alt="match.team1.flag_photo" v-bind:src="match.team2.flag_photo" style="width: 42px;height:42px;" class="round_image box_shadow">
+                <img :alt="match.team1.flag_photo" v-bind:src="match.team2.flag_photo" style="width: 26px;height:26px;" class="round_image box_shadow">
               </div>
               <div class="font-weight-bold">
                 {{match.team2.name_attr}}

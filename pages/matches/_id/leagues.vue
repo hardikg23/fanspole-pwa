@@ -29,7 +29,7 @@
       </v-toolbar-items>
     </v-toolbar>
 
-    <template class="blue-grey" v-for="league in getPaidLeagues.paid_leagues">
+    <template class="blue-grey" v-for="league in getPaidLeagues">
       <PaidLeagueCard :key="league.id" :league="league"></PaidLeagueCard>
     </template>
 
@@ -48,12 +48,10 @@
 <script>
   export default {
     async asyncData({store, params}) {
-      let index = store.getters['Matches/matches'].matches.findIndex((match) => {
-        return match.id == params.id;
-      });
-      if (index == -1){  
-        await store.dispatch('Matches/GET_MATCH', params.id);  
+      if (store.getters['Matches/daily_match'](params.id) == undefined){
+        await store.dispatch('Matches/GET_DAILY_MATCHE', params.id);  
       }
+      await store.commit('PaidLeagues/RESET_PAID_LEAGUES');
       await store.dispatch('PaidLeagues/GET_PAID_LEAGUES', params.id);
     },
     components: {
@@ -66,12 +64,7 @@
         return this.$store.getters['PaidLeagues/team_created'];
       },
       getMatch() {
-        let match = this.$store.getters['Matches/matches'].matches.find((match) => {
-          if(match.id == this.$route.params.id){
-            return match;
-          }
-        });
-        return match;
+        return this.$store.getters['Matches/daily_match'](this.$route.params.id);
       },
       getPaidLeagues() {
         return this.$store.getters['PaidLeagues/paid_leagues'];

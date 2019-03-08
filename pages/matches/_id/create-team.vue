@@ -173,13 +173,10 @@
 <script>
   export default {
     async asyncData({store, params}) {
-      let index = store.getters['Matches/matches'].matches.findIndex((match) => {
-        return match.id == params.id;
-      });
-      if (index == -1){  
-        await store.dispatch('Matches/GET_MATCH', params.id);  
+      if (store.getters['Matches/daily_match'](params.id) == undefined){
+        await store.dispatch('Matches/GET_DAILY_MATCHE', params.id);  
       }
-      if (!store.getters['Players/GET_PLAYERS']){
+      if (store.getters['Players/players'](params.id).length == 0){
         await store.dispatch('Players/GET_PLAYERS', params.id);
       }
     },
@@ -189,36 +186,19 @@
     },
     computed: {
       getMatch() {
-        let match = this.$store.getters['Matches/matches'].matches.find((match) => {
-          if(match.id == this.$route.params.id){
-            return match;
-          }
-        });
-        return match;
+        return this.$store.getters['Matches/daily_match'](this.$route.params.id);
       },
       getWK(){
-        const players = this.$store.getters['Players/players'];
-        return players.filter((item) => {
-          return item.style === 5 || item.style === 7;
-        });
+        return this.$store.getters['Players/get_wk_players'](this.$route.params.id);
       },
       getBAT(){
-        const players = this.$store.getters['Players/players'];
-        return players.filter((item) => {
-          return item.style === 1 || item.style === 3 || item.style === 5;
-        });
+        return this.$store.getters['Players/get_bat_players'](this.$route.params.id);
       },
       getAR(){
-        const players = this.$store.getters['Players/players'];
-        return players.filter((item) => {
-          return item.style === 3 || item.style === 9 || item.style === 11;
-        });
+        return this.$store.getters['Players/get_ar_players'](this.$route.params.id);
       },
       getBOWL(){
-        const players = this.$store.getters['Players/players'];
-        return players.filter((item) => {
-          return item.style === 11 || item.style === 13;
-        });
+        return this.$store.getters['Players/get_bowl_players'](this.$route.params.id);
       }
     },
     methods: {
