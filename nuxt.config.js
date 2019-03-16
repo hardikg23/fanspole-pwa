@@ -49,7 +49,8 @@ module.exports = {
   */
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    ['cookie-universal-nuxt', { parseJSON: true }]
   ],
   /*
   ** Axios module configuration
@@ -63,15 +64,13 @@ module.exports = {
     '/api': {
       target: MasterKeys[appEnv].apiEndPoint,
       pathRewrite: { '^/api/': '' },
-      headers: { 'X-Fanspole-Client': MasterKeys[appEnv].clientId, 'Authorization': 'Bearer 8ae776c8e3353cb64df52f4e25588ff5d8ec1c4b2b0e67ca88cad685925e556d' }
+      headers: { 'X-Fanspole-Client': MasterKeys[appEnv].clientId }
     },
-    // '/post_login': {
-    //   target: `${process.env.API_END_POINT}oauth/token`,
-    //   pathRewrite: {
-    //     '^/post_login/': `?client_id=${process.env.CLIENT_ID}&client_secret=${process.env.CLIENT_SECRET}`
-    //   },
-    //   headers: { 'X-Desidime-Client': process.env.CLIENT_ID }
-    // }
+    '/post_login': {
+      target: MasterKeys[appEnv].apiOauthEndPoint,
+      pathRewrite: { '^/post_login/': '' },
+      headers: { 'X-Fanspole-Client': MasterKeys[appEnv].clientId }
+    },
   },
 
   /*

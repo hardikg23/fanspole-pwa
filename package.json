@@ -19,7 +19,8 @@
     "@nuxtjs/axios": "5.3.6",
     "cross-env": "^5.0.1",
     "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.1"
+    "stylus-loader": "^3.0.1",
+    "cookie-universal-nuxt": "2.0.12"
   },
   "config": {
     "nuxt": {

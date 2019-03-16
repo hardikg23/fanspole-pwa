@@ -8,11 +8,11 @@
             <div class="font-weight-bold title pt-4 body-2">PLAY FANTASY CRICKET. WIN CASH DAILY!</div>
           </div>
           <div class="text-xs-center" style="padding-top:75px;">
-            <router-link to="/matches">
+            <nuxt-link to="/matches">
               <v-btn large style="width:96%" class='primary--text pa-0'>
                 LET'S PLAY
               </v-btn>
-            </router-link>
+            </nuxt-link>
           </div>
         </v-flex>
         <v-flex xs6>
@@ -24,7 +24,9 @@
         <v-flex xs6>
           <div class="text-xs-right pr-2 pt-2">
             <div>Already a user?</div>
-            <div class="font-weight-bold">Log In</div>      
+            <div class="font-weight-bold">
+              <nuxt-link :to="`${login_path}`">Log In</nuxt-link>
+            </div>      
           </div>
         </v-flex>
       </v-layout>
@@ -50,8 +52,8 @@
               </div>
             </v-flex>
           </v-layout>
-          <v-layout row wrap class="white" v-for="play in daily_mode">
-            <v-flex xs2 class='text-xs-center font-weight-bold grey--text text--lighten-1' >
+          <v-layout row wrap class="white" v-for="play in daily_mode" :key="play.number">
+            <v-flex xs2 class='text-xs-center font-weight-bold grey--text text--lighten-1'>
               <div class="font30">{{play.number}}</div>
             </v-flex>
             <v-flex xs10>
@@ -63,9 +65,9 @@
           </v-layout>
           <v-layout row wrap pa-2 class="white">
             <v-flex xs12>
-              <router-link to="/matches">
+              <nuxt-link to="/matches">
                 <v-btn large style="width:96%" color='primary'>LET'S PLAY</v-btn>
-              </router-link>
+              </nuxt-link>
             </v-flex>
           </v-layout>
         </v-tab-item>
@@ -79,8 +81,8 @@
               </div>
             </v-flex>
           </v-layout>
-          <v-layout row wrap class="white" v-for="play in championship_mode">
-            <v-flex xs2 class='text-xs-center font-weight-bold grey--text text--lighten-1' >
+          <v-layout row wrap class="white" v-for="play in championship_mode" :key="play.number">
+            <v-flex xs2 class='text-xs-center font-weight-bold grey--text text--lighten-1'>
               <div class="font30">{{play.number}}</div>
             </v-flex>
             <v-flex xs10>
@@ -106,8 +108,8 @@
               </div>
             </v-flex>
           </v-layout>
-          <v-layout row wrap class="white" v-for="play in auction_mode">
-            <v-flex xs2 class='text-xs-center font-weight-bold grey--text text--lighten-1' >
+          <v-layout row wrap class="white" v-for="play in auction_mode" :key="play.number">
+            <v-flex xs2 class='text-xs-center font-weight-bold grey--text text--lighten-1'>
               <div class="font30">{{play.number}}</div>
             </v-flex>
             <v-flex xs10>
@@ -182,9 +184,16 @@ The Company acknowledges that the ICC, BCCI/IPL and its franchises, respective n
 </template>
 
 <script>
+  import { LOGIN } from '~/constants/routes.js';
   export default {
+    mounted() {
+      if (this.$cookies.get('at') && this.$cookies.get('rt')) {
+        this.$router.push('/matches');
+      }
+    },
     data() {
       return {
+        login_path: LOGIN,
         daily_mode: [
           {number: 1, title: "Select a Match", desc: "Select an upcoming match of your choice"},
           {number: 2, title: "Create your Fanspole Team", desc: "Use your sports knowledge to create a fantasy team using 100 credits"},

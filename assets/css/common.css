@@ -30,3 +30,6 @@ a, a:link, a:visited{text-decoration: none;color: inherit;}
   text-align: center !important;
   padding: 0px !important;
 }
+.v-text-field.v-text-field--enclosed .v-text-field__details{
+  margin-bottom: 4px !important;
+}
