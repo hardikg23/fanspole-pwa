@@ -13,7 +13,7 @@
             </v-flex>
             <v-flex xs6>
               <div class="text-xs-right">
-                <div class="pr-2"><Countdown :date="getMatch.event_time/1000"></Countdown></div>
+                <div class="pr-2"><Countdown :date="getMatch.event_time_in_millis/1000"></Countdown></div>
               </div>
             </v-flex>
             <v-flex xs6 class='white--text'>

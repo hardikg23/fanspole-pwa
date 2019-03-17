@@ -36,7 +36,7 @@ const mutations = {
 const actions = {
   async GET_DAILY_MATCHES({ commit, dispatch }, payload) {
     await this.$axios
-      .get(`/api/matches.json?fields=id,event_time,series{name},team1,team2`)
+      .get(`/api/matches.json?fields=id,event_time_in_millis,series{name},team1,team2`)
       .then(response => {
         if (response.status == 200) {
           commit('SET_DAILY_MATCHES', response.data);
@@ -48,7 +48,7 @@ const actions = {
   },
   async GET_DAILY_MATCH({ commit, dispatch }, payload) {
     await this.$axios
-      .get(`/api/matches/${payload}json?fields=id,event_time,series{name},team1,team2`)
+      .get(`/api/matches/${payload}.json?fields=id,event_time_in_millis,series{name},team1,team2`)
       .then(response => {
         if (response.status == 200) {
           commit('SET_DAILY_MATCH', response.data);

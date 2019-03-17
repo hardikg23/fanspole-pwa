@@ -28,32 +28,16 @@
       </v-toolbar-items>
     </v-toolbar>
 
-    <template class="blue-grey" v-for="league in getPaidLeagues">
-      <PaidLeagueCard :key="league.id" :league="league"></PaidLeagueCard>
+    <template class="blue-grey" v-for="team in getUserTeams">
+      <UserTeamCard :key="team.id" :user_team="team"></UserTeamCard>
     </template>
 
     <template>
-      <div class="footer text-xs-center">
-        <div v-if="getTeamsCount == 0" class="primary">
+      <div class="footer text-xs-center" v-if="getUserTeams.length < 4">
+        <div class="primary">
           <nuxt-link :to="`/matches/${this.$route.params.id}/create-team`">
-            <v-btn style='padding: 0px 32px;'>create team</v-btn>
+            <v-btn style='padding: 0px 32px;'>create team {{getUserTeams.length + 1}}</v-btn>
           </nuxt-link>
-        </div>
-        <div v-else class="white box_shadow_common">
-          <v-layout row wrap pa-2 class="font8">
-            <v-flex xs6 style="border-right: 1px solid #E0E0E0">
-              <nuxt-link :to="`/matches/${this.$route.params.id}/teams`">
-                <span class="primary white--text font12" style="border-radius: 50%;padding:2px 12px;">{{getTeamsCount}}</span>
-                <div>MY TEAMS</div>
-              </nuxt-link>
-            </v-flex>
-            <v-flex xs6>
-              <span v-bind:class="{ 'primary': getJoinLeaguesCount > 0, 'grey': getJoinLeaguesCount == 0 }" class="white--text font12" style="border-radius: 50%;padding:2px 12px;">
-                {{getJoinLeaguesCount}}
-              </span>
-              <div>JOINED CONTESTS</div>
-            </v-flex>
-          </v-layout>
         </div>
       </div>
     </template>
@@ -67,31 +51,25 @@
       if (store.getters['Matches/daily_match'](params.id) == undefined){
         await store.dispatch('Matches/GET_DAILY_MATCH', params.id);  
       }
-      await store.commit('PaidLeagues/RESET_PAID_LEAGUES');
-      await store.dispatch('PaidLeagues/GET_PAID_LEAGUES', params.id);
+      await store.commit('UserTeams/RESET_USER_TEAMS');
+      await store.dispatch('UserTeams/GET_USER_TEAMS', params.id);
     },
     components: {
-      PaidLeagueCard: () => import('~/components/PaidLeagueCard'),
       Back: () => import('~/components/Back'),
+      UserTeamCard: () => import('~/components/UserTeamCard'),
       Countdown: () => import('~/components/Countdown'),
     },
     computed: {
-      getTeamsCount() {
-        return this.$store.getters['PaidLeagues/teams_count'];
-      },
-      getJoinLeaguesCount() {
-        return this.$store.getters['PaidLeagues/join_paid_leagues_count'];
-      },
       getMatch() {
         return this.$store.getters['Matches/daily_match'](this.$route.params.id);
       },
-      getPaidLeagues() {
-        return this.$store.getters['PaidLeagues/paid_leagues'];
+      getUserTeams() {
+        return this.$store.getters['UserTeams/user_teams'];
       }
     },
     data() {
       return {
-        title: 'CONTESTS'
+        title: 'MY TEAMS'
       }
     }
   }
@@ -102,10 +80,5 @@
       position: fixed;
       bottom: 0;
       width: 100%;
-  }
-  .box_shadow{
-    border-radius: 1px;
-    -webkit-box-shadow: 0 0 1px 1px #000;
-    box-shadow: 0 0 1px 1px #000;
   }
 </style>
