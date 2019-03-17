@@ -1,16 +1,15 @@
 <template>
   <section>
-    <div :style="{ background: `url(${image}) no-repeat center center fixed`, 'background-size': '100% 100%', 'min-height': '100vh'}">
+    <div v-if="getUserTeam != undefined" :style="{ background: `url(${image}) no-repeat center center fixed`, 'background-size': '100% 100%', 'min-height': '100vh'}">
       <v-layout row wrap class="text-xs-center">
         <v-flex xs6 class='text-xs-left grey darken-3 pa-2'>
           <v-icon class='white--text'>edit</v-icon>
         </v-flex>
         <v-flex xs6 class='text-xs-right grey darken-3 white--text pa-2'>
-          <a :href="`/matches/${this.$route.params.id}/teams`">
+          <nuxt-link :to="`/matches/${this.$route.params.id}/teams`">
             <v-icon class='white--text'>close</v-icon>
-          </a>
+          </nuxt-link>
         </v-flex>
-
         <v-flex xs12 class="white--text font-weight-bold font22" style='opacity:0.4'>
           FANSPOLE
         </v-flex>

@@ -24,7 +24,7 @@
             <div class="font22 font-weight-bold">{{user_team.budget}}</div>
           </v-flex>
           <v-flex xs12 class='text-xs-right pa-1'>
-            last updated at: <span class="font-weight-bold">{{user_team.last_updated_at_in_millis}}</span>
+            last updated at: <span><DateTime :time="user_team.last_updated_at_in_millis"></DateTime></span>
           </v-flex>
         </v-layout>
         <v-layout row wrap grey lighten-4 ma-0>
@@ -44,6 +44,9 @@
         type: Object,
         required: true
       }
+    },
+    components: {
+      DateTime: () => import('~/components/DateTime'),
     }
   }
 </script>
