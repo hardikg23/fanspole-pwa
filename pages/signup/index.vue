@@ -77,6 +77,16 @@
 <script type="text/javascript">
   import { LOGIN } from '~/constants/routes.js';
   export default {
+    mounted() {
+      window.addEventListener('keyup', (event) => {
+        if (event.keyCode === 13) {
+          event.preventDefault();
+        }
+      });
+      if (this.$cookies.get('at') && this.$cookies.get('rt')) {
+        this.$router.push('/');
+      }
+    },
     data() {
       return {
         login_path: LOGIN,

@@ -1,11 +1,15 @@
 const state = () => ({
-  team_created: false,
+  teams_count: 0,
+  join_paid_leagues_count: 0,
   paid_leagues: []
 })
 
 const getters = {
-  team_created: state => {
-    return state.team_created;
+  teams_count: state => {
+    return state.teams_count;
+  },
+  join_paid_leagues_count: state => {
+    return state.join_paid_leagues_count;
   },
   paid_leagues: state => {
     return state.paid_leagues;
@@ -19,9 +23,8 @@ const mutations = {
         state.paid_leagues.push(league);
       });
     }
-    if(payload['team_created']){
-      state.team_created = true;
-    }
+    state.teams_count = payload['teams_count'];
+    state.join_paid_leagues_count = payload['join_paid_leagues_count'];
   },
   RESET_PAID_LEAGUES: (state, payload) => {
     state.paid_leagues = [];

@@ -33,3 +33,8 @@ a, a:link, a:visited{text-decoration: none;color: inherit;}
 .v-text-field.v-text-field--enclosed .v-text-field__details{
   margin-bottom: 4px !important;
 }
+
+.box_shadow_common{
+  -webkit-box-shadow: 0 0 1px 1px #E0E0E0;
+  box-shadow: 0 0 1px 1px #E0E0E0;
+}

@@ -70,7 +70,7 @@
     mounted() {
       window.addEventListener('keyup', (event) => {
         if (event.keyCode === 13) {
-          this.handleLoginFormSubmit();
+          event.preventDefault();
         }
       });
       if (this.$cookies.get('at') && this.$cookies.get('rt')) {
@@ -87,20 +87,22 @@
           email: this.login.email,
           password: this.login.password
         };
-        this.loading = true
-        await this.$store
-          .dispatch('Login/LOGIN', postData)
-          .then(() => {
-            this.loading = false;
-          })
-          .catch((error) => {
-            this.loading = false;
-            this.$nuxt.$emit('snackbarError', {
-              snackbar: true,
-              message: "Invalid email or password",
-              button: false
+        if (this.$refs.loginDataForm != undefined && this.$refs.loginDataForm.validate()) {
+          this.loading = true
+          await this.$store
+            .dispatch('Login/LOGIN', postData)
+            .then(() => {
+              this.loading = false;
+            })
+            .catch((error) => {
+              this.loading = false;
+              this.$nuxt.$emit('snackbarError', {
+                snackbar: true,
+                message: "Invalid email or password",
+                button: false
+              });
             });
-          });
+        }
       }
     },
     data() {

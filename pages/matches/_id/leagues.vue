@@ -34,11 +34,26 @@
     </template>
 
     <template>
-      <div class="footer primary text-xs-center">
-        <nuxt-link :to="`/matches/${this.$route.params.id}/create-team`">
-          <v-btn v-if="!getTeamCreated" style='padding: 0px 32px;'>create team</v-btn>
-        </nuxt-link>
-        <v-btn v-if="getTeamCreated">not create team</v-btn>
+      <div class="footer text-xs-center">
+        <div v-if="getTeamsCount == 0" class="primary">
+          <nuxt-link :to="`/matches/${this.$route.params.id}/create-team`">
+            <v-btn style='padding: 0px 32px;'>create team</v-btn>
+          </nuxt-link>
+        </div>
+        <div v-else class="white box_shadow_common">
+          <v-layout row wrap pa-2 class="font8">
+            <v-flex xs6 style="border-right: 1px solid #E0E0E0">
+              <span class="primary white--text font12" style="border-radius: 50%;padding:2px 12px;">{{getTeamsCount}}</span>
+              <div>MY TEAMS</div>
+            </v-flex>
+            <v-flex xs6>
+              <span v-bind:class="{ 'primary': getJoinLeaguesCount > 0, 'grey': getJoinLeaguesCount == 0 }" class="white--text font12" style="border-radius: 50%;padding:2px 12px;">
+                {{getJoinLeaguesCount}}
+              </span>
+              <div>JOINED CONTESTS</div>
+            </v-flex>
+          </v-layout>
+        </div>
       </div>
     </template>
 
@@ -60,8 +75,11 @@
       Countdown: () => import('~/components/Countdown'),
     },
     computed: {
-      getTeamCreated() {
-        return this.$store.getters['PaidLeagues/team_created'];
+      getTeamsCount() {
+        return this.$store.getters['PaidLeagues/teams_count'];
+      },
+      getJoinLeaguesCount() {
+        return this.$store.getters['PaidLeagues/join_paid_leagues_count'];
       },
       getMatch() {
         return this.$store.getters['Matches/daily_match'](this.$route.params.id);
