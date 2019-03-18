@@ -44,7 +44,7 @@ const mutations = {
 const actions = {
   async GET_PLAYERS({ commit, dispatch }, payload) {
     await this.$axios
-      .get(`/api/matches/${payload}/players.json?fields=id,name,value,style,last_series_score,team{name_attr,jersey_photo}`)
+      .get(`/api/matches/${payload}/players.json?fields=id,name,value,style,last_series_score,team{name_attr,jersey_photo,team_color}`)
       .then(response => {
         if (response.status == 200) {
           let state_payload = {'data': response.data, 'match_id': payload}

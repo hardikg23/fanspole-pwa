@@ -138,8 +138,8 @@
     box-shadow: 0 0 1px 1px #E0E0E0;
   }
   .footer {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
   }
 </style>
