@@ -238,9 +238,7 @@ const actions = {
       .put(`/api/matches/${payload.id}/user_teams/${payload.team_id}`, {player_ids: payload.player_ids.join(','), captain: payload.captain})
       .then((response) => {
         if (response.status == 201 || response.status == 200) {
-          this.$router.push(
-            `/matches/${payload.id}/teams`
-          );
+          this.$router.push(`/matches/${payload.id}/teams`);
         }
       })
       .catch((error) => {

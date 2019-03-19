@@ -308,7 +308,9 @@
       if (store.getters['Players/players'](params.id).length == 0){
         await store.dispatch('Players/GET_PLAYERS', params.id);
       }
-      await store.dispatch('CreateTeam/GET_TEAM', params);
+    },
+    mounted() {
+      this.getTeam();
     },
     components: {
       Back: () => import('~/components/Back'),
@@ -390,6 +392,17 @@
       }
     },
     methods: {
+      async getTeam(){
+        await this.$store.dispatch('CreateTeam/GET_TEAM', this.$route.params).catch((error) => {
+          this.$router.push(`/matches/${this.$route.params.id}/teams`);
+          this.$nuxt.$emit('snackbarError', {
+            snackbar: true,
+            message: error.data.error,
+            button: false
+          });
+          return false;
+        });
+      },
       getStyle(style){
         if(style == 1){
           return 'BAT'
