@@ -23,16 +23,8 @@ const getters = {
   selected_players: state => {
     return state.created_team.selected_players;
   },
-  selected_players_hash: (state, getters, store) => {
-    state.created_team.selected_players_hash = []
-    state.created_team.selected_players.forEach(player_id => {
-      let player = store.Players.players.find((player) => {
-        if(player.id == player_id){
-          state.created_team.selected_players_hash.push(player);
-        }
-      });
-    });
-    return state.created_team.selected_players_hash;
+  selected_players_hash: state => {
+    return state.created_team.selected_players_hash.sort(function(a, b){return a.style - b.style});
   },
   selected_wk: state => {
     return state.created_team.selected_wk;
@@ -58,11 +50,72 @@ const mutations = {
   SET_CAPTAIN: (state, id) => {
     state.created_team.captain_id = id;
   },
+  SET_CREATE_TEAM: (state, payload) => {
+    state.created_team.captain_id = payload.user_team.captain.id;
+    state.created_team.selected_players_hash = payload.user_team.team_players;
+    state.created_team.valid_team = true;
+    state.created_team.selected_players = []
+    payload.user_team.team_players.forEach(player => {
+      state.created_team.selected_players.push(parseInt(player.id));
+    });
+      
+    state.created_team.selected_players_count = state.created_team.selected_players.length;
+    let budget = 0;
+    let selected_bat = 0;
+    let selected_wk = 0;
+    let selected_ar = 0;
+    let selected_bowl = 0;
+
+    state.created_team.selected_players_hash.forEach(function(element) {
+      budget = budget + parseFloat(element.value);
+      switch(element.style) {
+        case 1:
+          selected_bat++
+          break;
+        case 3:
+          selected_bat++
+          selected_ar++
+          break;
+        case 5:
+          selected_bat++
+          selected_wk++
+          break;
+        case 7:
+          selected_wk++
+          break;
+        case 9:
+          selected_ar++
+          break;
+        case 11:
+          selected_bowl++
+          selected_ar++
+          break;
+        default:
+          selected_bowl++
+          break;
+      }
+    });
+    state.created_team.budget = 100.0 - budget;
+    state.created_team.selected_wk = selected_wk;
+    state.created_team.selected_bat = selected_bat;
+    state.created_team.selected_ar = selected_ar;
+    state.created_team.selected_bowl = selected_bowl;
+  },
   PUSH_SELECTED_PLAYER: (state, id) => {
     state.created_team.selected_players.push(id);
   },
+  PUSH_SELECTED_PLAYER_HASH: (state, payload) => {
+    state.created_team.selected_players_hash.push(payload);
+  },
   POP_SELECTED_PLAYER: (state, id) => {
     state.created_team.selected_players.splice(state.created_team.selected_players.indexOf(id), 1);
+  },
+  POP_SELECTED_PLAYER_HASH: (state, id) => {
+    var players = []
+    players = state.created_team.selected_players_hash.filter((player) => {
+      if(player.id != id){ return player }
+    });
+    state.created_team.selected_players_hash = players;
   },
   VALIDATE_TEAM: (state) => {
     var valid_team = true;
@@ -124,6 +177,7 @@ const mutations = {
     let selected_wk = 0;
     let selected_ar = 0;
     let selected_bowl = 0;
+
     state.created_team.selected_players_hash.forEach(function(element) {
       budget = budget + parseFloat(element.value);
       switch(element.style) {
@@ -162,6 +216,55 @@ const mutations = {
 }
 
 const actions = {
+  async SAVE_TEAM({ commit }, payload) {
+    return await this.$axios
+      .post(`/api/matches/${payload.id}/user_teams`, {player_ids: payload.player_ids.join(','), captain: payload.captain})
+      .then((response) => {
+        if (response.status == 201 || response.status == 200) {
+          this.$router.push(
+            `/matches/${payload.id}/teams`
+          );
+        }
+      })
+      .catch((error) => {
+        if (error.response.status == 422) {
+          throw error.response;
+        }
+        return error;
+      });
+  },
+  async EDIT_TEAM({ commit }, payload) {
+    return await this.$axios
+      .put(`/api/matches/${payload.id}/user_teams/${payload.team_id}`, {player_ids: payload.player_ids.join(','), captain: payload.captain})
+      .then((response) => {
+        if (response.status == 201 || response.status == 200) {
+          this.$router.push(
+            `/matches/${payload.id}/teams`
+          );
+        }
+      })
+      .catch((error) => {
+        if (error.response.status == 422) {
+          throw error.response;
+        }
+        return error;
+      });
+  },
+  async GET_TEAM({ commit }, payload) {
+    return await this.$axios
+      .get(`/api/matches/${payload.id}/user_teams/${payload.team_id}/edit?fields=id,team_no,budget,captain,team_players`)
+      .then((response) => {
+        if (response.status == 200) {
+          commit('SET_CREATE_TEAM', response.data);
+        }
+      })
+      .catch((error) => {
+        if (error.response.status == 422) {
+          throw error.response;
+        }
+        return error;
+      });
+  }
 }
 
 

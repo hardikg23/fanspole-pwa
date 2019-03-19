@@ -308,6 +308,7 @@
       if (store.getters['Players/players'](params.id).length == 0){
         await store.dispatch('Players/GET_PLAYERS', params.id);
       }
+      await store.dispatch('CreateTeam/GET_TEAM', params);
     },
     components: {
       Back: () => import('~/components/Back'),
@@ -447,7 +448,14 @@
           });
           return false;
         }else{
-          await this.$store.dispatch('CreateTeam/SAVE_TEAM', {id: this.$route.params.id, player_ids: this.getSelectedPlayers, captain: this.getCaptainId});
+          await this.$store.dispatch('CreateTeam/EDIT_TEAM', {id: this.$route.params.id, team_id: this.$route.params.team_id, player_ids: this.getSelectedPlayers, captain: this.getCaptainId})
+          .catch((error) => {
+            this.showSnackBar = true;
+            this.$nuxt.$emit('snackbarError', {
+              snackbar: this.showSnackBar,
+              message: error.data.error
+            });
+          });
         }
       }
     },

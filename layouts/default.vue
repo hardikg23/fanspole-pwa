@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app style="max-width: 550px;">
     <nuxt/>
     <SnackBar/>
   </v-app>

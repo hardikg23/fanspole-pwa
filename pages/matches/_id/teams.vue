@@ -28,8 +28,12 @@
       </v-toolbar-items>
     </v-toolbar>
 
-    <template class="blue-grey" v-for="team in getUserTeams">
-      <UserTeamCard :key="team.id" :user_team="team"></UserTeamCard>
+    <template>
+      <div style="padding-bottom: 100px;">
+        <div v-for="team in getUserTeams">
+          <UserTeamCard :key="team.id" :user_team="team"></UserTeamCard>  
+        </div>
+      </div>
     </template>
 
     <template>

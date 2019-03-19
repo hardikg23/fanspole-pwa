@@ -34,5 +34,8 @@ export default function({ $axios, __isRetryRequest, store, app, redirect }) {
         //   });
         }
     }
+    if (code == 422) {
+      throw err;
+    }
   });
 }

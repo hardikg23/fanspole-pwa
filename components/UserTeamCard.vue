@@ -7,7 +7,9 @@
             Team {{user_team.team_no}}
           </v-flex>
           <v-flex xs6 class='text-xs-right pa-1'>
-            <v-icon>edit</v-icon>
+            <nuxt-link :to="`/matches/${this.$route.params.id}/edit-team/${user_team.id}`">
+              <v-icon>edit</v-icon>
+            </nuxt-link>
           </v-flex>
         </v-layout>
         <v-layout row wrap class='text-xs-center pa-1'>
