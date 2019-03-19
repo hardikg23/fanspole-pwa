@@ -23,7 +23,15 @@ const getters = {
   selected_players: state => {
     return state.created_team.selected_players;
   },
-  selected_players_hash: state => {
+  selected_players_hash: (state, getters, store) => {
+    state.created_team.selected_players_hash = []
+    state.created_team.selected_players.forEach(player_id => {
+      let player = store.Players.players.find((player) => {
+        if(player.id == player_id){
+          state.created_team.selected_players_hash.push(player);
+        }
+      });
+    });
     return state.created_team.selected_players_hash;
   },
   selected_wk: state => {
@@ -55,12 +63,6 @@ const mutations = {
   },
   POP_SELECTED_PLAYER: (state, id) => {
     state.created_team.selected_players.splice(state.created_team.selected_players.indexOf(id), 1);
-  },
-  PUSH_SELECTED_PLAYER_HASH: (state, payload) => {
-    state.created_team.selected_players_hash.push(payload);
-  },
-  POP_SELECTED_PLAYER_HASH: (state, id) => {
-    state.created_team.selected_players_hash.splice(state.created_team.selected_players.indexOf(id), 1);
   },
   VALIDATE_TEAM: (state) => {
     var valid_team = true;

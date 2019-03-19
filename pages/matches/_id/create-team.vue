@@ -420,10 +420,8 @@
         }
         if(this.getSelectedPlayers.indexOf(item.id) == -1){
           this.$store.commit('CreateTeam/PUSH_SELECTED_PLAYER', item.id);
-          this.$store.commit('CreateTeam/PUSH_SELECTED_PLAYER_HASH', item);
         }else{
           this.$store.commit('CreateTeam/POP_SELECTED_PLAYER', item.id);
-          this.$store.commit('CreateTeam/POP_SELECTED_PLAYER_HASH', item.id);
         }
         this.$store.commit('CreateTeam/UPDATE_DATA');
         this.$store.commit('CreateTeam/VALIDATE_TEAM');
