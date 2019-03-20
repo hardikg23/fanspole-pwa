@@ -2,6 +2,7 @@ import Vuex from 'vuex';
 
 import CreateTeam from './modules/CreateTeam';
 import Matches from './modules/Matches';
+import Me from './modules/Me';
 import Login from './modules/Login';
 import Players from './modules/Players';
 import PaidLeagues from './modules/PaidLeagues';
@@ -12,6 +13,7 @@ export default () => {
     modules: {
       CreateTeam,
       Matches,
+      Me,
       Login,
       Players,
       PaidLeagues,

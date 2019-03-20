@@ -1,25 +1,29 @@
 <template>
   <v-bottom-nav fixed :value="true" :active.sync="e3" class="grey lighten-3 bottom">
-    <v-btn to="/" flat color="primary" class="btn">
-      <span class="caption roboto-medium">Home</span>
-      <v-icon>home</v-icon>
-    </v-btn>
-    <v-btn to="/coupons" flat color="primary" class="btn">
-      <span class="caption roboto-medium">Friends</span>
-      <v-icon>people</v-icon>
-    </v-btn>
-    <v-btn to="/forums" flat color="primary" class="btn">
-      <span class="caption roboto-medium">Create</span>
-      <v-icon>ico-discussion</v-icon>
-    </v-btn>
-    <v-btn to="/groups" flat color="primary" class="btn">
-      <span class="caption roboto-medium">Notifications</span>
-      <v-icon>notifications</v-icon>
-    </v-btn>
-    <v-btn to="/notifications" flat color="primary" class="btn">
-      <span class="caption roboto-medium">Me</span>
-      <v-icon>person</v-icon>
-    </v-btn>
+    <nuxt-link :to="`${home_path}`">
+      <v-btn flat color="primary">
+        <span class="">Home</span>
+        <v-icon>home</v-icon>
+      </v-btn>
+    </nuxt-link>
+    <nuxt-link to="/login">
+      <v-btn flat color="primary">
+        <span class="">My Matches</span>
+        <v-icon>poll</v-icon>
+      </v-btn>
+    </nuxt-link>
+    <nuxt-link :to="`${home_path}`">
+      <v-btn flat color="primary">
+        <span class="">Notifications</span>
+        <v-icon>notifications</v-icon>
+      </v-btn>
+    </nuxt-link>
+    <nuxt-link :to="`${home_path}`">
+      <v-btn flat color="primary">
+        <span class="">More</span>
+        <v-icon>more_horiz</v-icon>
+      </v-btn>
+    </nuxt-link>
   </v-bottom-nav>
 </template>
 
@@ -30,9 +34,11 @@
 </style>
 
 <script type="text/javascript">
+import { HOME } from '~/constants/routes.js';
 export default {
   data() {
     return {
+      home_path: HOME,
       e3: 0,
       e31: false
     };

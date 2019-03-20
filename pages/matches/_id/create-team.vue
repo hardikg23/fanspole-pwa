@@ -281,7 +281,7 @@
               
               <div class='floter_btn'>
                 <v-btn small class='f_btn primary--text font-weight-bold font8' @click.stop="previewDialog = true">TEAM PREVIEW</v-btn>
-                <v-btn small v-bind:class="{'primary': getCaptainId != undefined, 'grey lighter-2': getCaptainId == undefined}" class='f_btn font-weight-bold font8' @click="save_team">SAVE TEAM</v-btn>
+                <v-btn small v-bind:class="{'primary': getCaptainId != undefined, 'grey lighter-2': getCaptainId == undefined}" class='f_btn font-weight-bold font8' @click="save_team" :loading="loading">SAVE TEAM</v-btn>
               </div>
 
             </v-card>
@@ -439,15 +439,18 @@
         this.$store.commit('CreateTeam/SET_CAPTAIN', id);
       },
       async save_team(){
+        this.loading = true;
         if(this.getCaptainId == undefined){
           this.$nuxt.$emit('snackbarError', {
             snackbar: true,
             message: "Select captain for your team",
             button: false
           });
+          this.loading = false;
           return false;
         }else{
           await this.$store.dispatch('CreateTeam/SAVE_TEAM', {id: this.$route.params.id, player_ids: this.getSelectedPlayers, captain: this.getCaptainId});
+          this.loading = false;
         }
       }
     },
@@ -458,6 +461,7 @@
         previewDialog: false,
         captainDialog: false,
         image: backgroundUrl,
+        loading: false,
         pagination: {
           page: 1,
           rowsPerPage: -1,

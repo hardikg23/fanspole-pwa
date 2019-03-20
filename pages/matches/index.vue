@@ -10,7 +10,7 @@
 
 <script>
   export default {
-    async asyncData({ route, store , redirect}) {
+    async asyncData({ route, store }) {
       if(store.getters['Matches/daily_matches'].length < 10){
         await store.dispatch('Matches/GET_DAILY_MATCHES');
       }

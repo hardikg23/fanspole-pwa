@@ -1,17 +1,10 @@
 const state = () => ({
-  userAuth: {}
 });
 
 const getters = {
-  userAuth: (state) => {
-    return state.userAuth;
-  }
 };
 
 const mutations = {
-  SET_USER: (state, payload) => {
-    state.userAuth = payload;
-  }
 };
 
 const actions = {
@@ -28,7 +21,8 @@ const actions = {
             path: '/',
             maxAge: 60 * 60 * 24 * 365
           });
-          this.$router.go(-1);
+          dispatch('Me/GET_ME', null, { root: true });
+          this.$router.push('/');
         }
       })
       .catch((error) => {
