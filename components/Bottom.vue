@@ -28,9 +28,9 @@
 </template>
 
 <style scoped>
-.btn {
-  min-width: 60px;
-}
+  .btn {
+    min-width: 60px;
+  }
 </style>
 
 <script type="text/javascript">

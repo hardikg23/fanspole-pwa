@@ -6,7 +6,8 @@ const state = () => ({
     team_name: '',
     current_balance: 0,
     unused_balance: 0,
-    winning_balance: 0
+    winning_balance: 0,
+    dob: '2001-01-01'
   }
 });
 
@@ -31,6 +32,9 @@ const getters = {
   },
   winning_balance: state => {
     return state.me.winning_balance;
+  },
+  dob: state => {
+    return state.me.dob;
   }
 };
 
@@ -45,6 +49,7 @@ const mutations = {
     state.me.email = payload.user.email
     state.me.full_name = payload.user.full_name
     state.me.team_name = payload.user.team_name
+    state.me.dob = payload.user.dob
   }
 };
 
@@ -66,7 +71,7 @@ const actions = {
   },
   async GET_BALANCE({ commit }, payload) {
     return await this.$axios
-      .get(`/api/me?fields=current_balance,unused_balance,winning_balance`)
+      .get(`/api/me.json?fields=current_balance,unused_balance,winning_balance`)
       .then((response) => {
         if (response.status == 200) {
           if(process.browser){
@@ -78,9 +83,21 @@ const actions = {
   },
   async GET_SETTINGS({ commit }, payload) {
     return await this.$axios
-      .get(`/api/me?fields=username,email,full_name,team_name`)
+      .get(`/api/me.json?fields=username,email,full_name,team_name,dob`)
       .then((response) => {
         commit('SET_SETTINGS', response.data);
+      });
+  },
+  async SAVE_SETTINGS({commit}, payload){
+    return await this.$axios
+      .put(`/api/me.json?fields=username,email,full_name,team_name,dob`, payload)
+      .then((response) => {
+        commit('SET_SETTINGS', response.data);
+      }).catch((error) => {
+        if (error.response.status == 422) {
+          throw error.response;
+        }
+        return error;
       });
   }
 };

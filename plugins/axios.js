@@ -19,19 +19,18 @@ export default function({ $axios, __isRetryRequest, store, app, redirect }) {
       }else {
         originalRequest.__isRetryRequest = true;
 
-        // let token = app.$cookies.get('rt');
+        let token = app.$cookies.get('rt');
 
-        // store
-        //   .dispatch('Login/LOGIN', { grant_type: 'refresh_token', refresh_token: token })
-        //   .then(res => {
-        //     app.$cookies.set('at', store.getters['Login/userAuth'].access_token);
-        //     app.$cookies.set('rt', store.getters['Login/userAuth'].refresh_token);
-        //     return app.$axios(originalRequest);
-
-        //   })
-        //   .catch(error => {
-        //     return error;
-        //   });
+        store
+          .dispatch('Login/LOGIN', { grant_type: 'refresh_token', refresh_token: token })
+          .then(res => {
+            app.$cookies.set('at', store.getters['Login/userAuth'].access_token);
+            app.$cookies.set('rt', store.getters['Login/userAuth'].refresh_token);
+            return app.$axios(originalRequest);
+          })
+          .catch(error => {
+            return error;
+          });
         }
     }
     if (code == 422) {

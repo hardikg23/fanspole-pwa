@@ -22,7 +22,7 @@
         </v-layout>
       </v-list>
       <v-list class="pt-0">
-        <v-list-tile avatar>
+        <v-list-tile avatar v-ripple>
           <v-list-tile-avatar>
             <v-icon>account_circle</v-icon>
           </v-list-tile-avatar>
@@ -32,7 +32,7 @@
         </v-list-tile>
 
         <nuxt-link to="/wallet">
-          <v-list-tile avatar>
+          <v-list-tile avatar v-ripple>
             <v-list-tile-avatar>
               <v-icon>account_balance_wallet</v-icon>
             </v-list-tile-avatar>
@@ -43,7 +43,7 @@
         </nuxt-link>
 
         <nuxt-link to="/settings">
-          <v-list-tile avatar>
+          <v-list-tile avatar v-ripple>
             <v-list-tile-avatar>
               <v-icon>settings</v-icon>
             </v-list-tile-avatar>
@@ -53,14 +53,16 @@
           </v-list-tile>
         </nuxt-link>
 
-        <v-list-tile avatar>
-          <v-list-tile-avatar>
-            <v-icon>local_parking</v-icon>
-          </v-list-tile-avatar>
-          <v-list-tile-content>
-            <v-list-tile-title class="font12">Point System</span></v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
+        <nuxt-link to="/point-system">
+          <v-list-tile avatar v-ripple>
+            <v-list-tile-avatar>
+              <v-icon>local_parking</v-icon>
+            </v-list-tile-avatar>
+            <v-list-tile-content>
+              <v-list-tile-title class="font12">Point System</span></v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </nuxt-link>
       </v-list>
     </v-navigation-drawer>
 
