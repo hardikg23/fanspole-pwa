@@ -10,28 +10,30 @@ export default function({ $axios, __isRetryRequest, store, app, redirect }) {
     const code = parseInt(err.response && err.response.status);
 
     let originalRequest = err.config;
+  
+    console.log("code" + code);
 
     if (code == 401) {
-      if (originalRequest.url.includes('/post_login/')) {
+      // if (originalRequest.url.includes('/post_login/')) {
         app.$cookies.remove('at');
         app.$cookies.remove('rt');
         redirect('/login');
-      }else {
-        originalRequest.__isRetryRequest = true;
+      // }else {
+      //   originalRequest.__isRetryRequest = true;
 
-        let token = app.$cookies.get('rt');
+      //   let token = app.$cookies.get('rt');
 
-        store
-          .dispatch('Login/LOGIN', { grant_type: 'refresh_token', refresh_token: token })
-          .then(res => {
-            app.$cookies.set('at', store.getters['Login/userAuth'].access_token);
-            app.$cookies.set('rt', store.getters['Login/userAuth'].refresh_token);
-            return app.$axios(originalRequest);
-          })
-          .catch(error => {
-            return error;
-          });
-        }
+      //   store
+      //     .dispatch('Login/LOGIN', { grant_type: 'refresh_token', refresh_token: token })
+      //     .then(res => {
+      //       app.$cookies.set('at', store.getters['Login/userAuth'].access_token);
+      //       app.$cookies.set('rt', store.getters['Login/userAuth'].refresh_token);
+      //       return app.$axios(originalRequest);
+      //     })
+      //     .catch(error => {
+      //       return error;
+      //     });
+      //   }
     }
     if (code == 422) {
       throw err;

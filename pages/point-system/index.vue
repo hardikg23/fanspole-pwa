@@ -119,7 +119,7 @@
               points: [
                 {text: 'Wicket', class: 'text-xs-left'}, {text: '+25', class: 'text-xs-right pr-2 green--text text--accent-4 font-weight-bold'},
                 {text: 'Maiden over', class: 'text-xs-left'}, {text: '+15', class: 'text-xs-right pr-2 green--text text--accent-4 font-weight-bold'},
-                {text: 'Economic Bonus', class: 'text-xs-left'}, {text: '+(Balls x 2) - Runs', class: 'text-xs-right pr-2 green--text text--accent-4 font-weight-bold'},
+                {text: 'Economic Bonus', class: 'text-xs-left'}, {text: '(Balls x 2) - Runs', class: 'text-xs-right pr-2 green--text text--accent-4 font-weight-bold'},
                 {text: 'Dot ball', class: 'text-xs-left'}, {text: '+1', class: 'text-xs-right pr-2 green--text text--accent-4 font-weight-bold'},
                 {text: '3 wicket haul Bonus', class: 'text-xs-left'}, {text: '+25', class: 'text-xs-right pr-2 green--text text--accent-4 font-weight-bold'},
                 {text: '5 wicket haul Bonus', class: 'text-xs-left'}, {text: '+50', class: 'text-xs-right pr-2 green--text text--accent-4 font-weight-bold'},

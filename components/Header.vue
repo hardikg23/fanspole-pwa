@@ -22,14 +22,17 @@
         </v-layout>
       </v-list>
       <v-list class="pt-0">
-        <v-list-tile avatar v-ripple>
-          <v-list-tile-avatar>
-            <v-icon>account_circle</v-icon>
-          </v-list-tile-avatar>
-          <v-list-tile-content>
-            <v-list-tile-title class="font12">My Profile</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
+
+        <nuxt-link to="/profile">
+          <v-list-tile avatar v-ripple>
+            <v-list-tile-avatar>
+              <v-icon>account_circle</v-icon>
+            </v-list-tile-avatar>
+            <v-list-tile-content>
+              <v-list-tile-title class="font12">My Profile</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </nuxt-link>
 
         <nuxt-link to="/wallet">
           <v-list-tile avatar v-ripple>

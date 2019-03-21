@@ -4,6 +4,11 @@ const state = () => ({
     email: '',
     full_name: '',
     team_name: '',
+    image: '',
+    cricket_level: {},
+    next_level: {},
+    stats: {},
+    user_points: {},
     current_balance: 0,
     unused_balance: 0,
     winning_balance: 0,
@@ -23,6 +28,21 @@ const getters = {
   },
   team_name: state => {
     return state.me.team_name;
+  },
+  image: state => {
+    return state.me.image;
+  },
+  cricket_level: state => {
+    return state.me.cricket_level;
+  },
+  next_level: state => {
+    return state.me.next_level;
+  },
+  stats: state => {
+    return state.me.stats;
+  },
+  user_points: state => {
+    return state.me.user_points;
   },
   current_balance: state => {
     return state.me.current_balance;
@@ -50,6 +70,14 @@ const mutations = {
     state.me.full_name = payload.user.full_name
     state.me.team_name = payload.user.team_name
     state.me.dob = payload.user.dob
+  },
+  SET_PROFILE: (state, payload) => {
+    state.me.image = payload.user.image
+    state.me.team_name = payload.user.team_name
+    state.me.cricket_level = payload.user.cricket_level
+    state.me.next_level = payload.user.next_level
+    state.me.stats = payload.user.stats
+    state.me.user_points = payload.user.user_points
   }
 };
 
@@ -88,9 +116,16 @@ const actions = {
         commit('SET_SETTINGS', response.data);
       });
   },
+  async GET_PROFILE({ commit }, payload) {
+    return await this.$axios
+      .get(`/api/me.json?fields=team_name,cricket_level,next_level,image,stats,user_points{rank,series,total_score}`)
+      .then((response) => {
+        commit('SET_PROFILE', response.data);
+      });
+  },
   async SAVE_SETTINGS({commit}, payload){
     return await this.$axios
-      .put(`/api/me.json?fields=username,email,full_name,team_name,dob`, payload)
+      .put(`/api/me.json?fields=`, payload)
       .then((response) => {
         commit('SET_SETTINGS', response.data);
       }).catch((error) => {

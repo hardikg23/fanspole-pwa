@@ -19,6 +19,7 @@ a, a:link, a:visited{text-decoration: none;color: inherit;}
 .font9{font-size: 0.9em;}
 .font11{font-size: 1.1em;}
 .font12{font-size: 1.2em;}
+.font15{font-size: 1.5em;}
 .font22{font-size: 2.2em;}
 .font30{font-size: 3.0em;}
 
@@ -38,4 +39,11 @@ a, a:link, a:visited{text-decoration: none;color: inherit;}
 .box_shadow_common{
   -webkit-box-shadow: 0 0 1px 1px #E0E0E0;
   box-shadow: 0 0 1px 1px #E0E0E0;
+}
+
+hr{
+  border: none;
+  height: 1px;
+  color: #EEEEEE;
+  background-color: #EEEEEE;
 }
