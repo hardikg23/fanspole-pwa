@@ -4,6 +4,10 @@ const state = () => ({
     selected_players_count: 0,
     selected_players: [],
     selected_players_hash: [],
+    balanced_wk: false,
+    balanced_bat: false,
+    balanced_ar: false,
+    balanced_bowl: false,
     selected_wk: 0,
     selected_bat: 0,
     selected_ar: 0,
@@ -25,6 +29,18 @@ const getters = {
   },
   selected_players_hash: state => {
     return state.created_team.selected_players_hash.sort(function(a, b){return a.style - b.style});
+  },
+  balanced_wk: state => {
+    return state.created_team.balanced_wk;
+  },
+  balanced_bat: state => {
+    return state.created_team.balanced_bat;
+  },
+  balanced_ar: state => {
+    return state.created_team.balanced_ar;
+  },
+  balanced_bowl: state => {
+    return state.created_team.balanced_bowl;
   },
   selected_wk: state => {
     return state.created_team.selected_wk;
@@ -61,45 +77,49 @@ const mutations = {
       
     state.created_team.selected_players_count = state.created_team.selected_players.length;
     let budget = 0;
-    let selected_bat = 0;
-    let selected_wk = 0;
-    let selected_ar = 0;
-    let selected_bowl = 0;
+    state.created_team.balanced_wk = true
+    state.created_team.balanced_bat = true
+    state.created_team.balanced_ar = true
+    state.created_team.balanced_bowl = true
+    // let selected_bat = 0;
+    // let selected_wk = 0;
+    // let selected_ar = 0;
+    // let selected_bowl = 0;
 
     state.created_team.selected_players_hash.forEach(function(element) {
-      budget = budget + parseFloat(element.value);
-      switch(element.style) {
-        case 1:
-          selected_bat++
-          break;
-        case 3:
-          selected_bat++
-          selected_ar++
-          break;
-        case 5:
-          selected_bat++
-          selected_wk++
-          break;
-        case 7:
-          selected_wk++
-          break;
-        case 9:
-          selected_ar++
-          break;
-        case 11:
-          selected_bowl++
-          selected_ar++
-          break;
-        default:
-          selected_bowl++
-          break;
-      }
+      // budget = budget + parseFloat(element.value);
+      // switch(element.style) {
+      //   case 1:
+      //     selected_bat++
+      //     break;
+      //   case 3:
+      //     selected_bat++
+      //     selected_ar++
+      //     break;
+      //   case 5:
+      //     selected_bat++
+      //     selected_wk++
+      //     break;
+      //   case 7:
+      //     selected_wk++
+      //     break;
+      //   case 9:
+      //     selected_ar++
+      //     break;
+      //   case 11:
+      //     selected_bowl++
+      //     selected_ar++
+      //     break;
+      //   default:
+      //     selected_bowl++
+      //     break;
+      // }
     });
     state.created_team.budget = 100.0 - budget;
-    state.created_team.selected_wk = selected_wk;
-    state.created_team.selected_bat = selected_bat;
-    state.created_team.selected_ar = selected_ar;
-    state.created_team.selected_bowl = selected_bowl;
+    // state.created_team.selected_wk = selected_wk;
+    // state.created_team.selected_bat = selected_bat;
+    // state.created_team.selected_ar = selected_ar;
+    // state.created_team.selected_bowl = selected_bowl;
   },
   PUSH_SELECTED_PLAYER: (state, id) => {
     state.created_team.selected_players.push(id);
@@ -165,6 +185,23 @@ const mutations = {
           ALL_ROUNDER += 1; 
       }
     }
+
+    state.created_team.balanced_wk = true
+    state.created_team.balanced_bat = true
+    state.created_team.balanced_ar = true
+    state.created_team.balanced_bowl = true
+    if(PURE_KEEPER > 1 || (PURE_KEEPER == 0 && KEEPER == 0)){
+      state.created_team.balanced_wk = false
+    }
+    if(BATSMAN < 4){
+      state.created_team.balanced_bat = false
+    }
+    if(ALL_ROUNDER < 1 || ((ALL_ROUNDER + BOWLER) < 5)){
+      state.created_team.balanced_ar = false
+    }
+    if(BOWLER < 1 || ((ALL_ROUNDER + BOWLER) < 5)){
+      state.created_team.balanced_bowl = false
+    }
     if((PURE_KEEPER > 1) || (BATSMAN < 4) || (PURE_KEEPER == 0 && KEEPER == 0) || (ALL_ROUNDER < 1) || (BOWLER < 2) || ((ALL_ROUNDER + BOWLER) < 5)){
       valid_team = false 
     }
@@ -173,45 +210,45 @@ const mutations = {
   UPDATE_DATA: (state) => {
     state.created_team.selected_players_count = state.created_team.selected_players.length;
     let budget = 0;
-    let selected_bat = 0;
-    let selected_wk = 0;
-    let selected_ar = 0;
-    let selected_bowl = 0;
+    // let selected_bat = 0;
+    // let selected_wk = 0;
+    // let selected_ar = 0;
+    // let selected_bowl = 0;
 
     state.created_team.selected_players_hash.forEach(function(element) {
       budget = budget + parseFloat(element.value);
-      switch(element.style) {
-        case 1:
-          selected_bat++
-          break;
-        case 3:
-          selected_bat++
-          selected_ar++
-          break;
-        case 5:
-          selected_bat++
-          selected_wk++
-          break;
-        case 7:
-          selected_wk++
-          break;
-        case 9:
-          selected_ar++
-          break;
-        case 11:
-          selected_bowl++
-          selected_ar++
-          break;
-        default:
-          selected_bowl++
-          break;
-      }
+    //   switch(element.style) {
+    //     case 1:
+    //       selected_bat++
+    //       break;
+    //     case 3:
+    //       selected_bat++
+    //       selected_ar++
+    //       break;
+    //     case 5:
+    //       selected_bat++
+    //       selected_wk++
+    //       break;
+    //     case 7:
+    //       selected_wk++
+    //       break;
+    //     case 9:
+    //       selected_ar++
+    //       break;
+    //     case 11:
+    //       selected_bowl++
+    //       selected_ar++
+    //       break;
+    //     default:
+    //       selected_bowl++
+    //       break;
+    //   }
     });
     state.created_team.budget = 100.0 - budget;
-    state.created_team.selected_wk = selected_wk;
-    state.created_team.selected_bat = selected_bat;
-    state.created_team.selected_ar = selected_ar;
-    state.created_team.selected_bowl = selected_bowl;
+    // state.created_team.selected_wk = selected_wk;
+    // state.created_team.selected_bat = selected_bat;
+    // state.created_team.selected_ar = selected_ar;
+    // state.created_team.selected_bowl = selected_bowl;
   }
 }
 

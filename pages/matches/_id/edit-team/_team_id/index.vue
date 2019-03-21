@@ -41,10 +41,10 @@
       <template>
         <div style="margin-top: 156px;width:100%;overflow-y:auto;">
           <v-tabs grow centered slider-color="primary">
-            <v-tab ripple :key="1">WK ({{getSelectedWk}})</v-tab>
-            <v-tab ripple :key="2">BAT ({{getSelectedBat}})</v-tab>
-            <v-tab ripple :key="3">AR ({{getSelectedAr}})</v-tab>
-            <v-tab ripple :key="4">BOWL ({{getSelectedBowl}})</v-tab>
+            <v-tab ripple :key="1">WK <span v-bind:class="{'grey lighter-2': !getBalancedWk, 'green accent-4': getBalancedWk}" class="dot grey lighter-2 ml-1"></span></v-tab>
+            <v-tab ripple :key="2">BAT <span v-bind:class="{'grey lighter-2': !getBalancedBat, 'green accent-4': getBalancedBat}" class="dot grey lighter-2 ml-1"></span></v-tab>
+            <v-tab ripple :key="3">AR <span v-bind:class="{'grey lighter-2': !getBalancedAr, 'green accent-4': getBalancedAr}" class="dot grey lighter-2 ml-1"></span></v-tab>
+            <v-tab ripple :key="4">BOWL <span v-bind:class="{'grey lighter-2': !getBalancedBowl, 'green accent-4': getBalancedBowl}" class="dot grey lighter-2 ml-1"></span></v-tab>
             <v-tab-item :key="1">
               <div class="text-xs-center font-weight-bold pa-2">PICK 1 WICKET-KEEPER <v-icon @click.stop="rulesDialog = true">info</v-icon></div>
               <v-data-table
@@ -186,12 +186,12 @@
           <v-card-title class="headline pa-0 pl-2 pt-2">Rules</v-card-title>
           <v-card-text>
             <ul>
-              <li>Minimum 4 Batsmen</li>
-              <li>1 Wicket Keeper</li>
-              <li>Atleast 1 All-rounder</li>
-              <li>Atleast 2 Bowlers</li>
-              <li>Total no of Bowlers + All-Rounders should be at least 5</li>
-              <li>You can not select 2 pure Wicket Keepers. If your team has 2 or more Batting Wicket Keeper one will be consider as wicket-keeper and other(s) will be consider as batsman.</li>
+              <li v-bind:class="{'grey--text text--lighter-2': !getBalancedBat, 'green--text text--accent-4': getBalancedBat}">Minimum 4 Batsmen</li>
+              <li v-bind:class="{'grey--text text--lighter-2': !getBalancedWk, 'green--text text--accent-4': getBalancedWk}">1 Wicket Keeper</li>
+              <li v-bind:class="{'grey--text text--lighter-2': !getBalancedAr, 'green--text text--accent-4': getBalancedAr}">Atleast 1 All-rounder</li>
+              <li v-bind:class="{'grey--text text--lighter-2': !getBalancedBowl, 'green--text text--accent-4': getBalancedBowl}">Atleast 2 Bowlers</li>
+              <li v-bind:class="{'grey--text text--lighter-2': !(getBalancedAr && getBalancedBowl), 'green--text text--accent-4': (getBalancedAr && getBalancedBowl)}">Total no of Bowlers + All-Rounders should be at least 5</li>
+              <li v-bind:class="{'grey--text text--lighter-2': !getBalancedWk, 'green--text text--accent-4': getBalancedWk}">You can not select 2 pure Wicket Keepers. If your team has 2 or more Batting Wicket Keeper one will be consider as wicket-keeper and other(s) will be consider as batsman.</li>
             </ul>
           </v-card-text>
           <v-card-actions>
@@ -344,6 +344,18 @@
       },
       getSelectedPlayersHash(){
         return this.$store.getters['CreateTeam/selected_players_hash'];
+      },
+      getBalancedWk(){
+        return this.$store.getters['CreateTeam/balanced_wk'];
+      },
+      getBalancedBat(){
+        return this.$store.getters['CreateTeam/balanced_bat'];
+      },
+      getBalancedAr(){
+        return this.$store.getters['CreateTeam/balanced_ar'];
+      },
+      getBalancedBowl(){
+        return this.$store.getters['CreateTeam/balanced_bowl'];
       },
       getSelectedWk(){
         return this.$store.getters['CreateTeam/selected_wk'];
@@ -527,5 +539,11 @@
     min-width: 0px;
     width: 36px;
     height: 36px;
+  }
+  .dot{
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    display: inline-block;
   }
 </style>
