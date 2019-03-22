@@ -21,15 +21,13 @@
       Bottom: () => import('~/components/Bottom')
     },
     computed: {
-      title() {
-        return 'DAILY MODE'
-      },
       getMatches() {
         return this.$store.getters['Matches/matches'];
       }
     },
     data() {
       return {
+        title: "DAILY MODE",
         match: {}
       }
     }

@@ -18,7 +18,7 @@
             </template>
             <v-card class="pa-0">
               <v-layout row wrap>
-                <v-flex xs6 class="pa-2 pl-4 pr-4" style="border-bottom: 1px solid #F5F5F5;" v-for="s in type.points">
+                <v-flex xs6 class="pa-2 pl-4 pr-4 borderb" v-for="s in type.points">
                   <div v-bind:class="s.class">{{s.text}}</div>
                 </v-flex>
               </v-layout>
@@ -34,7 +34,7 @@
             </template>
             <v-card class="pa-0">
               <v-layout row wrap>
-                <v-flex xs6 class="pa-2 pl-4 pr-4" style="border-bottom: 1px solid #F5F5F5;" v-for="s in type.points">
+                <v-flex xs6 class="pa-2 pl-4 pr-4 borderb" v-for="s in type.points">
                   <div v-bind:class="s.class">{{s.text}}</div>
                 </v-flex>
               </v-layout>
@@ -50,7 +50,7 @@
             </template>
             <v-card class="pa-0">
               <v-layout row wrap>
-                <v-flex xs6 class="pa-2 pl-4 pr-4" style="border-bottom: 1px solid #F5F5F5;" v-for="s in type.points">
+                <v-flex xs6 class="pa-2 pl-4 pr-4 borderb" v-for="s in type.points">
                   <div v-bind:class="s.class">{{s.text}}</div>
                 </v-flex>
               </v-layout>

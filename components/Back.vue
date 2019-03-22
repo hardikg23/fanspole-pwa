@@ -12,7 +12,7 @@
       icon
       flat
       color="white"
-      :to="`/${home_path}`">
+      @click="home">
       <v-icon>home</v-icon>
     </v-btn>
   </section>
@@ -38,6 +38,9 @@ export default {
       } else {
         window.location = 'https://www.fanspole.com';
       }
+    },
+    home() {
+      window.location = this.home_path;
     }
   }
 };
