@@ -1,30 +1,22 @@
 <template>
   <div>
     <v-bottom-nav fixed :value="true" :active.sync="e3" class="grey lighten-3" style="max-width: 550px;">
-      <nuxt-link :to="`${home_path}`">
-        <v-btn flat color="primary">
-          <span class="">Home</span>
-          <v-icon>home</v-icon>
-        </v-btn>
-      </nuxt-link>
-      <nuxt-link to="/login">
-        <v-btn flat color="primary">
-          <span class="">My Matches</span>
-          <v-icon>poll</v-icon>
-        </v-btn>
-      </nuxt-link>
-      <nuxt-link :to="`${home_path}`">
-        <v-btn flat color="primary">
-          <span class="">Notifications</span>
-          <v-icon>notifications</v-icon>
-        </v-btn>
-      </nuxt-link>
-      <nuxt-link :to="`${more_path}`">
-        <v-btn flat color="primary">
-          <span class="">More</span>
-          <v-icon>more_horiz</v-icon>
-        </v-btn>
-      </nuxt-link>
+      <v-btn flat color="primary" :to="`${home_path}`">
+        <span class="">Home</span>
+        <v-icon>home</v-icon>
+      </v-btn>
+      <v-btn flat color="primary" to="/login">
+        <span class="">My Matches</span>
+        <v-icon>poll</v-icon>
+      </v-btn>
+      <v-btn flat color="primary" :to="`${notifications_path}`">
+        <span class="">Notifications</span>
+        <v-icon>notifications</v-icon>
+      </v-btn>
+      <v-btn flat color="primary" :to="`${more_path}`">
+        <span class="">More</span>
+        <v-icon>more_horiz</v-icon>
+      </v-btn>
     </v-bottom-nav>
   </div>
 </template>
@@ -38,11 +30,13 @@
 <script type="text/javascript">
 import { HOME } from '~/constants/routes.js';
 import { MORE } from '~/constants/routes.js';
+import { NOTIFICATIONS } from '~/constants/routes.js';
 export default {
   data() {
     return {
       home_path: HOME,
       more_path: MORE,
+      notifications_path: NOTIFICATIONS,
       e3: 0,
       e31: false
     };
