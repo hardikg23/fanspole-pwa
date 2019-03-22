@@ -1,57 +1,65 @@
 const state = () => ({
-  matches: {
-    daily_matches: []
-  }
+  matches: [],
+  match: null
 })
 
 const getters = {
-  daily_matches: state => {
-    return state.matches.daily_matches;
+  matches: state => {
+    return state.matches;
   },
-  daily_match: (state) => (id) => {
-    let match = state.matches.daily_matches.find((match) => {
+  match: (state) => (id) => {
+    let match = state.matches.find((match) => {
       if(match.id == id){
         return match;
       }
     });
-    return match;
+    if(match != undefined){
+      return match;
+    }else{
+      return state.match;
+    }
   }
 }
 
 const mutations = {
-  SET_DAILY_MATCHES: (state, payload) => {
+  SET_MATCHES: (state, payload) => {
     if (payload['matches']) {
       payload['matches'].forEach(match => {
-        state.matches.daily_matches.push(match);
+        state.matches.push(match);
       });
     }
   },
-  SET_DAILY_MATCH: (state, payload) => {
+  RESET_MATCHES: (state) => {
+    state.matches = [];
+  },
+  SET_MATCH: (state, payload) => {
     if (payload['match']) {
-      state.matches.daily_matches.push(payload['match']);
+      state.match = payload['match'];
     }
   },
 }
 
 const actions = {
-  async GET_DAILY_MATCHES({ commit, dispatch }, payload) {
+  async GET_MATCHES({ commit, dispatch }, payload) {
     await this.$axios
       .get(`/api/matches.json?fields=id,event_time_in_millis,series{name},team1,team2`)
       .then(response => {
         if (response.status == 200) {
-          commit('SET_DAILY_MATCHES', response.data);
+          commit('RESET_MATCHES');
+          commit('SET_MATCHES', response.data);
+          commit('ApiHits/SET_ALL_MATCHES', null, { root: true });
         }
       })
       .catch(error => {
         return error;
     });
   },
-  async GET_DAILY_MATCH({ commit, dispatch }, payload) {
+  async GET_MATCH({ commit, dispatch }, payload) {
     await this.$axios
       .get(`/api/matches/${payload}.json?fields=id,event_time_in_millis,series{name},team1,team2`)
       .then(response => {
         if (response.status == 200) {
-          commit('SET_DAILY_MATCH', response.data);
+          commit('SET_MATCH', response.data);
         }
       })
       .catch(error => {

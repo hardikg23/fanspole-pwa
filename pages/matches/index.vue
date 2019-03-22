@@ -11,8 +11,8 @@
 <script>
   export default {
     async asyncData({ route, store }) {
-      if(store.getters['Matches/daily_matches'].length < 10){
-        await store.dispatch('Matches/GET_DAILY_MATCHES');
+      if((store.getters['ApiHits/all_matches'] == undefined) || (store.getters['ApiHits/all_matches'] < (new Date().getTime() - 60*60*1000))){
+        await store.dispatch('Matches/GET_MATCHES');  
       }
     },
     components: {
@@ -25,7 +25,7 @@
         return 'DAILY MODE'
       },
       getMatches() {
-        return this.$store.getters['Matches/daily_matches'];
+        return this.$store.getters['Matches/matches'];
       }
     },
     data() {

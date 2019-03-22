@@ -52,8 +52,8 @@
 <script>
   export default {
     async asyncData({store, params}) {
-      if (store.getters['Matches/daily_match'](params.id) == undefined){
-        await store.dispatch('Matches/GET_DAILY_MATCH', params.id);  
+      if (store.getters['Matches/match'](params.id) == undefined){
+        await store.dispatch('Matches/GET_MATCH', params.id);  
       }
       await store.commit('UserTeams/RESET_USER_TEAMS');
       await store.dispatch('UserTeams/GET_USER_TEAMS', params.id);
@@ -65,7 +65,7 @@
     },
     computed: {
       getMatch() {
-        return this.$store.getters['Matches/daily_match'](this.$route.params.id);
+        return this.$store.getters['Matches/match'](this.$route.params.id);
       },
       getUserTeams() {
         return this.$store.getters['UserTeams/user_teams'];

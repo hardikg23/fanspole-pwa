@@ -12,7 +12,7 @@
       <v-list class="pa-0">
         <v-layout row wrap pa-0>
           <v-flex xs4 class='indigo lighten-5 pa-0'>
-            <img :src="image" class="image2 imagec ma-3">
+            <img :src="image" class="image2 imagec ma-3" @click.stop="drawer = !drawer">
           </v-flex>
           <v-flex xs8 class='indigo lighten-5 pa-0'>
             <div class="font-weight-bold mt-3">HI, {{display_name}}</div>

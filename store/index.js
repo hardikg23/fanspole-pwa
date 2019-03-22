@@ -1,5 +1,6 @@
 import Vuex from 'vuex';
 
+import ApiHits from './modules/ApiHits';
 import CreateTeam from './modules/CreateTeam';
 import Matches from './modules/Matches';
 import Me from './modules/Me';
@@ -11,6 +12,7 @@ import UserTeams from './modules/UserTeams';
 export default () => {
   return new Vuex.Store({
     modules: {
+      ApiHits,
       CreateTeam,
       Matches,
       Me,
