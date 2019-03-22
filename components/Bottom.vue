@@ -5,7 +5,7 @@
         <span class="">Home</span>
         <v-icon>home</v-icon>
       </v-btn>
-      <v-btn flat color="primary" to="/login">
+      <v-btn flat color="primary" :to="`${my_matches_path}`">
         <span class="">My Matches</span>
         <v-icon>poll</v-icon>
       </v-btn>
@@ -30,12 +30,14 @@
 <script type="text/javascript">
 import { HOME } from '~/constants/routes.js';
 import { MORE } from '~/constants/routes.js';
+import { MY_MATCHES } from '~/constants/routes.js';
 import { NOTIFICATIONS } from '~/constants/routes.js';
 export default {
   data() {
     return {
       home_path: HOME,
       more_path: MORE,
+      my_matches_path: MY_MATCHES,
       notifications_path: NOTIFICATIONS,
       e3: 0,
       e31: false

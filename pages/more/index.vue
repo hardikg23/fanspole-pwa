@@ -36,6 +36,7 @@
           {id: 6, icon: 'help_outline', text: 'How To Play'},
           {id: 7, icon: 'whatshot', text: 'About Us'},
           {id: 8, icon: 'android', text: 'Fanspole App'},
+          {id: 9, icon: 'power_settings_new', text: 'Logout'}
         ]
       }
     }

@@ -65,17 +65,18 @@
 </template>
 
 <script type="text/javascript">
+  import { HOME } from '~/constants/routes.js';
   import { SIGNUP } from '~/constants/routes.js';
   export default {
     mounted() {
+      if (this.$cookies.get('at') && this.$cookies.get('rt')) {
+        this.$router.push(this.home_path);
+      }
       window.addEventListener('keyup', (event) => {
         if (event.keyCode === 13) {
           event.preventDefault();
         }
       });
-      if (this.$cookies.get('at') && this.$cookies.get('rt')) {
-        this.$router.push('/');
-      }
     },
     destroyed() {
       this.$nuxt.$off('snackbarError');
@@ -108,6 +109,7 @@
     data() {
       return {
         loading: false,
+        home_path: HOME,
         signup_path: SIGNUP,
         login: {
           email: '',
