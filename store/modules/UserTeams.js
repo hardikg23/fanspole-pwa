@@ -1,5 +1,6 @@
 const state = () => ({
-  user_teams: []
+  user_teams: [],
+  user_team_row: {}
 })
 
 const getters = {
@@ -13,7 +14,10 @@ const getters = {
       }
     });
     return user_team;
-  }
+  },
+  user_team_row:  state => {
+    return state.user_team_row;
+  },
 }
 
 const mutations = {
@@ -27,6 +31,30 @@ const mutations = {
   SET_USER_TEAM: (state, payload) => {
     if (payload['user_team']) {
       state.user_teams.push(payload['user_team']);
+    }
+  },
+  SET_USER_TEAM_ROW: (state, id) => {
+    let user_team = state.user_teams.find((team) => {
+      if(team.id == id){
+        return team;
+      }
+    });
+    if(user_team != undefined){
+      let wk = user_team.team_players.find((player) => {
+        if(player.style == 5 || player.style == 7){
+          return player;
+        }
+      });
+      let other_players = user_team.team_players.filter((player) => {
+        if(player.id != wk.id){
+          return player;
+        }
+      });
+      let row1 = [wk];
+      let row2 = other_players.slice(0, 4);
+      let row3 = other_players.slice(4, 6);
+      let row4 = other_players.slice(6, 10);
+      state.user_team_row = {row1: row1, row2: row2, row3: row3, row4: row4}
     }
   },
   RESET_USER_TEAMS: (state, payload) => {
