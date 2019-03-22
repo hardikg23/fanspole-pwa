@@ -8,6 +8,7 @@ import Login from './modules/Login';
 import Players from './modules/Players';
 import PaidLeagues from './modules/PaidLeagues';
 import UserTeams from './modules/UserTeams';
+import UserCredits from './modules/UserCredits';
 
 export default () => {
   return new Vuex.Store({
@@ -19,7 +20,8 @@ export default () => {
       Login,
       Players,
       PaidLeagues,
-      UserTeams
+      UserTeams,
+      UserCredits
     }
   });
 };

@@ -134,6 +134,18 @@ const actions = {
         }
         return error;
       });
+  },
+  async LOGOUT({commit}, payload){
+    this.$cookies.remove('at');
+    this.$cookies.remove('rt');
+    if(process.browser){
+      localStorage.removeItem('me_display_name');
+      localStorage.removeItem('me_team_name');
+      localStorage.removeItem('me_image');
+      localStorage.removeItem('me_cricket_level');
+      localStorage.removeItem('me_current_balance');
+    }
+    this.$router.push('/');
   }
 };
 

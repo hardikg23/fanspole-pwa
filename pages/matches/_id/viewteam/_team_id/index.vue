@@ -3,7 +3,9 @@
     <div :style="{ background: `url(${image}) no-repeat center center fixed`, 'background-size': '100% 100%', 'min-height': '100vh'}">
       <v-layout row wrap class="text-xs-center">
         <v-flex xs6 class='text-xs-left grey darken-3 pa-2'>
-          <v-icon class='white--text'>edit</v-icon>
+          <nuxt-link :to="`/matches/${this.$route.params.id}/edit-team/${this.$route.params.team_id}`">
+            <v-icon class='white--text'>edit</v-icon>
+          </nuxt-link>
         </v-flex>
         <v-flex xs6 class='text-xs-right grey darken-3 white--text pa-2'>
           <nuxt-link :to="`/matches/${this.$route.params.id}/teams`">

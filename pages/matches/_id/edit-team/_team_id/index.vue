@@ -487,7 +487,7 @@
     },
     data() {
       return {
-        title: 'CREATE TEAM',
+        title: 'EDIT TEAM',
         rulesDialog: false,
         previewDialog: false,
         captainDialog: false,

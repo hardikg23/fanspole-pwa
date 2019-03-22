@@ -1,7 +1,7 @@
 <template>
   <section>
     <v-toolbar color="primary">
-      <Back/>
+      <Back :showhome="true" />
       <span class="white--text fontw600">{{title}}</span>
     </v-toolbar>
     <v-card class='ma-2'>
@@ -55,16 +55,18 @@
       </v-layout>
     </v-card>
 
-    <v-card class='ma-2'>
-      <v-layout row wrap pa-2>
-        <v-flex xs6 class="text-xs-left pa-1 font-weight-bold">
-          Add Cash History
-        </v-flex>
-        <v-flex xs6 class="text-xs-right">
-          <v-icon>chevron_right</v-icon>
-        </v-flex>
-      </v-layout>
-    </v-card>
+    <nuxt-link to="/wallet/add-cash-history">
+      <v-card class='ma-2'>
+        <v-layout row wrap pa-2>
+          <v-flex xs6 class="text-xs-left pa-1 font-weight-bold">
+            Add Cash History
+          </v-flex>
+          <v-flex xs6 class="text-xs-right">
+            <v-icon>chevron_right</v-icon>
+          </v-flex>
+        </v-layout>
+      </v-card>
+    </nuxt-link>
     
     <v-card class='ma-2'>
       <v-layout row wrap pa-2>

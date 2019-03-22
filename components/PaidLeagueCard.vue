@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-md text-xs-center pa-2>
-    <v-card md5 class='gradient_28499 pa-0'>
+    <v-card md5 class='pa-0'>
       <v-layout row wrap pa-2>
         <v-flex xs6>
           <div class="text-xs-left">
