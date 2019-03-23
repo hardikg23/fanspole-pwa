@@ -2,7 +2,9 @@
   <section>
     <Header :title="title"/>
     <template class="blue-grey" v-for="match in getMatches">
-      <MatchCard :key="match.id" :match="match"></MatchCard>
+      <div v-show="!locked(match.event_time_in_millis)">
+        <MatchCard :key="match.id" :match="match"></MatchCard>
+      </div>
     </template>
     <Bottom/>
   </section>
@@ -23,6 +25,11 @@
     computed: {
       getMatches() {
         return this.$store.getters['Matches/matches'];
+      }
+    },
+    methods: {
+      locked(event_time){
+        return event_time < new Date().getTime();
       }
     },
     data() {

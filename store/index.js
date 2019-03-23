@@ -9,8 +9,10 @@ import Login from './modules/Login';
 import Players from './modules/Players';
 import PaidLeagues from './modules/PaidLeagues';
 import Redemptions from './modules/Redemptions';
+import Series from './modules/Series';
 import UserTeams from './modules/UserTeams';
 import UserCredits from './modules/UserCredits';
+import UserPoints from './modules/UserPoints';
 
 export default () => {
   return new Vuex.Store({
@@ -24,8 +26,9 @@ export default () => {
       Players,
       PaidLeagues,
       Redemptions,
+      Series,
       UserTeams,
-      UserCredits
+      UserPoints
     }
   });
 };
