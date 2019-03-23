@@ -10,7 +10,7 @@
       temporary
     >
       <v-list class="pa-0">
-        <v-layout row wrap pa-0>
+        <v-layout row wrap pa-0 class="borderb">
           <v-flex xs4 class='indigo lighten-5 pa-0'>
             <img :src="image" class="image2 imagec ma-3" @click.stop="drawer = !drawer">
           </v-flex>
@@ -24,7 +24,7 @@
       <v-list class="pt-0">
 
         <nuxt-link to="/profile">
-          <v-list-tile avatar v-ripple>
+          <v-list-tile avatar v-ripple class="borderb">
             <v-list-tile-avatar>
               <v-icon>account_circle</v-icon>
             </v-list-tile-avatar>
@@ -35,18 +35,18 @@
         </nuxt-link>
 
         <nuxt-link to="/wallet">
-          <v-list-tile avatar v-ripple>
+          <v-list-tile avatar v-ripple class="borderb">
             <v-list-tile-avatar>
               <v-icon>account_balance_wallet</v-icon>
             </v-list-tile-avatar>
             <v-list-tile-content>
-              <v-list-tile-title class="font12">My Balance <span class="ftr pr-2">&#8377;{{current_balance}}</span></v-list-tile-title>
+              <v-list-tile-title class="font12">My Balance <span class="ftr pr-2 font-weight-bold primary--text">&#8377;{{current_balance}}</span></v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </nuxt-link>
 
         <nuxt-link to="/settings">
-          <v-list-tile avatar v-ripple>
+          <v-list-tile avatar v-ripple class="borderb">
             <v-list-tile-avatar>
               <v-icon>settings</v-icon>
             </v-list-tile-avatar>
@@ -57,7 +57,7 @@
         </nuxt-link>
 
         <nuxt-link to="/point-system">
-          <v-list-tile avatar v-ripple>
+          <v-list-tile avatar v-ripple class="borderb">
             <v-list-tile-avatar>
               <v-icon>local_parking</v-icon>
             </v-list-tile-avatar>

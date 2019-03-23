@@ -1,12 +1,12 @@
 <template>
   <v-container grid-list-md text-xs-center>
     <nuxt-link :to="`/matches/${match.id}/leagues`">
-      <v-card md5 class='gradient_28499'>
+      <v-card md5>
         <v-layout row wrap>
           <v-flex xs4>
             <v-card-text class="px-0">
               <div>
-                <img :alt="match.team1.flag_photo" v-bind:src="match.team1.flag_photo" style="width:26px;height: 26px;" class="round_image box_shadow">
+                <img :alt="match.team1.flag_photo" v-bind:src="match.team1.flag_photo" class="round_image box_shadow">
               </div>
               <div class="font-weight-bold">
                 {{match.team1.name_attr}}
@@ -15,10 +15,10 @@
           </v-flex>
           <v-flex xs4>
             <v-card-text class="px-0">
-              <div class="accent--text caption">
+              <div class="accent--text font8">
                 {{match.series.name}}  
               </div>
-              <div class="pa-2 fontw500" color='primary'>
+              <div class="pa-2 font-weight-bold font8 primary--text">
                 <Countdown :date="match.event_time_in_millis/1000"></Countdown>
               </div>
             </v-card-text>
@@ -26,7 +26,7 @@
           <v-flex xs4>
             <v-card-text class="px-0">
               <div>
-                <img :alt="match.team1.flag_photo" v-bind:src="match.team2.flag_photo" style="width: 26px;height:26px;" class="round_image box_shadow">
+                <img :alt="match.team1.flag_photo" v-bind:src="match.team2.flag_photo" class="round_image box_shadow">
               </div>
               <div class="font-weight-bold">
                 {{match.team2.name_attr}}
@@ -58,10 +58,9 @@
   .container{
     padding: 8px;
   }
-  .gradient_28499 {
-    background: linear-gradient(228deg, white 49%, #f4f4f4 49%);
-  }
   .box_shadow{
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     -webkit-box-shadow: 0 0 2px 1px #000;
     box-shadow: 0 0 2px 1px #000;
