@@ -8,7 +8,7 @@
     <v-card md5 class='ma-3' v-for="credit in getUserCredits" :key="credit.id">
       <v-layout row ma-0 grey lighten-4>
         <v-flex xs6 class="pa-2">
-          <DateTime :time="credit.created_at_in_millis"></DateTime>
+          <DateTime :time="credit.created_at_in_millis" :format="2"></DateTime>
         </v-flex>
         <v-flex xs6 class="pa-2 text-xs-right">
           <div>{{credit.service_provider}}</div>

@@ -80,20 +80,19 @@
               class="pa-2"
               label="Select Date Of Birth"
               append-icon="event"
-              color="deep-orange"
+              color="primary"
               readonly
             />
             <v-date-picker
               v-model="dob"
-              color="blue-grey">
+              color="primary">
               <v-spacer/>
               <v-btn
                 flat
-                class="blue-grey--text"
                 @click="dobmodal = false">Cancel</v-btn>
               <v-btn
                 flat
-                class="deep-orange--text"
+                class="primary--text"
                 @click="$refs.dialog.save(dob)">OK</v-btn>
             </v-date-picker>
           </v-dialog>
