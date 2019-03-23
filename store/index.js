@@ -7,6 +7,7 @@ import Me from './modules/Me';
 import Login from './modules/Login';
 import Players from './modules/Players';
 import PaidLeagues from './modules/PaidLeagues';
+import Redemptions from './modules/Redemptions';
 import UserTeams from './modules/UserTeams';
 import UserCredits from './modules/UserCredits';
 
@@ -20,6 +21,7 @@ export default () => {
       Login,
       Players,
       PaidLeagues,
+      Redemptions,
       UserTeams,
       UserCredits
     }

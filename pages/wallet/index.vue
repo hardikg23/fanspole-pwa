@@ -68,16 +68,18 @@
       </v-card>
     </nuxt-link>
     
-    <v-card class='ma-2'>
-      <v-layout row wrap pa-2>
-        <v-flex xs6 class="text-xs-left pa-1 font-weight-bold">
-          Redemption History
-        </v-flex>
-        <v-flex xs6 class="text-xs-right">
-          <v-icon>chevron_right</v-icon>
-        </v-flex>
-      </v-layout>
-    </v-card>
+    <nuxt-link to="/wallet/redemption-history">
+      <v-card class='ma-2'>
+        <v-layout row wrap pa-2>
+          <v-flex xs6 class="text-xs-left pa-1 font-weight-bold">
+            Redemption History
+          </v-flex>
+          <v-flex xs6 class="text-xs-right">
+            <v-icon>chevron_right</v-icon>
+          </v-flex>
+        </v-layout>
+      </v-card>
+    </nuxt-link>
   </section>
 </template>
 
