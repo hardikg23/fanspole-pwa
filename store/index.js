@@ -28,6 +28,7 @@ export default () => {
       Redemptions,
       Series,
       UserTeams,
+      UserCredits,
       UserPoints
     }
   });

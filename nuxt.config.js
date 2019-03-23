@@ -7,16 +7,15 @@ const nodeExternals = require('webpack-node-externals')
 
 module.exports = {
   mode: 'universal',
-
   /*
   ** Headers of the page
   */
   head: {
-    title: pkg.name,
+    title: "Play Fantasy Cricket | Play Online Fantasy & win Cash Prizes",
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description }
+      { name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' },
+      { hid: 'description', name: 'description', content: "Real Fantasy Cricket games online in India. Join Fantasy Sports @ FANSPOLE & play cricket games online to win cash daily. Play and earn points with family & friends while playing fun fantasy cricket games online." }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },

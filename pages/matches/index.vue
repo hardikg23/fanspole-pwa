@@ -1,7 +1,7 @@
 <template>
   <section>
     <Header :title="title"/>
-    <template class="blue-grey" v-for="match in getMatches">
+    <template v-for="match in getMatches">
       <div v-show="!locked(match.event_time_in_millis)">
         <MatchCard :key="match.id" :match="match"></MatchCard>
       </div>

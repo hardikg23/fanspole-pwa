@@ -29,7 +29,7 @@
         title: "MORE",
         links: [
           {id: 1, icon: 'poll', text: 'Ranking', path: '/daily/leaderboard'},
-          {id: 2, icon: 'star', text: 'Matches'},
+          {id: 2, icon: 'star', text: 'Matches', path: '/daily/matches'},
           {id: 3, icon: 'group', text: 'Gangs'},
           {id: 4, icon: 'compare_arrows', text: 'Players'},
           {id: 5, icon: 'local_parking', text: 'Fantasy Points System', path: '/point-system'},
