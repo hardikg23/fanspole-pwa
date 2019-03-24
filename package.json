@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "nuxt": "2.3.4",
+    "vue-content-loading": "^1.6.0",
     "vuetify": "1.2.10"
   },
   "devDependencies": {
@@ -24,7 +25,7 @@
   },
   "config": {
     "nuxt": {
-      "host": "192.168.0.6",
+      "host": "192.168.0.5",
       "port": "4000"
     }
   }

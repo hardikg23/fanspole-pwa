@@ -1,5 +1,6 @@
 const state = () => ({
-  players: []
+  players: [],
+  series_players: []
 })
 
 const getters = {
@@ -7,6 +8,9 @@ const getters = {
     return state.players.filter((player) => {
       return parseInt(player.match_id) == parseInt(match_id)
     });
+  },
+  series_players: (state) => {
+    return state.series_players
   },
   get_wk_players: (state) => (match_id) => {
     return state.players.filter((player) => {
@@ -39,6 +43,16 @@ const mutations = {
       });
     }
   },
+  SET_SERIES_PLAYERS: (state, payload) => {
+    if (payload['players']) {
+      payload['players'].forEach(player => {
+        state.series_players.push(player);
+      });
+    }
+  },
+  RESET_SERIES_PLAYERS: (state, payload) => {
+    state.series_players = []
+  },
 }
 
 const actions = {
@@ -49,6 +63,19 @@ const actions = {
         if (response.status == 200) {
           let state_payload = {'data': response.data, 'match_id': payload}
           commit('SET_PLAYERS', state_payload);
+        }
+      })
+      .catch(error => {
+        return error;
+      });
+  },
+  async GET_SERIES_PLAYERS({ commit, dispatch }, payload) {
+    await this.$axios
+      .get(`/api/series/${payload}/players.json?fields=id,name,value,style,last_series_score,team{name_attr,jersey_photo,team_color}`)
+      .then(response => {
+        if (response.status == 200) {
+          commit('RESET_SERIES_PLAYERS', response.data);
+          commit('SET_SERIES_PLAYERS', response.data);
         }
       })
       .catch(error => {

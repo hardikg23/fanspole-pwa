@@ -27,51 +27,70 @@
     <template v-for="match in getMatches">
       <DetailMatchCard :key="match.id" :match="match"></DetailMatchCard>
     </template>
+    <template>
+      <div v-if="loading">
+        <v-card class="ma-2" v-for="n in 6" :key="n">
+          <vue-content-loading :width="400" :height="100" class="white">
+            <circle cx="45" cy="45" r="25" />
+            <rect x="90" y="13" rx="4" ry="4" width="55%" height="15" />
+            <rect x="90" y="37" rx="4" ry="4" width="55%" height="5" />
+            <rect x="90" y="57" rx="4" ry="4" width="55%" height="12" />
+            <rect x="90" y="77" rx="4" ry="4" width="55%" height="8" />
+            <circle cx="350" cy="45" r="25" />
+          </vue-content-loading>
+        </v-card>
+      </div>
+    </template>
   </section>
 </template>
 
 <script>
+  import { VueContentLoading } from 'vue-content-loading';
   export default {
-    async asyncData({store, params}) {
-      await store.dispatch('Series/GET_ALL_SERIES');
-      var first_series = store.getters['Series/first_series']
-      await store.dispatch('Matches/GET_SERIES_MATCHES', first_series.id);
-    },
-    computed: {
-      getSeries(){
-        return this.$store.getters['Series/series'];
-      },
-      getMatches(){
-        return this.$store.getters['Matches/series_matches'];
+    data() {
+      return {
+        title: "MATCHES",
+        loading: true,
+        defaultSelected: null,
+        dropdown_series: [],
       }
     },
     components: {
       Back: () => import('~/components/Back'),
-      DetailMatchCard: () => import('~/components/DetailMatchCard')
+      DetailMatchCard: () => import('~/components/DetailMatchCard'),
+      VueContentLoading
     },
-    mounted() {
-      this.getSeries.forEach(s => {
-        this.dropdown_series.push({id: s.id, name: s.name});
-      });
-      this.defaultSelected = this.dropdown_series[0]
+    computed: {
+      getMatches(){
+        return this.$store.getters['Matches/series_matches'];
+      }
+    },
+    created: function() {
+      this.getSeries();
+    },
+    methods: {
+      async getSeries(){
+        await this.$store.dispatch('Series/GET_ALL_SERIES');
+        var series = this.$store.getters['Series/series'];
+        series.forEach(s => {
+          this.dropdown_series.push({id: s.id, name: s.name});
+        });
+        this.defaultSelected = this.dropdown_series[0]
+        var first_series = this.$store.getters['Series/first_series']
+        await this.$store.dispatch('Matches/GET_SERIES_MATCHES', first_series.id);
+        this.loading = false
+      },
+      async update_matches(val) {
+        this.loading = true
+        if(typeof(val) == "number"){
+          await this.$store.dispatch('Matches/GET_SERIES_MATCHES', val);
+          this.loading = false
+        }
+      }
     },
     watch: {
       defaultSelected(val) {
         this.update_matches(val)
-      }
-    },
-    methods: {
-      async update_matches(val) {
-        if(typeof(val) == "number"){
-          await this.$store.dispatch('Matches/GET_SERIES_MATCHES', val);  
-        }
-      }
-    },
-    data() {
-      return {
-        title: "MATCHES",
-        defaultSelected: null,
-        dropdown_series: [],
       }
     }
   }

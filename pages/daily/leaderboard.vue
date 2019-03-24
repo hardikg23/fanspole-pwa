@@ -60,20 +60,37 @@
       </v-flex>
     </v-layout>
 
+    <template>
+      <div v-if="loading">
+        <v-card v-for="n in 20" :key="n">
+          <vue-content-loading :width="400" :height="60" class="white">
+            <circle cx="25" cy="25" r="18" />
+            <rect x="50" y="13" rx="4" ry="4" width="75%" height="15" />
+            <rect x="50" y="37" rx="4" ry="4" width="70%" height="8" />
+          </vue-content-loading>
+        </v-card>
+      </div>
+    </template>
+
   </section>
 </template>
 
 <script>
+  import { VueContentLoading } from 'vue-content-loading';
   export default {
-    async asyncData({store, params}) {
-      await store.dispatch('Series/GET_ALL_SERIES');
-      var first_series = store.getters['Series/first_series']
-      await store.dispatch('UserPoints/GET_USER_POINTS', first_series.id);
+    data() {
+      return {
+        title: "LEADERBOARD",
+        loading: true,
+        defaultSelected: null,
+        dropdown_series: [],
+      }
+    },
+    components: {
+      Back: () => import('~/components/Back'),
+      VueContentLoading
     },
     computed: {
-      getSeries(){
-        return this.$store.getters['Series/series'];
-      },
       getCurrentUserPoints(){
         return this.$store.getters['UserPoints/current_user_point'];
       },
@@ -81,32 +98,32 @@
         return this.$store.getters['UserPoints/users_points'];
       }
     },
-    components: {
-      Back: () => import('~/components/Back')
+    created: function() {
+      this.getSeries();
     },
-    mounted() {
-      this.getSeries.forEach(s => {
-        this.dropdown_series.push({id: s.id, name: s.name});
-      });
-      this.defaultSelected = this.dropdown_series[0]
+    methods: {
+      async getSeries(){
+        await this.$store.dispatch('Series/GET_ALL_SERIES');
+        var series = this.$store.getters['Series/series'];
+        series.forEach(s => {
+          this.dropdown_series.push({id: s.id, name: s.name});
+        });
+        this.defaultSelected = this.dropdown_series[0]
+        var first_series = this.$store.getters['Series/first_series']
+        await this.$store.dispatch('UserPoints/GET_USER_POINTS', first_series.id);
+        this.loading = false
+      },
+      async update_leaderboard(val) {
+        this.loading = true
+        if(typeof(val) == "number"){
+          await this.$store.dispatch('UserPoints/GET_USER_POINTS', val);
+          this.loading = false
+        }
+      }
     },
     watch: {
       defaultSelected(val) {
         this.update_leaderboard(val)
-      }
-    },
-    methods: {
-      async update_leaderboard(val) {
-        if(typeof(val) == "number"){
-          await this.$store.dispatch('UserPoints/GET_USER_POINTS', val);  
-        }
-      }
-    },
-    data() {
-      return {
-        title: "LEADERBOARD",
-        defaultSelected: null,
-        dropdown_series: [],
       }
     }
   }
