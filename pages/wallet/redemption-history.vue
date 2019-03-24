@@ -4,7 +4,16 @@
       <Back :showhome="true" />
       <span class="white--text fontw600">{{title}}</span>
     </v-toolbar>
-    <v-card md5 class='ma-2' v-for="redemption in getRedemptions" :key="redemption.id">
+    <v-layout>
+      <v-flex xs12 class="text-xs-center pa-4" v-if="loading">
+        <v-progress-circular
+          indeterminate
+          :width="3"
+          color="primary"
+        ></v-progress-circular>
+      </v-flex>
+    </v-layout>
+    <v-card md5 class='ma-2' v-for="redemption in getRedemptions" :key="redemption.id" v-if="!loading">
       <v-layout row ma-0  v-bind:class="{'grey lighter-2': redemption.status == 'pending', 'green accent-4 white--text': redemption.status == 'approved', 'red accent-4 white--text': redemption.status == 'rejected'}">
         <v-flex xs6 class="pa-2">
           <DateTime :time="redemption.created_at_in_millis"></DateTime>
@@ -40,8 +49,11 @@
 
 <script>
   export default {
-    async asyncData({store, params}) {
-      await store.dispatch('Redemptions/GET_REDEMPTIONS');
+    data() {
+      return {
+        title: "REDEMPTIONS HISTORY",
+        loading: true
+      }
     },
     components: {
       Back: () => import('~/components/Back'),
@@ -52,10 +64,13 @@
         return this.$store.getters['Redemptions/redemptions'];
       },
     },
-    data() {
-      return {
-        title: "ADD CASH HISTORY",
-        
+    created: function() {
+      this.getApiRedemptions();
+    },
+    methods: {
+      async getApiRedemptions(){
+        await this.$store.dispatch('Redemptions/GET_REDEMPTIONS');
+        this.loading = false
       }
     }
   }

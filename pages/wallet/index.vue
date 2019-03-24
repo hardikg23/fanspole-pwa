@@ -99,9 +99,6 @@
 <script type="text/javascript">
   import { VueContentLoading } from 'vue-content-loading';
   export default {
-      // async asyncData({store, params}) {
-      //   await store.dispatch('Me/GET_BALANCE');
-      // },
     data() {
       return {
         title: 'MY BALANCE',

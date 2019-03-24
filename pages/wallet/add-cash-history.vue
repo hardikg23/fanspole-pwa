@@ -4,8 +4,16 @@
       <Back :showhome="true" />
       <span class="white--text fontw600">{{title}}</span>
     </v-toolbar>
-
-    <v-card md5 class='ma-3' v-for="credit in getUserCredits" :key="credit.id">
+    <v-layout>
+      <v-flex xs12 class="text-xs-center pa-4" v-if="loading">
+        <v-progress-circular
+          indeterminate
+          :width="3"
+          color="primary"
+        ></v-progress-circular>
+      </v-flex>
+    </v-layout>
+    <v-card md5 class='ma-3' v-for="credit in getUserCredits" :key="credit.id" v-if="!loading">
       <v-layout row ma-0 grey lighten-4>
         <v-flex xs6 class="pa-2">
           <DateTime :time="credit.created_at_in_millis" :format="2"></DateTime>
@@ -41,14 +49,16 @@
         </v-flex>
       </v-layout>
     </v-card>
-
   </section>
 </template>
 
 <script>
   export default {
-    async asyncData({store, params}) {
-      await store.dispatch('UserCredits/GET_USER_CREDITS');
+    data() {
+      return {
+        title: "ADD CASH HISTORY",
+        loading: true
+      }
     },
     components: {
       Back: () => import('~/components/Back'),
@@ -59,10 +69,13 @@
         return this.$store.getters['UserCredits/user_credits'];
       },
     },
-    data() {
-      return {
-        title: "ADD CASH HISTORY",
-        
+    created: function() {
+      this.getApiUserCredits();
+    },
+    methods: {
+      async getApiUserCredits(){
+        await this.$store.dispatch('UserCredits/GET_USER_CREDITS');
+        this.loading = false
       }
     }
   }
