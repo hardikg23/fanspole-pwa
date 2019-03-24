@@ -71,7 +71,7 @@ const actions = {
   },
   async GET_SERIES_PLAYERS({ commit, dispatch }, payload) {
     await this.$axios
-      .get(`/api/series/${payload}/players.json?fields=id,name,value,style,last_series_score,team{name_attr,jersey_photo,team_color}`)
+      .get(`/api/series/${payload}/players.json?per_page=200&fields=id,name,value,style,last_series_score,team{name_attr,jersey_photo,team_color}`)
       .then(response => {
         if (response.status == 200) {
           commit('RESET_SERIES_PLAYERS', response.data);
