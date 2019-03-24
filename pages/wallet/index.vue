@@ -4,56 +4,70 @@
       <Back :showhome="true" />
       <span class="white--text fontw600">{{title}}</span>
     </v-toolbar>
-    <v-card class='ma-2'>
-      <v-layout row wrap pa-2>
-        <v-flex xs12 class="text-xs-center pb-3" style="border-bottom: 1px solid silver;">
-          <div class="fontw600 grey--text">Total Balance</div>
-          <div class="font-weight-bold font11">&#8377; {{getCurrentBalance}}</div>
-          <v-btn class='ma-0' small color="primary">Add Cash</v-btn>
-        </v-flex>
-        <v-flex xs6 class='pt-2 pb-2 font8' style="border-bottom: 1px solid silver;">
-          <div>UNUSED</div>
-          <div class="font12">&#8377; {{getUnusedBalance}}</div>
-        </v-flex>
-        <v-flex xs6 class='pt-3 pr-3 text-xs-right' style="border-bottom: 1px solid silver;">
-          <v-icon @click.stop="unusedBalanceDialog = true">info</v-icon>
-          <v-dialog v-model="unusedBalanceDialog">
-            <v-card>
-              <v-card-title class="headline pa-0 pl-2 pt-2">Unused Balance</v-card-title>
-              <v-card-text>
-                Funds Used in Fanspole to enter leagues
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="primary" flat @click="unusedBalanceDialog = false">Close</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-        </v-flex>
-        <v-flex xs6 class='pt-2 pb-2 font8'>
-          <div>WINNINGS</div>
-          <div class="font12">&#8377; {{getWinningBalance}}</div>
-        </v-flex>
-        <v-flex xs4 class='pt-2 pb-2 text-xs-right'>
-          <v-btn small color="primary" class="pa-0 pl-2 pr-2">WITHDRAW</v-btn>
-        </v-flex>
-        <v-flex xs2 class='pt-3 pr-3 text-xs-right'>
-          <v-icon @click.stop="winningBalanceDialog = true">info</v-icon>
-          <v-dialog v-model="winningBalanceDialog">
-            <v-card>
-              <v-card-title class="headline pa-0 pl-2 pt-2">Winning Balance</v-card-title>
-              <v-card-text>
-                Funds Used in Fanspole to enter leagues or for Redemptions
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="primary" flat @click="winningBalanceDialog = false">Close</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-        </v-flex>
-      </v-layout>
-    </v-card>
+    <div v-if="!loading">
+      <v-card class='ma-2'>
+        <v-layout row wrap pa-2>
+          <v-flex xs12 class="text-xs-center pb-3" style="border-bottom: 1px solid silver;">
+            <div class="fontw600 grey--text">Total Balance</div>
+            <div class="font-weight-bold font11">&#8377; {{getCurrentBalance}}</div>
+            <v-btn class='ma-0' small color="primary">Add Cash</v-btn>
+          </v-flex>
+          <v-flex xs6 class='pt-2 pb-2 font8' style="border-bottom: 1px solid silver;">
+            <div>UNUSED</div>
+            <div class="font12">&#8377; {{getUnusedBalance}}</div>
+          </v-flex>
+          <v-flex xs6 class='pt-3 pr-3 text-xs-right' style="border-bottom: 1px solid silver;">
+            <v-icon @click.stop="unusedBalanceDialog = true">info</v-icon>
+            <v-dialog v-model="unusedBalanceDialog">
+              <v-card>
+                <v-card-title class="headline pa-0 pl-2 pt-2">Unused Balance</v-card-title>
+                <v-card-text>
+                  Funds Used in Fanspole to enter leagues
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="primary" flat @click="unusedBalanceDialog = false">Close</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </v-flex>
+          <v-flex xs6 class='pt-2 pb-2 font8'>
+            <div>WINNINGS</div>
+            <div class="font12">&#8377; {{getWinningBalance}}</div>
+          </v-flex>
+          <v-flex xs4 class='pt-2 pb-2 text-xs-right'>
+            <v-btn small color="primary" class="pa-0 pl-2 pr-2">WITHDRAW</v-btn>
+          </v-flex>
+          <v-flex xs2 class='pt-3 pr-3 text-xs-right'>
+            <v-icon @click.stop="winningBalanceDialog = true">info</v-icon>
+            <v-dialog v-model="winningBalanceDialog">
+              <v-card>
+                <v-card-title class="headline pa-0 pl-2 pt-2">Winning Balance</v-card-title>
+                <v-card-text>
+                  Funds Used in Fanspole to enter leagues or for Redemptions
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="primary" flat @click="winningBalanceDialog = false">Close</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </v-flex>
+        </v-layout>
+      </v-card>
+    </div>
+
+    <template>
+      <div class="ma-2 box_shadow_common" v-if="loading">
+        <vue-content-loading :width="400" :height="170" class="white">
+          <rect x="100" y="13" rx="4" ry="4" width="40%" height="15" />
+          <rect x="90" y="40" rx="4" ry="4" width="40%" height="8" />
+          <rect x="100" y="60" rx="4" ry="4" width="40%" height="12" />
+          <rect x="40" y="90" rx="4" ry="4" width="75%" height="20" />
+          <rect x="40" y="120" rx="4" ry="4" width="75%" height="10" />
+        </vue-content-loading>
+      </div>
+    </template>
 
     <nuxt-link to="/wallet/add-cash-history">
       <v-card class='ma-2'>
@@ -67,7 +81,6 @@
         </v-layout>
       </v-card>
     </nuxt-link>
-    
     <nuxt-link to="/wallet/redemption-history">
       <v-card class='ma-2'>
         <v-layout row wrap pa-2>
@@ -84,12 +97,22 @@
 </template>
 
 <script type="text/javascript">
+  import { VueContentLoading } from 'vue-content-loading';
   export default {
-    async asyncData({store, params}) {
-      await store.dispatch('Me/GET_BALANCE');
+      // async asyncData({store, params}) {
+      //   await store.dispatch('Me/GET_BALANCE');
+      // },
+    data() {
+      return {
+        title: 'MY BALANCE',
+        loading: true,
+        unusedBalanceDialog: false,
+        winningBalanceDialog: false
+      }
     },
     components: {
-      Back: () => import('~/components/Back')
+      Back: () => import('~/components/Back'),
+      VueContentLoading
     },
     computed: {
       getCurrentBalance(){
@@ -102,11 +125,13 @@
         return this.$store.getters['Me/winning_balance'];
       }
     },
-    data() {
-      return {
-        title: 'MY BALANCE',
-        unusedBalanceDialog: false,
-        winningBalanceDialog: false
+    created: function() {
+      this.getBalance();
+    },
+    methods: {
+      async getBalance(){
+        await this.$store.dispatch('Me/GET_BALANCE');
+        this.loading = false
       }
     }
   }
