@@ -15,7 +15,7 @@
       </div>
     </template>
 
-    <template v-for="match in getMatches">
+    <template v-for="match in getMatches" v-if="!loading">
       <div v-show="!locked(match.event_time_in_millis)">
         <MatchCard :key="match.id" :match="match"></MatchCard>
       </div>
