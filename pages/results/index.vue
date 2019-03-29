@@ -1,6 +1,7 @@
 <template>
-  <section class="mb65">
+  <section>
     <Header :title="title"/>
+    
     <template>
       <div v-if="loading">
         <v-card class="ma-2" v-for="n in 15" :key="n">
@@ -15,7 +16,7 @@
     </template>
 
     <template v-for="match in getMatches" v-if="!loading">
-      <div v-show="!locked(match.event_time_in_millis)">
+      <div v-show="locked(match.event_time_in_millis)">
         <MatchCard :key="match.id" :match="match"></MatchCard>
       </div>
     </template>
@@ -28,7 +29,7 @@
   export default {
     data() {
       return {
-        title: "DAILY MODE",
+        title: "RESULTS",
         match: {},
         loading: true
       }
@@ -41,7 +42,7 @@
     },
     computed: {
       getMatches() {
-        return this.$store.getters['Matches/matches'];
+        return this.$store.getters['Matches/finished_matches'];
       }
     },
     created: function() {
@@ -52,8 +53,8 @@
         return event_time < new Date().getTime();
       },
       async getApiMatches(){
-        if((this.$store.getters['ApiHits/all_matches'] == undefined) || (this.$store.getters['ApiHits/all_matches'] < (new Date().getTime() - 60*60*1000))){
-          await this.$store.dispatch('Matches/GET_MATCHES');  
+        if((this.$store.getters['ApiHits/all_finised_matches'] == undefined) || (this.$store.getters['ApiHits/all_finised_matches'] < (new Date().getTime() - 60*60*1000))){
+          await this.$store.dispatch('Matches/GET_FINISHED_MATCHES');  
         }
         this.loading = false
       },

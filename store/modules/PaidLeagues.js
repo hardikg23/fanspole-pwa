@@ -1,7 +1,8 @@
 const state = () => ({
   teams_count: 0,
   join_paid_leagues_count: 0,
-  paid_leagues: []
+  paid_leagues: [],
+  paid_leagues_prizes: []
 })
 
 const getters = {
@@ -13,6 +14,9 @@ const getters = {
   },
   paid_leagues: state => {
     return state.paid_leagues;
+  },
+  paid_leagues_prizes: state => {
+    return state.paid_leagues_prizes;
   }
 }
 
@@ -29,6 +33,17 @@ const mutations = {
   RESET_PAID_LEAGUES: (state, payload) => {
     state.paid_leagues = [];
   },
+  SET_PRIZES: (state, payload) => {
+    console.log(payload);
+    if (payload['prizes']) {
+      payload['prizes'].forEach(prize => {
+        state.paid_leagues_prizes.push(prize);
+      });
+    }
+  },
+  RESET_PRIZES: (state, payload) => {
+    state.paid_leagues_prizes = [];
+  },
 }
 
 const actions = {
@@ -38,6 +53,19 @@ const actions = {
       .then(response => {
         if (response.status == 200) {
           commit('SET_PAID_LEAGUES', response.data);
+        }
+      })
+      .catch(error => {
+        return error;
+      });
+  },
+  async GET_PRIZES({ commit, dispatch }, payload) {
+    await this.$axios
+      .get(`/api/matches/${payload.id}/paid_leagues/${payload.league_id}/prizes?fields=id,rank_text,amount`)
+      .then(response => {
+        if (response.status == 200) {
+          commit('RESET_PRIZES');
+          commit('SET_PRIZES', response.data);
         }
       })
       .catch(error => {

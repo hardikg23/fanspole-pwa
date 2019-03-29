@@ -8,11 +8,7 @@ export default function({ $axios, __isRetryRequest, store, app, redirect }) {
 
   $axios.onResponseError(err => {
     const code = parseInt(err.response && err.response.status);
-
     let originalRequest = err.config;
-  
-    console.log("code" + code);
-
     if (code == 401) {
       // if (originalRequest.url.includes('/post_login/')) {
         app.$cookies.remove('at');

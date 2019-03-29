@@ -1,5 +1,6 @@
 const state = () => ({
   matches: [],
+  finished_matches: [],
   series_matches: [],
   match: null
 })
@@ -7,6 +8,9 @@ const state = () => ({
 const getters = {
   matches: state => {
     return state.matches;
+  },
+  finished_matches: state => {
+    return state.finished_matches;
   },
   series_matches: state => {
     return state.series_matches;
@@ -36,6 +40,16 @@ const mutations = {
   RESET_MATCHES: (state) => {
     state.matches = [];
   },
+  SET_FINISHED_MATCHES: (state, payload) => {
+    if (payload['matches']) {
+      payload['matches'].forEach(match => {
+        state.finished_matches.push(match);
+      });
+    }
+  },
+  RESET_FINISHED_MATCHES: (state) => {
+    state.finished_matches = [];
+  },
   SET_SERIES_MATCHES: (state, payload) => {
     if (payload['matches']) {
       payload['matches'].forEach(match => {
@@ -62,6 +76,20 @@ const actions = {
           commit('RESET_MATCHES');
           commit('SET_MATCHES', response.data);
           commit('ApiHits/SET_ALL_MATCHES', null, { root: true });
+        }
+      })
+      .catch(error => {
+        return error;
+    });
+  },
+  async GET_FINISHED_MATCHES({ commit, dispatch }, payload) {
+    await this.$axios
+      .get(`/api/matches/results.json?fields=id,event_time_in_millis,match_status,series{name},team1,team2`)
+      .then(response => {
+        if (response.status == 200) {
+          commit('RESET_FINISHED_MATCHES');
+          commit('SET_FINISHED_MATCHES', response.data);
+          commit('ApiHits/SET_ALL_FINISHED_MATCHES', null, { root: true });
         }
       })
       .catch(error => {

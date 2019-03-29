@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="mb65">
     <v-toolbar extended color="primary" extension-height='40'>
       <Back :showhome="true" />
       <span class="white--text fontw600">{{title}}</span>
@@ -26,10 +26,10 @@
     </template>
 
     <template>
-      <div class="footer text-xs-center">
+      <div class="footer text-xs-center" style="max-width: 550px;">
         <div v-if="getTeamsCount == 0" class="primary">
           <nuxt-link :to="`/matches/${this.$route.params.id}/create-team`">
-            <v-btn style='padding: 0px 32px;'>create team</v-btn>
+            <v-btn style='padding: 0px 32px;' class="white">create team</v-btn>
           </nuxt-link>
         </div>
         <div v-else class="white box_shadow_common">

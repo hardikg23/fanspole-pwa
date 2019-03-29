@@ -19,7 +19,12 @@
                 {{match.series.name}}  
               </div>
               <div class="pa-2 font-weight-bold font8 primary--text">
-                <Countdown :date="match.event_time_in_millis/1000"></Countdown>
+                <div v-if="!locked(match.event_time_in_millis)">
+                  <Countdown :date="match.event_time_in_millis/1000"></Countdown>
+                </div>
+                <div v-else>
+                  <div class="red--text darken-">{{match.match_status}}</div>
+                </div>
               </div>
             </v-card-text>
           </v-flex>
@@ -50,6 +55,11 @@
     },
     components: { 
       Countdown: () => import('~/components/Countdown')
+    },
+    methods: {
+      locked(event_time){
+        return event_time < new Date().getTime();
+      }
     }
   }
 </script>

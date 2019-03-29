@@ -1,7 +1,9 @@
 <template>
   <div>
     <v-toolbar color="primary">
-      <img :src="image" class="image imagec" @click.stop="drawer = !drawer">
+      <div>
+        <img :src="image" class="image imagec" @click.stop="drawer = !drawer">
+      </div>
       <h3 class="white--text fontw600">{{title}}</h3>
     </v-toolbar>
     <v-navigation-drawer
