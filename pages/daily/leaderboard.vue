@@ -25,6 +25,7 @@
       </v-layout>
     </v-card>
 
+    
     <v-layout row wrap class="font8 pa-1 primary font-weight-bold white--text">
       <v-flex xs6 class="text-xs-left pl-2">
         TEAM
@@ -33,32 +34,33 @@
         RANK
       </v-flex>
     </v-layout>
-  
-    <v-layout row wrap v-if="getCurrentUserPoints != undefined" class="borderb primary white--text">
-      <v-flex xs2 class="pa-2 pl-3">
-        <img :src="getCurrentUserPoints.user.image" class="image imagec">
-      </v-flex>
-      <v-flex xs8 class="pa-1 pl-2">
-        <div class="font-weight-bold">{{getCurrentUserPoints.user.team_name}}</div>
-        <div class="font9 pt-1">{{getCurrentUserPoints.total_score}} POINTS</div>
-      </v-flex>
-      <v-flex xs2 class="text-xs-right pa-4">
-        <div>#{{getCurrentUserPoints.rank}}</div>
-      </v-flex>
-    </v-layout>
+    <div v-if="!loading">
+      <v-layout row wrap v-if="getCurrentUserPoints != undefined" class="borderb primary white--text">
+        <v-flex xs2 class="pt-2 text-xs-center" style="height:56px;">
+          <img :src="getCurrentUserPoints.user.image" class="image imagec">
+        </v-flex>
+        <v-flex xs8 class="pa-2 pl-2" style="height:56px;"> 
+          <div class="font-weight-bold">{{getCurrentUserPoints.user.team_name}}</div>
+          <div class="font8">{{to_number_format(getCurrentUserPoints.total_score)}} POINTS</div>
+        </v-flex>
+        <v-flex xs2 class="text-xs-right pr-4 pt-3" style="height:56px;">
+          <div>#{{to_number_format(getCurrentUserPoints.rank)}}</div>
+        </v-flex>
+      </v-layout>
 
-    <v-layout row wrap v-for="point in getUserPoints" class="borderb">
-      <v-flex xs2 class="white pa-2 pl-3">
-        <img :src="point.user.image" class="image imagec">
-      </v-flex>
-      <v-flex xs8 class="white pa-1 pl-2">
-        <div class="font-weight-bold">{{point.user.team_name}}</div>
-        <div class="font9 pt-1">{{point.total_score}} POINTS</div>
-      </v-flex>
-      <v-flex xs2 class="white text-xs-right pa-4">
-        <div>#{{point.rank}}</div>
-      </v-flex>
-    </v-layout>
+      <v-layout row wrap v-for="point in getUserPoints" class="borderb">
+        <v-flex xs2 class="white pt-2 text-xs-center" style="height:56px;">
+          <img :src="point.user.image" class="image imagec">
+        </v-flex>
+        <v-flex xs8 class="white pa-2 pl-2" style="height:56px;"> 
+          <div class="font-weight-bold">{{point.user.team_name}}</div>
+          <div class="font8">{{to_number_format(point.total_score)}} POINTS</div>
+        </v-flex>
+        <v-flex xs2 class="white text-xs-right pr-4 pt-3" style="height:56px;">
+          <div>#{{to_number_format(point.rank)}}</div>
+        </v-flex>
+      </v-layout>
+    </div>
 
     <template>
       <div v-if="loading">
@@ -119,6 +121,11 @@
           await this.$store.dispatch('UserPoints/GET_USER_POINTS', val);
           this.loading = false
         }
+      },
+      to_number_format(number){
+        if(number != undefined){
+          return number.toLocaleString('en-IN')
+        }
       }
     },
     watch: {
@@ -138,6 +145,6 @@
     border: 1px solid #fff;
   }
   .image{
-    width: 50px;
+    width: 42px;
   }
 </style>
