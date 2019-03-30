@@ -4,6 +4,16 @@
       <Back/>
       <span class="white--text fontw600">{{title}}</span>
     </v-toolbar>
+
+    <v-layout>
+      <v-flex xs12 class="text-xs-center pa-4" v-if="loading">
+        <v-progress-circular
+          indeterminate
+          :width="3"
+          color="primary"
+        ></v-progress-circular>
+      </v-flex>
+    </v-layout>
   
     <div class="white">
       <v-form
@@ -47,7 +57,7 @@
         <v-text-field
           class="pa-2"
           label="Full name"
-          v-model="full_name"
+          v-model="getFullName"
           :rules="[(v) => !!v || 'Full Name is required']"
           hide-details
           type="text"
@@ -57,7 +67,7 @@
         <v-text-field
           class="pa-2"
           label="Team name"
-          v-model="team_name"
+          v-model="getTeamName"
           :rules="[(v) => !!v || 'Team Name is required']"
           hide-details
           type="text"
@@ -99,7 +109,7 @@
         </v-content>
       </v-form>
       <div>
-        <v-btn large style="width:96%" color='primary' :loading="loading" @click="handleProfileSubmit()">UPDATE PROFILE</v-btn>
+        <v-btn large style="width:96%" color='primary' :loading="formLoading" @click="handleProfileSubmit()">UPDATE PROFILE</v-btn>
       </div>
     </div>
   </section>
@@ -107,8 +117,20 @@
 
 <script type="text/javascript">
   export default {
-    async asyncData({store, params}) {
-      await store.dispatch('Me/GET_SETTINGS');
+    data() {
+      return {
+        title: 'MY INFO & SETTINGS',
+        username: '',
+        email: '',
+        password: '********',
+        full_name: '',
+        team_name: '',
+        dob: '',
+        dobmodal: false,
+        formLoading: false,
+        loading: false,
+        valid: false
+      }
     },
     components: {
       Back: () => import('~/components/Back')
@@ -130,28 +152,14 @@
         return this.$store.getters['Me/dob'];
       }
     },
-    data() {
-      return {
-        title: 'MY INFO & SETTINGS',
-        username: '',
-        email: '',
-        password: '********',
-        full_name: '',
-        team_name: '',
-        dob: '',
-        dobmodal: false,
-        loading: false,
-        valid: false
-      }
-    },
-    mounted() {
-      this.username = this.getUserName
-      this.email = this.getEmail
-      this.full_name = this.getFullName
-      this.team_name = this.getTeamName
-      this.dob = this.getDOB
+    created() {
+      this.getApiGetProfile();
     },
     methods: {
+      async getApiGetProfile(){
+        await this.$store.dispatch('Me/GET_SETTINGS');
+        this.loading = false
+      },
       async handleProfileSubmit() {
         if (this.$refs.form.validate()) {
           const formData = new FormData();
@@ -162,7 +170,7 @@
           await this.$store
             .dispatch('Me/SAVE_SETTINGS', formData)
             .then((res) => {
-              this.loading = false;
+              this.formLoading = false;
               this.showSnackBar = true;
               this.$nuxt.$emit('snackbarError', {
                 snackbar: this.showSnackBar,
@@ -172,7 +180,7 @@
             })
             .catch((error) => {
               this.showSnackBar = true;
-              this.loading = false;
+              this.formLoading = false;
               this.$nuxt.$emit('snackbarError', {
                 snackbar: this.showSnackBar,
                 message: error.data.error,
