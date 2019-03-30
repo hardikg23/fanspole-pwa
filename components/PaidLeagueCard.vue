@@ -1,6 +1,6 @@
 <template>
-  <v-container grid-list-md text-xs-center pa-2>
-    <v-card md5 class='pa-0'>
+  <v-container grid-list-md text-xs-center pa-3>
+    <v-card md5 class='pa-0' raised ripple>
       <v-layout row wrap pa-2>
         <v-flex xs6>
           <div class="text-xs-left">

@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-md text-xs-center>
     <nuxt-link :to="`/matches/${match.id}/leagues`">
-      <v-card md5>
+      <v-card md5 raised ripple>
         <v-layout row wrap>
           <v-flex xs4>
             <v-card-text class="px-0">
@@ -23,7 +23,7 @@
                   <Countdown :date="match.event_time_in_millis/1000"></Countdown>
                 </div>
                 <div v-else>
-                  <div class="red--text darken-">{{match.match_status}}</div>
+                  <div class="red--text text-uppercase">{{match.match_status}}</div>
                 </div>
               </div>
             </v-card-text>

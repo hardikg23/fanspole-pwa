@@ -8,7 +8,7 @@
   <div v-else-if="days < 2 && days >= 1">
     {{ days }}d {{ hours }}h
   </div>
-  <div v-else-if="days < 1 && hours > 1">
+  <div v-else-if="days < 1 && hours >= 1">
     {{ hours }}h {{ minutes }}m {{ seconds }}s
   </div>
   <div v-else>

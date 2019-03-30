@@ -3,7 +3,7 @@
     <Header :title="title"/>
     <template>
       <div v-if="loading">
-        <v-card class="ma-2" v-for="n in 15" :key="n">
+        <v-card class="ma-2" v-for="n in 15" :key="n" raised>
           <vue-content-loading :width="400" :height="70" class="white">
             <circle cx="35" cy="35" r="20" />
             <rect x="90" y="20" rx="4" ry="4" width="55%" height="15" />
