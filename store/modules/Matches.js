@@ -70,7 +70,7 @@ const mutations = {
 const actions = {
   async GET_MATCHES({ commit, dispatch }, payload) {
     await this.$axios
-      .get(`/api/matches.json?fields=id,event_time_in_millis,series{name},team1,team2`)
+      .get(`/api/matches.json?fields=id,event_time_in_millis,match_status,series{name},team1,team2`)
       .then(response => {
         if (response.status == 200) {
           commit('RESET_MATCHES');
@@ -111,7 +111,7 @@ const actions = {
   },
   async GET_MATCH({ commit, dispatch }, payload) {
     await this.$axios
-      .get(`/api/matches/${payload}.json?fields=id,event_time_in_millis,series{name},team1,team2`)
+      .get(`/api/matches/${payload}.json?fields=id,event_time_in_millis,match_status,series{name},team1,team2`)
       .then(response => {
         if (response.status == 200) {
           commit('SET_MATCH', response.data);

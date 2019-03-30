@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-md text-xs-center>
-    <nuxt-link :to="`/matches/${match.id}/leagues`">
+    <nuxt-link :to="`${get_path(match)}`">
       <v-card md5 raised ripple>
         <v-layout row wrap>
           <v-flex xs4>
@@ -59,6 +59,13 @@
     methods: {
       locked(event_time){
         return event_time < new Date().getTime();
+      },
+      get_path(match){
+        if(this.locked(match.event_time_in_millis)){
+          return `/matches/${match.id}/my-joined-leagues`;
+        }else{
+          return `/matches/${match.id}/leagues`;
+        }
       }
     }
   }

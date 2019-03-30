@@ -2,6 +2,7 @@ const state = () => ({
   teams_count: 0,
   join_paid_leagues_count: 0,
   paid_leagues: [],
+  joined_paid_leagues: [],
   paid_leagues_prizes: []
 })
 
@@ -14,6 +15,9 @@ const getters = {
   },
   paid_leagues: state => {
     return state.paid_leagues;
+  },
+  joined_paid_leagues: state => {
+    return state.joined_paid_leagues;
   },
   paid_leagues_prizes: state => {
     return state.paid_leagues_prizes;
@@ -32,6 +36,21 @@ const mutations = {
   },
   RESET_PAID_LEAGUES: (state, payload) => {
     state.paid_leagues = [];
+  },
+  SET_JOINED_PAID_LEAGUES: (state, payload) => {
+    if (payload['joined_paid_leagues']) {
+      payload['joined_paid_leagues'].forEach(league => {
+        state.joined_paid_leagues.push(league);
+      });
+    }
+    if (payload['joined_paid_league_members']) {
+      payload['joined_paid_league_members'].forEach(league => {
+        state.joined_paid_leagues.push(league);
+      });
+    }
+  },
+  RESET_JOINED_PAID_LEAGUES: (state, payload) => {
+    state.joined_paid_leagues = [];
   },
   SET_PRIZES: (state, payload) => {
     console.log(payload);
@@ -53,6 +72,20 @@ const actions = {
       .then(response => {
         if (response.status == 200) {
           commit('SET_PAID_LEAGUES', response.data);
+        }
+      })
+      .catch(error => {
+        if (error.response.status == 422){
+          this.$router.push(`/matches/${payload}/my-joined-leagues`);
+        }
+      });
+  },
+  async GET_JOINED_PAID_LEAGUES({ commit, dispatch }, payload) {
+    await this.$axios
+      .get(`/api/matches/${payload.id}/paid_leagues/joined_leagues.json?fields=${payload.fields}`)
+      .then(response => {
+        if (response.status == 200) {
+          commit('SET_JOINED_PAID_LEAGUES', response.data);
         }
       })
       .catch(error => {

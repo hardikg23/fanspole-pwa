@@ -5,7 +5,7 @@
       <span class="white--text fontw600">{{title}}</span>
       <v-toolbar-items slot="extension" style='width:100%; margin-left: 0px;'>
         <div style="width:100%;background-color: #fff;height:32px;line-height:32px;padding-left:5px;" class="box_shadow" color='primary'>
-          <v-layout row wrap>
+          <v-layout row wrap v-if="!loading">
             <v-flex xs6>
               <div class="text-xs-left">
                 <div>{{getMatch.team1.name_attr}} vs {{getMatch.team2.name_attr}}</div>
@@ -21,7 +21,22 @@
       </v-toolbar-items>
     </v-toolbar>
 
-    <template class="blue-grey" v-for="league in getPaidLeagues">
+    <template>
+      <div v-if="loading">
+        <v-card class="ma-3" v-for="n in 6" :key="n" raised>
+          <vue-content-loading :width="400" :height="140" class="white">
+            <rect x="20" y="20" rx="4" ry="4" width="20%" height="35" />
+            <rect x="300" y="20" rx="4" ry="4" width="20%" height="35" />
+            <rect x="20" y="70" rx="4" ry="4" width="90%" height="10" />
+            <rect x="20" y="85" rx="4" ry="4" width="90%" height="5" />
+            <rect x="20" y="115" rx="4" ry="4" width="25%" height="12" />
+            <rect x="280" y="115" rx="4" ry="4" width="25%" height="12" />
+          </vue-content-loading>
+        </v-card>
+      </div>
+    </template>
+
+    <template class="blue-grey" v-for="league in getPaidLeagues" v-if="!loading">
       <PaidLeagueCard :key="league.id" :league="league"></PaidLeagueCard>
     </template>
 
@@ -41,10 +56,12 @@
               </nuxt-link>
             </v-flex>
             <v-flex xs6>
-              <span v-bind:class="{ 'primary': getJoinLeaguesCount > 0, 'grey': getJoinLeaguesCount == 0 }" class="white--text font12" style="border-radius: 50%;padding:2px 12px;">
-                {{getJoinLeaguesCount}}
-              </span>
-              <div>JOINED CONTESTS</div>
+              <nuxt-link :to="`/matches/${this.$route.params.id}/my-joined-leagues`">
+                <span v-bind:class="{ 'primary': getJoinLeaguesCount > 0, 'grey': getJoinLeaguesCount == 0 }" class="white--text font12" style="border-radius: 50%;padding:2px 12px;">
+                  {{getJoinLeaguesCount}}
+                </span>
+                <div>JOINED CONTESTS</div>
+              </nuxt-link>
             </v-flex>
           </v-layout>
         </div>
@@ -55,18 +72,19 @@
 </template>
 
 <script>
+  import { VueContentLoading } from 'vue-content-loading';
   export default {
-    async asyncData({store, params}) {
-      if (store.getters['Matches/match'](params.id) == undefined){
-        await store.dispatch('Matches/GET_MATCH', params.id);  
+    data() {
+      return {
+        title: 'CONTESTS',
+        loading: true
       }
-      await store.commit('PaidLeagues/RESET_PAID_LEAGUES');
-      await store.dispatch('PaidLeagues/GET_PAID_LEAGUES', params.id);
     },
     components: {
       PaidLeagueCard: () => import('~/components/PaidLeagueCard'),
       Back: () => import('~/components/Back'),
       Countdown: () => import('~/components/Countdown'),
+      VueContentLoading
     },
     computed: {
       getTeamsCount() {
@@ -82,9 +100,17 @@
         return this.$store.getters['PaidLeagues/paid_leagues'];
       }
     },
-    data() {
-      return {
-        title: 'CONTESTS'
+    created: function() {
+      this.getApiPaidLeagues();
+    },
+    methods: {
+      async getApiPaidLeagues(){
+        if (this.$store.getters['Matches/match'](this.$route.params.id) == undefined){
+          await this.$store.dispatch('Matches/GET_MATCH', this.$route.params.id);  
+        }
+        await this.$store.commit('PaidLeagues/RESET_PAID_LEAGUES');
+        await this.$store.dispatch('PaidLeagues/GET_PAID_LEAGUES', this.$route.params.id);
+        this.loading = false
       }
     }
   }
