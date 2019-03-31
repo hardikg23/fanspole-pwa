@@ -1,6 +1,6 @@
 <template>
-  <v-container grid-list-md text-xs-center pa-2 px-3>
-    <v-card md5 class='pa-0' raised ripple>
+  <v-container grid-list-md text-xs-center px-3 py-2>
+    <v-card md5 class='pa-0 box_shadow_common' ripple>
       <v-layout row wrap pa-2>
         <v-flex xs4 class="text-xs-center borderb">
           <div class="font7 grey--text text-uppercase">Prize pool</div>

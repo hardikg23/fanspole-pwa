@@ -23,7 +23,7 @@
 
     <template>
       <div v-if="loading">
-        <v-card class="ma-3" v-for="n in 6" :key="n" raised>
+        <v-card v-for="n in 6" :key="n" class="box_shadow_common ma-3">
           <vue-content-loading :width="400" :height="140" class="white">
             <rect x="20" y="20" rx="4" ry="4" width="20%" height="35" />
             <rect x="300" y="20" rx="4" ry="4" width="20%" height="35" />
@@ -36,7 +36,7 @@
       </div>
     </template>
 
-    <template class="blue-grey" v-for="league in getPaidLeagues" v-if="!loading">
+    <template v-for="league in getPaidLeagues" v-if="!loading">
       <PaidLeagueCard :key="league.id" :league="league"></PaidLeagueCard>
     </template>
 

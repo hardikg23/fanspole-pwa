@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-md text-xs-center>
     <nuxt-link :to="`${get_path(match)}`">
-      <v-card md5 raised ripple>
+      <v-card md5 ripple class="box_shadow_common mx-2 my-1">
         <v-layout row wrap>
           <v-flex xs4>
             <v-card-text class="px-0">

@@ -1,6 +1,6 @@
 <template>
-  <v-container grid-list-md text-xs-center pa-3>
-    <v-card md5 class='pa-0' raised ripple>
+  <v-container grid-list-md text-xs-center px-3 py-2>
+    <v-card md5 ripple class="box_shadow_common">
       <v-layout row wrap pa-2>
         <v-flex xs6>
           <div class="text-xs-left">
@@ -79,8 +79,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-
-
   </v-container>
 </template>
 

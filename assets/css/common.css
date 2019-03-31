@@ -12,6 +12,7 @@ a, a:link, a:visited{text-decoration: none;color: inherit;}
   clear: both;
 }
 
+.ma8{margin: 8px;}
 .mb65{margin-bottom: 65px;}
 
 .opacity06{opacity: 0.6}
@@ -39,8 +40,7 @@ a, a:link, a:visited{text-decoration: none;color: inherit;}
 }
 
 .box_shadow_common{
-  -webkit-box-shadow: 0 0 1px 1px #E0E0E0;
-  box-shadow: 0 0 1px 1px #E0E0E0;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 4px 6px 0 rgba(0, 0, 0, 0.05) !important;
 }
 
 hr{
