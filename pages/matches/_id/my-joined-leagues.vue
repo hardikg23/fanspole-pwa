@@ -88,7 +88,7 @@
         await this.$store.commit('PaidLeagues/RESET_JOINED_PAID_LEAGUES');
         
         if(this.locked(this.getMatch.event_time_in_millis)){
-          var fields = 'id,winning_amount,rank,event_team{team_no,score},paid_league{prize_amount,entry_fee,members_limit,winner_count}'
+          var fields = 'id,winning_amount,refunded,rank,event_team{team_no,score},paid_league{prize_amount,entry_fee,members_limit,winner_count}'
         }else{
           var fields = 'id,prize_amount,entry_fee,paid_league_members_count,members_limit,winner_count'
         }
