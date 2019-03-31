@@ -2,6 +2,9 @@ const state = () => ({
   teams_count: 0,
   join_paid_leagues_count: 0,
   paid_leagues: [],
+  paid_league: null,
+  current_user_members: [],
+  paid_league_members: [],
   joined_paid_leagues: [],
   paid_leagues_prizes: []
 })
@@ -15,6 +18,15 @@ const getters = {
   },
   paid_leagues: state => {
     return state.paid_leagues;
+  },
+  paid_league: state => {
+    return state.paid_league;
+  },
+  current_user_members: state => {
+    return state.current_user_members;
+  },
+  paid_league_members: state => {
+    return state.paid_league_members;
   },
   joined_paid_leagues: state => {
     return state.joined_paid_leagues;
@@ -36,6 +48,26 @@ const mutations = {
   },
   RESET_PAID_LEAGUES: (state, payload) => {
     state.paid_leagues = [];
+  },
+  SET_PAID_LEAGUE: (state, payload) => {
+    if (payload['current_user_member']) {
+      payload['current_user_member'].forEach(member => {
+        state.current_user_members.push(member);
+      });
+    }
+    if (payload['paid_league_members']) {
+      payload['paid_league_members'].forEach(member => {
+        state.paid_league_members.push(member);
+      });
+    }
+    if (payload['paid_league']) {
+      state.paid_league = payload['paid_league']
+    }
+  },
+  RESET_PAID_LEAGUE: (state, payload) => {
+    state.current_user_members = [];
+    state.paid_league_members = [];
+    state.paid_league = null;
   },
   SET_JOINED_PAID_LEAGUES: (state, payload) => {
     if (payload['joined_paid_leagues']) {
@@ -78,6 +110,19 @@ const actions = {
         if (error.response.status == 422){
           this.$router.push(`/matches/${payload}/my-joined-leagues`);
         }
+      });
+  },
+  async GET_PAID_LEAGUE({ commit, dispatch }, payload) {
+    await this.$axios
+      .get(`/api/matches/${payload.id}/paid_leagues/${payload.league_id}.json?fields=id,rank,event_team{team_no,score},user{team_name,image,id}`)
+      .then(response => {
+        if (response.status == 200) {
+          commit('RESET_PAID_LEAGUE');
+          commit('SET_PAID_LEAGUE', response.data);
+        }
+      })
+      .catch(error => {
+        return error;
       });
   },
   async GET_JOINED_PAID_LEAGUES({ commit, dispatch }, payload) {

@@ -6,17 +6,10 @@
         <span class="white--text fontw600">{{title}}</span>
         <v-toolbar-items slot="extension" style='width:100%; margin-left: 0px;'>
           <div style="width:100%;background-color: #fff;height:32px;line-height:32px;padding-left:5px;" class="box_shadow" color='primary'>
+            <div v-if="!loading">
+              <MatchBar :match="getMatch"></MatchBar>
+            </div>
             <v-layout row wrap>
-              <v-flex xs6>
-                <div class="text-xs-left">
-                  <div>{{getMatch.team1.name_attr}} vs {{getMatch.team2.name_attr}}</div>
-                </div>
-              </v-flex>
-              <v-flex xs6>
-                <div class="text-xs-right">
-                  <div class="pr-2"><Countdown :date="getMatch.event_time_in_millis/1000"></Countdown></div>
-                </div>
-              </v-flex>
               <v-flex xs6 class='white--text'>
                 <div class="text-xs-center">
                   <div class="font8 opacity06">Players</div>
@@ -314,7 +307,7 @@
     },
     components: {
       Back: () => import('~/components/Back'),
-      Countdown: () => import('~/components/Countdown'),
+      MatchBar: () => import('~/components/MatchBar'),
       TeamPlayer: () => import('~/components/TeamPlayer')
     },
     computed: {

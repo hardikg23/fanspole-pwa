@@ -1,51 +1,55 @@
 <template>
   <v-container grid-list-md text-xs-center px-3 py-2>
-    <v-card md5 ripple class="box_shadow_common">
-      <v-layout row wrap pa-2>
-        <v-flex xs6>
-          <div class="text-xs-left">
-            <div class="font8 grey--text">Prize pool</div>
-            <div class="headline font-weight-bold pt-1">&#8377;{{league.prize_amount}}</div>
-          </div>
-        </v-flex>
-        <v-flex xs6>
-          <div class="text-xs-right">
-            <div class="font8 grey--text pr-1 pb-1">Entry</div>
-            <v-btn depressed class='ma-0 white--text font-weight-bold font11' small color="green accent-4">&#8377;{{league.entry_fee}}</v-btn>
-          </div>
-        </v-flex>
-
-        <v-flex xs12 pa-0 style="height:20px;">
-          <v-progress-linear class="progress" background-color="grey lighten-3" color="red darken-1" height="6" v-model="valueDeterminate"></v-progress-linear>
-        </v-flex>
-
-        <v-flex xs6>
-          <div class="text-xs-left">
-            <div class="font9 fontw600 red--text text--accent-4" color=''>{{this.league.members_limit - this.league.paid_league_members_count}} spots left</div>
-          </div>
-        </v-flex>
-        <v-flex xs6>
-          <div class="text-xs-right">
-            <div class="font9 grey--text">{{league.members_limit}} spots</div>
-          </div>
-        </v-flex>
-      </v-layout>  
-
-      <v-layout row grey lighten-4 ma-0>
-        <v-flex xs6>
-          <div class="text-xs-left">
-            <div class="font9 pl-2 fontw600 blue--text text--darken-1" @click="getLeaguePrizes.call(this, league.id)">
-              {{league.winner_count == 1 ? "1 Winner" : league.winner_count + " Winners"}}
+    <nuxt-link :to="`/matches/${this.$route.params.id}/leagues/${league.id}`">
+      <v-card md5 ripple class="box_shadow_common">
+        <v-layout row wrap pa-2>
+          <v-flex xs6>
+            <div class="text-xs-left">
+              <div class="font8 grey--text">Prize pool</div>
+              <div class="headline font-weight-bold pt-1">&#8377;{{league.prize_amount}}</div>
             </div>
-          </div>
-        </v-flex>
-        <v-flex xs6 mr-1>
-          <div class="text-xs-right mt-1">
-            <div class="font9 grey--text"><span class="border">S</span></div>
-          </div>
-        </v-flex>
-      </v-layout>
-    </v-card>
+          </v-flex>
+          <v-flex xs6>
+            <div class="text-xs-right">
+              <div class="font8 grey--text pr-1 pb-1">Entry</div>
+              <nuxt-link :to="`/matches/${this.$route.params.id}/teams`">
+                <v-btn depressed class='ma-0 white--text font-weight-bold font11' small color="green accent-4">&#8377;{{league.entry_fee}}</v-btn>
+              </nuxt-link>
+            </div>
+          </v-flex>
+
+          <v-flex xs12 pa-0 style="height:20px;">
+            <v-progress-linear class="progress" background-color="grey lighten-3" color="red darken-1" height="6" v-model="valueDeterminate"></v-progress-linear>
+          </v-flex>
+
+          <v-flex xs6>
+            <div class="text-xs-left">
+              <div class="font9 fontw600 red--text text--accent-4" color=''>{{this.league.members_limit - this.league.paid_league_members_count}} spots left</div>
+            </div>
+          </v-flex>
+          <v-flex xs6>
+            <div class="text-xs-right">
+              <div class="font9 grey--text">{{league.members_limit}} spots</div>
+            </div>
+          </v-flex>
+        </v-layout>  
+
+        <v-layout row grey lighten-4 ma-0>
+          <v-flex xs6>
+            <div class="text-xs-left">
+              <div class="font9 pl-2 fontw600 blue--text text--darken-1" @click="getLeaguePrizes.call(this, league.id)">
+                {{league.winner_count == 1 ? "1 Winner" : league.winner_count + " Winners"}}
+              </div>
+            </div>
+          </v-flex>
+          <v-flex xs6 mr-1>
+            <div class="text-xs-right mt-1">
+              <div class="font9 grey--text"><span class="border">S</span></div>
+            </div>
+          </v-flex>
+        </v-layout>
+      </v-card>
+    </nuxt-link>
 
     <v-dialog v-model="prizeDialog" height=30>
       <v-card>
@@ -107,7 +111,7 @@
     methods: {
       async getLeaguePrizes(id){
         this.prizeDialog = true;
-        await this.$store.commit('RESET_PRIZES');
+        await this.$store.commit('PaidLeagues/RESET_PRIZES');
         await this.$store.dispatch('PaidLeagues/GET_PRIZES', {id: this.$route.params.id, league_id: id});  
       }
     }

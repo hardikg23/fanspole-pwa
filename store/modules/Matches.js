@@ -23,7 +23,7 @@ const getters = {
     });
     if(match != undefined){
       return match;
-    }else{
+    }else if(state.match != undefined && state.match.id == id){
       return state.match;
     }
   }
@@ -64,6 +64,9 @@ const mutations = {
     if (payload['match']) {
       state.match = payload['match'];
     }
+  },
+  RESET_MATCH: (state) => {
+    state.match = null;
   },
 }
 
@@ -114,6 +117,7 @@ const actions = {
       .get(`/api/matches/${payload}.json?fields=id,event_time_in_millis,match_status,series{name},team1,team2`)
       .then(response => {
         if (response.status == 200) {
+          commit('RESET_MATCH', response.data);
           commit('SET_MATCH', response.data);
         }
       })
