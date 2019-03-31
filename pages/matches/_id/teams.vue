@@ -31,13 +31,20 @@
       </v-flex>
     </v-layout>
 
-    <template>
-      <div style="padding-bottom: 100px;" v-if="!loading">
-        <div v-for="team in getUserTeams">
-          <UserTeamCard :key="team.id" :user_team="team"></UserTeamCard>  
-        </div>
+    <div v-if="!loading">
+      <div v-if="getUserTeams.length > 0"> 
+        <template>
+          <div style="padding-bottom: 100px;">
+            <div v-for="team in getUserTeams">
+              <UserTeamCard :key="team.id" :user_team="team"></UserTeamCard>  
+            </div>
+          </div>
+        </template>
       </div>
-    </template>
+      <div v-else class="mt-5 text-xs-center pa-5">
+        No Teams
+      </div>
+    </div>
 
     <template>
       <div class="footer text-xs-center" v-if="getUserTeams.length < 4">
@@ -48,7 +55,6 @@
         </div>
       </div>
     </template>
-
   </section>
 </template>
 
