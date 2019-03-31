@@ -15,7 +15,7 @@
       </v-flex>
     </v-layout>
   
-    <div class="white">
+    <div class="white" v-if="!loading">
       <v-form
         ref="form"
         v-model="valid"
@@ -57,7 +57,7 @@
         <v-text-field
           class="pa-2"
           label="Full name"
-          v-model="getFullName"
+          v-model="full_name"
           :rules="[(v) => !!v || 'Full Name is required']"
           hide-details
           type="text"
@@ -67,7 +67,7 @@
         <v-text-field
           class="pa-2"
           label="Team name"
-          v-model="getTeamName"
+          v-model="team_name"
           :rules="[(v) => !!v || 'Team Name is required']"
           hide-details
           type="text"
@@ -128,7 +128,7 @@
         dob: '',
         dobmodal: false,
         formLoading: false,
-        loading: false,
+        loading: true,
         valid: false
       }
     },
@@ -158,7 +158,12 @@
     methods: {
       async getApiGetProfile(){
         await this.$store.dispatch('Me/GET_SETTINGS');
-        this.loading = false
+        this.username = this.getUserName;
+        this.email = this.getEmail;
+        this.full_name = this.getFullName;
+        this.team_name = this.getTeamName;
+        this.dob = this.getDOB;
+        this.loading = false;
       },
       async handleProfileSubmit() {
         if (this.$refs.form.validate()) {

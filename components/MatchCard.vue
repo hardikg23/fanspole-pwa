@@ -39,6 +39,14 @@
             </v-card-text>
           </v-flex>
         </v-layout>
+
+        <v-layout row pa-1 font8 ma-0 v-if="match.joined_paid_leagues != undefined">
+          <v-flex xs6>
+            <div class="text-xs-left font9 pl-2 font-weight-bold grey--text">
+              {{match.joined_paid_leagues}} Contests Joined
+            </div>
+          </v-flex>
+        </v-layout>
       </v-card>
     </nuxt-link>
   </v-container>

@@ -15,6 +15,9 @@ const mutations = {
         state.redemptions.push(redemption);
       });
     }
+  },
+  RESET_REDEMPTIONS: (state, payload) => {
+    state.redemptions = []
   }
 }
 
@@ -24,6 +27,7 @@ const actions = {
       .get(`/api/redemptions.json?fields=id,amount,status,mobile_no,created_at_in_millis,redemption_type{name}`)
       .then(response => {
         if (response.status == 200) {
+          commit('RESET_REDEMPTIONS');
           commit('SET_REDEMPTIONS', response.data);
         }
       })

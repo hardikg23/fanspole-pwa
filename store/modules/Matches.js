@@ -84,7 +84,7 @@ const actions = {
   },
   async GET_FINISHED_MATCHES({ commit, dispatch }, payload) {
     await this.$axios
-      .get(`/api/matches/results.json?fields=id,event_time_in_millis,match_status,series{name},team1,team2`)
+      .get(`/api/matches/results.json?fields=id,event_time_in_millis,joined_paid_leagues,match_status,series{name},team1,team2`)
       .then(response => {
         if (response.status == 200) {
           commit('RESET_FINISHED_MATCHES');

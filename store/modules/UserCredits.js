@@ -15,6 +15,9 @@ const mutations = {
         state.user_credits.push(credit);
       });
     }
+  },
+  RESET_USER_CREDITS: (state, payload) => {
+    state.user_credits = []
   }
 }
 
@@ -24,6 +27,7 @@ const actions = {
       .get(`/api/user_credits.json?fields=id,amount,status,service_provider,txnid,bonus,order_id,created_at_in_millis`)
       .then(response => {
         if (response.status == 200) {
+          commit('RESET_USER_CREDITS');
           commit('SET_USER_CREDITS', response.data);
         }
       })

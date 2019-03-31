@@ -1,7 +1,6 @@
 <template>
-  <section>
+  <section class="mb65">
     <Header :title="title"/>
-    
     <template>
       <div v-if="loading">
         <v-card class="ma-2" v-for="n in 15" :key="n">
