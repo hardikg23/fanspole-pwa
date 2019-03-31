@@ -1,7 +1,7 @@
 <template>
-  <v-container grid-list-md pa-2>
+  <v-container grid-list-md px-3 py-2>
     <nuxt-link :to="`/matches/${this.$route.params.id}/viewteam/${user_team.id}`">
-      <v-card md5 class='pa-0'>
+      <v-card md5 class='pa-0 box_shadow_common'>
         <v-layout row wrap grey lighten-4 ma-0>
           <v-flex xs6 class='text-xs-left pa-1'>
             Team {{user_team.team_no}}

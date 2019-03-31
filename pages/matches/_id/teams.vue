@@ -5,7 +5,7 @@
       <span class="white--text fontw600">{{title}}</span>
       <v-toolbar-items slot="extension" style='width:100%; margin-left: 0px;'>
         <div style="width:100%;background-color: #fff;height:32px;line-height:32px;padding-left:5px;" class="box_shadow" color='primary'>
-          <v-layout row wrap>
+          <v-layout row wrap v-if="!loading">
             <v-flex xs6>
               <div class="text-xs-left">
                 <div>{{getMatch.team1.name_attr}} vs {{getMatch.team2.name_attr}}</div>
@@ -21,8 +21,18 @@
       </v-toolbar-items>
     </v-toolbar>
 
+    <v-layout>
+      <v-flex xs12 class="text-xs-center pa-4" v-if="loading">
+        <v-progress-circular
+          indeterminate
+          :width="3"
+          color="primary"
+        ></v-progress-circular>
+      </v-flex>
+    </v-layout>
+
     <template>
-      <div style="padding-bottom: 100px;">
+      <div style="padding-bottom: 100px;" v-if="!loading">
         <div v-for="team in getUserTeams">
           <UserTeamCard :key="team.id" :user_team="team"></UserTeamCard>  
         </div>
@@ -44,12 +54,11 @@
 
 <script>
   export default {
-    async asyncData({store, params}) {
-      if (store.getters['Matches/match'](params.id) == undefined){
-        await store.dispatch('Matches/GET_MATCH', params.id);  
+    data() {
+      return {
+        title: 'MY TEAMS',
+        loading: true
       }
-      await store.commit('UserTeams/RESET_USER_TEAMS');
-      await store.dispatch('UserTeams/GET_USER_TEAMS', params.id);
     },
     components: {
       Back: () => import('~/components/Back'),
@@ -64,9 +73,17 @@
         return this.$store.getters['UserTeams/user_teams'];
       }
     },
-    data() {
-      return {
-        title: 'MY TEAMS'
+    created: function() {
+      this.getApiUserTeams();
+    },
+    methods: {
+      async getApiUserTeams(){
+        if (this.$store.getters['Matches/match'](this.$route.params.id) == undefined){
+          await this.$store.dispatch('Matches/GET_MATCH', this.$route.params.id);  
+        }
+        await this.$store.commit('UserTeams/RESET_USER_TEAMS');
+        await this.$store.dispatch('UserTeams/GET_USER_TEAMS', this.$route.params.id);
+        this.loading = false
       }
     }
   }
