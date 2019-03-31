@@ -50,28 +50,28 @@
           RANK
         </v-flex>
       </v-layout>
-      <div>
+      <div class="font85">
         <v-layout row wrap v-for="member in getCurrentUserMembers" class="borderb primary white--text">
-          <v-flex xs2 class="pt-2 text-xs-center" style="height:56px;">
+          <v-flex xs2 class="pt-2 text-xs-center" style="height:50px;">
             <img :src="member.user.image" class="image imagec">
           </v-flex>
-          <v-flex xs8 class="pa-2 pl-2" style="height:56px;"> 
+          <v-flex xs8 class="pa-2 pl-2" style="height:50px;"> 
             <div class="font-weight-bold">{{member.user.team_name}} (Team {{member.event_team.team_no}})</div>
             <div class="font8">{{to_number_format(member.event_team.score)}} POINTS</div>
           </v-flex>
-          <v-flex xs2 class="text-xs-right pr-4 pt-3" style="height:56px;">
+          <v-flex xs2 class="text-xs-right pr-4 pt-3" style="height:50px;">
             <div>#{{to_number_format(member.rank)}}</div>
           </v-flex>
         </v-layout>
         <v-layout row wrap v-for="member in getPaidLeagueMembers" class="borderb">
-          <v-flex xs2 class="white pt-2 text-xs-center" style="height:56px;">
+          <v-flex xs2 class="white pt-2 text-xs-center" style="height:50px;">
             <img :src="member.user.image" class="image imagec">
           </v-flex>
-          <v-flex xs8 class="white pa-2 pl-2" style="height:56px;"> 
+          <v-flex xs8 class="white pa-2 pl-2" style="height:50px;"> 
             <div class="font-weight-bold">{{member.user.team_name}} (Team {{member.event_team.team_no}})</div>
             <div class="font8">{{to_number_format(member.event_team.score)}} POINTS</div>
           </v-flex>
-          <v-flex xs2 class="white text-xs-right pr-4 pt-3" style="height:56px;">
+          <v-flex xs2 class="white text-xs-right pr-4 pt-3" style="height:50px;">
             <div>#{{to_number_format(member.rank)}}</div>
           </v-flex>
         </v-layout>
@@ -174,6 +174,6 @@
     border: 1px solid #fff;
   }
   .image{
-    width: 42px;
+    width: 36px;
   }
 </style>
