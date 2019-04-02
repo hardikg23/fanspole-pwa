@@ -48,7 +48,7 @@
         </v-flex>
       </v-layout>
 
-      <v-layout row wrap v-for="point in getUserPoints" class="borderb">
+      <v-layout row wrap v-for="point in getUserPoints" :key="point.id" class="borderb">
         <v-flex xs2 class="white pt-2 text-xs-center" style="height:56px;">
           <img :src="point.user.image" class="image imagec">
         </v-flex>

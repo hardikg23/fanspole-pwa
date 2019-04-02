@@ -1,10 +1,24 @@
 const state = () => ({
+  gapiLoaded: null,
+  gapiErr: {}
 });
 
 const getters = {
+  gapiLoaded: (state) => {
+    return state.gapiLoaded;
+  },
+  gapiError: (state) => {
+    return state.gapiErr;
+  }
 };
 
 const mutations = {
+  GAPI_SUPPORT: (state, payload) => {
+    state.gapiLoaded = payload;     
+  },
+  GAPI_ERROR: (state, payload) => {
+    state.gapiErr = payload;     
+  }
 };
 
 const actions = {

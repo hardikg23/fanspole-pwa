@@ -7,8 +7,8 @@
           <div class="grey--text text--lighten-1 font9 pa-2">Enter your Email to Start Your Fantasy Journey with Fanspole.</div>
           <div class="grey--text text--darken-3 font-weight-bold font11 pt-4">Sign in with Social</div>
           <div>
-            <img src="~/assets/images/facebook-login.png" class="box_shadow">
-            <img src="~/assets/images/google-login.png" class="box_shadow">
+            <img src="~/assets/images/facebook-login.png" @click="fbAuthUser" class="box_shadow">
+            <img src="~/assets/images/google-login.png" id="customBtn" class="box_shadow">
           </div>
           <div>Or</div>
           <div>
@@ -67,7 +67,74 @@
 <script type="text/javascript">
   import { HOME } from '~/constants/routes.js';
   import { SIGNUP } from '~/constants/routes.js';
+  import { MasterKeys } from '~/config.js';
   export default {
+    data() {
+      return {
+        loading: false,
+        home_path: HOME,
+        signup_path: SIGNUP,
+        login: {
+          email: '',
+          password: ''
+        },
+        show_password: false,
+        emailRules: [
+          (v) => !!v || 'Email is required',
+          (v) => (v && v.length >= 3) || 'Email is too short (minimum is 3 characters)'
+        ],
+        passwordRules: [
+          (v) => !!v || 'Password is required',
+          (v) => (v && v.length >= 8) || 'Password is too short (minimum is 8 characters)'
+        ],
+      }
+    },
+    computed: {
+      gapiLoaded() {
+        return this.$store.getters['Login/gapiLoaded'];
+      },
+      gapiError() {
+        return this.$store.getters['Login/gapiError'];
+      }
+    },
+    created() {
+      if (process.browser) {
+        let appEnv = process.env.NODE_ENV || 'development';
+        const FBAPI = MasterKeys[appEnv].facebookAppId;
+        window.fbAsyncInit = function() {
+          FB.init({
+            appId: FBAPI,
+            cookie: true,
+            status: true,
+            xfbml: true,
+            version: 'v3.2'
+          });
+        };
+
+        (function(d, s, id) {
+          let js,
+            fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) {
+            return;
+          }
+          js = d.createElement(s);
+          js.id = id;
+          js.src = 'https://connect.facebook.net/en_US/sdk.js';
+          fjs.parentNode.insertBefore(js, fjs);
+        })(document, 'script', 'facebook-jssdk');
+
+        // Loading Google Api
+        return new Promise((resolve, reject) => {
+          let script = document.createElement('script');
+          script.type = 'text/javascript';
+          script.src = 'https://apis.google.com/js/platform.js';
+          script.onload = () => {
+            this.startApp();
+          };
+          document.getElementsByTagName('head')[0].appendChild(script);
+        });
+      }
+    },
     mounted() {
       if (this.$cookies.get('at') && this.$cookies.get('rt')) {
         this.$router.push(this.home_path);
@@ -104,26 +171,125 @@
               });
             });
         }
-      }
-    },
-    data() {
-      return {
-        loading: false,
-        home_path: HOME,
-        signup_path: SIGNUP,
-        login: {
-          email: '',
-          password: ''
-        },
-        show_password: false,
-        emailRules: [
-          (v) => !!v || 'Email is required',
-          (v) => (v && v.length >= 3) || 'Email is too short (minimum is 3 characters)'
-        ],
-        passwordRules: [
-          (v) => !!v || 'Password is required',
-          (v) => (v && v.length >= 8) || 'Password is too short (minimum is 8 characters)'
-        ],
+      },
+      getUserData(response) {
+        let accessToken = response.authResponse.accessToken;
+        FB.api('/me?fields=id,name,email', (response) => {
+          let FBData = {
+            grant_type: 'password',
+            email: response.email,
+            provider: 'facebook',
+            uid: response.id,
+            access_token: accessToken,
+            oauth_version: 2
+          };
+          
+          this.$store.dispatch('Login/LOGIN', FBData)
+          .then(() => {
+              this.loading = false;
+            })
+          .catch((error) => {
+            this.loading = false;
+            this.$nuxt.$emit('snackbarError', {
+              snackbar: true,
+              message: error.data.error,
+              button: false
+            });
+          });
+        });
+      },
+      fbAuthUser() {
+        FB.login((response) => {
+          if (response.authResponse) {
+            this.getUserData(response);
+          } else {
+            this.$nuxt.$emit('snackbarError', {
+              snackbar: true,
+              message: 'User cancelled login/did not fully authorize',
+              button: false
+            });
+          }
+        });
+      },
+      startApp() {
+        let appEnv = process.env.NODE_ENV || 'development';
+        const GAPI = MasterKeys[appEnv].googleClientId;
+        if (gapi.load) {
+          gapi.load('auth2', () => {
+            this.auth2 = gapi.auth2.init({
+              client_id: GAPI,
+              cookiepolicy: 'single_host_origin',
+              scope: 'email'
+            })
+            this.auth2.then(
+              function success() {
+                $nuxt.$store.commit('Login/GAPI_SUPPORT', true)
+                return true;
+              },
+              function error(err) {
+                $nuxt.$store.commit('Login/GAPI_SUPPORT', false);
+                $nuxt.$store.commit('Login/GAPI_ERROR', err)
+              }
+            );
+            this.attachSignin(document.getElementById('customBtn'));
+          })
+        }
+      },
+      attachSignin(element) {
+        this.auth2.attachClickHandler(
+          element,
+          {},
+          (googleUser) => {
+            let profile = googleUser.getBasicProfile();
+
+            let GoogleData = {
+              grant_type: 'password',
+              email: profile.getEmail(),
+              provider: 'open_id',
+              uid: profile.getId(),
+              access_token: googleUser.getAuthResponse().id_token,
+              oauth_version: 2
+            };
+
+            this.$nuxt.$store
+              .dispatch('Login/LOGIN', GoogleData)
+              .then(() => {
+                this.loading = false;
+              })
+              .catch((error) => {
+                this.$nuxt.$emit('snackbarError', {
+                  snackbar: true,
+                  message: error.data.error,
+                  button: false
+                });
+              });
+          },
+          (error) => {
+            if (this.gapiLoaded) {
+              this.$nuxt.$emit('snackbarError', {
+                snackbar: true,
+                message: 'User cancelled login/did not fully authorize',
+                button: false
+              });
+            } else {
+              if (this.gapiError.error == "idpiframe_initialization_failed") {
+                this.$nuxt.$emit('snackbarError', {
+                  snackbar: true,
+                  message: 'Please allow third-party cookies to log-in successfully with Google.',
+                  button: false
+                });
+                throw new Error(this.gapiError.details)
+              } else {
+                this.$nuxt.$emit('snackbarError', {
+                  snackbar: true,
+                  message: this.gapiError.details,
+                  button: false
+                });
+                throw new Error(this.gapiError.details)
+              }
+            }
+          }
+        );
       }
     }
   }

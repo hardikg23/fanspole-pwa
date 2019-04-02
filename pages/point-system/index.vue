@@ -12,13 +12,13 @@
 
       <v-tab-item :key="1">
         <v-expansion-panel>
-          <v-expansion-panel-content v-for="type in point_system.t20" class="indigo lighten-5">
+          <v-expansion-panel-content v-for="type in point_system.t20" :key="type.main_title" class="indigo lighten-5">
             <template v-slot:header>
               <div>{{type.main_title}}</div>
             </template>
             <v-card class="pa-0">
               <v-layout row wrap>
-                <v-flex xs6 class="pa-2 pl-4 pr-4 borderb" v-for="s in type.points">
+                <v-flex xs6 class="pa-2 pl-4 pr-4 borderb" v-for="s in type.points" :key="s.text">
                   <div v-bind:class="s.class">{{s.text}}</div>
                 </v-flex>
               </v-layout>
@@ -28,13 +28,13 @@
       </v-tab-item>
       <v-tab-item :key="2">
         <v-expansion-panel>
-          <v-expansion-panel-content v-for="type in point_system.odi" class="indigo lighten-5">
+          <v-expansion-panel-content v-for="type in point_system.odi" :key="type.main_title" class="indigo lighten-5">
             <template v-slot:header>
               <div>{{type.main_title}}</div>
             </template>
             <v-card class="pa-0">
               <v-layout row wrap>
-                <v-flex xs6 class="pa-2 pl-4 pr-4 borderb" v-for="s in type.points">
+                <v-flex xs6 class="pa-2 pl-4 pr-4 borderb" v-for="s in type.points" :key="s.text">
                   <div v-bind:class="s.class">{{s.text}}</div>
                 </v-flex>
               </v-layout>
@@ -44,13 +44,13 @@
       </v-tab-item>
       <v-tab-item :key="3">
         <v-expansion-panel>
-          <v-expansion-panel-content v-for="type in point_system.test" class="indigo lighten-5">
+          <v-expansion-panel-content v-for="type in point_system.test" :key="type.main_title" class="indigo lighten-5">
             <template v-slot:header>
               <div>{{type.main_title}}</div>
             </template>
             <v-card class="pa-0">
               <v-layout row wrap>
-                <v-flex xs6 class="pa-2 pl-4 pr-4 borderb" v-for="s in type.points">
+                <v-flex xs6 class="pa-2 pl-4 pr-4 borderb" v-for="s in type.points" :key="s.text">
                   <div v-bind:class="s.class">{{s.text}}</div>
                 </v-flex>
               </v-layout>

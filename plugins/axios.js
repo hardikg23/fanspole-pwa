@@ -10,26 +10,53 @@ export default function({ $axios, __isRetryRequest, store, app, redirect }) {
     const code = parseInt(err.response && err.response.status);
     let originalRequest = err.config;
     if (code == 401) {
-      // if (originalRequest.url.includes('/post_login/')) {
+      if (originalRequest.url.includes('/post_login/')) {
         app.$cookies.remove('at');
         app.$cookies.remove('rt');
         redirect('/login');
-      // }else {
-      //   originalRequest.__isRetryRequest = true;
+      }else {
+        originalRequest.__isRetryRequest = true;
 
-      //   let token = app.$cookies.get('rt');
+        let token = app.$cookies.get('rt');
+        
+        return new Promise((resolve, reject) => {
+          let req = $axios
+            .post(`/post_login/`, { grant_type: 'refresh_token', refresh_token: token })
+            .then((response) => {
+              if (response.status == 200) {
+                app.$cookies.remove('at');
+                app.$cookies.remove('rt');
+                app.$cookies.set('at', response.data.access_token, {
+                  path: '/',
+                  maxAge: 60 * 60 * 24 * 365
+                });
+                app.$cookies.set('rt', response.data.refresh_token, {
+                  path: '/',
+                  maxAge: 60 * 60 * 24 * 365
+                });
 
-      //   store
-      //     .dispatch('Login/LOGIN', { grant_type: 'refresh_token', refresh_token: token })
-      //     .then(res => {
-      //       app.$cookies.set('at', store.getters['Login/userAuth'].access_token);
-      //       app.$cookies.set('rt', store.getters['Login/userAuth'].refresh_token);
-      //       return app.$axios(originalRequest);
-      //     })
-      //     .catch(error => {
-      //       return error;
-      //     });
-      //   }
+                originalRequest.headers['Cache-Control'] =
+                  'private, no-cache, no-store, must-revalidate';
+                originalRequest.headers['Authorization'] = `Bearer ${response.data.access_token}`;
+                // originalRequest.headers['Authorization-Bearer'] = `Bearer ${response.data.access_token}`;
+                if (process.client) {
+                  store.dispatch('Me/GET_ME');
+                }
+              }
+              resolve(req);
+            })
+            .catch((e) => {
+              reject(e);
+            });
+        })
+        .then((res) => {
+          return $axios(originalRequest);
+        })
+        .catch((e) => {
+          throw e;
+        });
+
+      }
     }
     if (code == 422) {
       throw err;

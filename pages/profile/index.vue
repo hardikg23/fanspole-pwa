@@ -68,7 +68,7 @@
             <div class="pa-1 font11">Ranking</div>
             <hr>
           </v-flex>
-          <v-flex xs6 class="text-xs-center" v-for="team in getUserPoints">
+          <v-flex xs6 class="text-xs-center" v-for="team in getUserPoints" :key="team.id">
             <div class="borderbox ma-1">
               <div class="font-weight-bold font11">{{team.rank == null ? '-' : "#"+team.rank}}</div>
               <div class="font11">{{team.total_score}} Pts</div>

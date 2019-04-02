@@ -51,7 +51,7 @@
         </v-flex>
       </v-layout>
       <div class="font85">
-        <v-layout row wrap v-for="member in getCurrentUserMembers" class="borderb primary white--text">
+        <v-layout row wrap v-for="member in getCurrentUserMembers" :key="member.id" class="borderb primary white--text">
           <v-flex xs2 class="pt-2 text-xs-center" style="height:50px;">
             <img :src="member.user.image" class="image imagec">
           </v-flex>
@@ -63,7 +63,7 @@
             <div>#{{to_number_format(member.rank)}}</div>
           </v-flex>
         </v-layout>
-        <v-layout row wrap v-for="member in getPaidLeagueMembers" class="borderb">
+        <v-layout row wrap v-for="member in getPaidLeagueMembers" :key="member.id" class="borderb">
           <v-flex xs2 class="white pt-2 text-xs-center" style="height:50px;">
             <img :src="member.user.image" class="image imagec">
           </v-flex>
