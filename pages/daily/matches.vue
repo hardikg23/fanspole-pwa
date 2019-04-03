@@ -24,9 +24,11 @@
         </v-flex>
       </v-layout>
     </v-card>
-    <template v-for="match in getMatches">
-      <DetailMatchCard :key="match.id" :match="match"></DetailMatchCard>
-    </template>
+    <div v-if="!loading">
+      <template v-for="match in getMatches">
+        <DetailMatchCard :key="match.id" :match="match"></DetailMatchCard>
+      </template>
+    </div>
     <template>
       <div v-if="loading">
         <v-card class="ma-2" v-for="n in 6" :key="n">

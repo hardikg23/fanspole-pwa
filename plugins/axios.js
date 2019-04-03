@@ -13,6 +13,13 @@ export default function({ $axios, __isRetryRequest, store, app, redirect }) {
       if (originalRequest.url.includes('/post_login/')) {
         app.$cookies.remove('at');
         app.$cookies.remove('rt');
+        if(process.browser){
+          localStorage.removeItem('me_display_name');
+          localStorage.removeItem('me_team_name');
+          localStorage.removeItem('me_image');
+          localStorage.removeItem('me_cricket_level');
+          localStorage.removeItem('me_current_balance');
+        }
         redirect('/login');
       }else {
         originalRequest.__isRetryRequest = true;

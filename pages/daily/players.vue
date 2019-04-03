@@ -26,29 +26,31 @@
       </v-layout>
     </v-card>
     
-    <v-data-table
-      :headers="headers"
-      :items="getPlayers"
-      class="data-table"
-      align='center'
-      :pagination.sync="pagination"
-      hide-actions
-      expand
-    >
-      <template v-slot:items="props">
-        <tr>
-          <td class="text-xs-left pa-0 pl-1">
-            <img :alt="props.item.team.name_attr" v-bind:src="props.item.team.jersey_photo" style="width:32px;height: 32px;">
-          </td>
-          <td class="text-xs-left pa-2">
-            <div class="font-weight-bold font11">{{props.item.name}}</div>
-            <div class="font9"><span class="font-weight-bold">{{props.item.team.name_attr}}</span> - <span>{{getStyle(props.item.style)}}</span></div>
-          </td>
-          <td class="text-xs-center pa-0"><div>{{props.item.last_series_score}}</div></td>
-          <td class="text-xs-center font-weight-bold pa-0"><div>{{props.item.value}}</div></td>
-        </tr>
-      </template>
-    </v-data-table>
+    <div v-if="!loading">
+      <v-data-table
+        :headers="headers"
+        :items="getPlayers"
+        class="data-table"
+        align='center'
+        :pagination.sync="pagination"
+        hide-actions
+        expand
+      >
+        <template v-slot:items="props">
+          <tr>
+            <td class="text-xs-left pa-0 pl-1">
+              <img :alt="props.item.team.name_attr" v-bind:src="props.item.team.jersey_photo" style="width:32px;height: 32px;">
+            </td>
+            <td class="text-xs-left pa-2">
+              <div class="font-weight-bold font11">{{props.item.name}}</div>
+              <div class="font9"><span class="font-weight-bold">{{props.item.team.name_attr}}</span> - <span>{{getStyle(props.item.style)}}</span></div>
+            </td>
+            <td class="text-xs-center pa-0"><div>{{props.item.last_series_score}}</div></td>
+            <td class="text-xs-center font-weight-bold pa-0"><div>{{props.item.value}}</div></td>
+          </tr>
+        </template>
+      </v-data-table>
+    </div>
 
 
     <template>

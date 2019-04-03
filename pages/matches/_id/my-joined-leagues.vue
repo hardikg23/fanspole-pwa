@@ -34,7 +34,7 @@
         </template>
       </div>
       <div v-else class="mt-5 text-xs-center pa-5">
-        No leagues joined
+        YOU HAVEN'T JOINED ANY CONTESTS
       </div>
     </div>
 

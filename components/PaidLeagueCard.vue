@@ -12,7 +12,7 @@
           <v-flex xs6>
             <div class="text-xs-right">
               <div class="font8 grey--text pr-1 pb-1">Entry</div>
-              <nuxt-link :to="`/matches/${this.$route.params.id}/teams`">
+              <nuxt-link :to="`${get_path(this.$route.params.id)}`">
                 <v-btn depressed class='ma-0 white--text font-weight-bold font11' small color="green accent-4">&#8377;{{league.entry_fee}}</v-btn>
               </nuxt-link>
             </div>
@@ -113,6 +113,14 @@
         this.prizeDialog = true;
         await this.$store.commit('PaidLeagues/RESET_PRIZES');
         await this.$store.dispatch('PaidLeagues/GET_PRIZES', {id: this.$route.params.id, league_id: id});  
+      },
+      get_path(match_id){
+        var team_count = this.$store.getters['PaidLeagues/teams_count'];
+        if(team_count > 0){
+          return `/matches`;
+        }else{
+          return `/matches/${match_id}/create-team`;
+        }
       }
     }
   }

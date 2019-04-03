@@ -50,7 +50,8 @@
           RANK
         </v-flex>
       </v-layout>
-      <div class="font85">
+
+      <div class="font85" v-if="getCurrentUserMembers.length > 0">
         <v-layout row wrap v-for="member in getCurrentUserMembers" :key="member.id" class="borderb primary white--text">
           <v-flex xs2 class="pt-2 text-xs-center" style="height:50px;">
             <img :src="member.user.image" class="image imagec">
@@ -75,11 +76,14 @@
             <div>#{{to_number_format(member.rank)}}</div>
           </v-flex>
         </v-layout>
-      </div>  
+      </div>
+      <div v-else class="mt-3 text-xs-center pa-5">
+        No Members
+      </div>
+
       <v-dialog v-model="prizeDialog" height=30>
         <v-card>
           <v-card-title class="headline primary white--text pa-2"><div class="font7 font-weight-bold">WINNING BREAKUP</div></v-card-title>
-          
           <v-layout row wrap pa-2>
             <v-flex xs12>
               <div class="text-xs-center">
@@ -88,7 +92,6 @@
               </div>
             </v-flex>
           </v-layout>
-
           <v-layout class="borderb font9" row wrap pa-2 v-for="prize in getPrizes" :key="prize.id">
             <v-flex xs6>
               <div class="text-xs-left pl-2">{{prize.rank_text}}</div>
@@ -97,11 +100,9 @@
               <div class="text-xs-right pr-2">&#8377; {{prize.amount}}</div>
             </v-flex>
           </v-layout>
-
           <div class="pa-2 font8 grey--text">
             Note: The actual prize money may be different than the prize money mentioned above if there is a tie for any of the winnings positions. Check FAQs for further details.
           </div>
-    
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="primary" flat @click="prizeDialog = false">Close</v-btn>
