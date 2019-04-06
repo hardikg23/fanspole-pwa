@@ -61,7 +61,7 @@ hr{
 .borderb{
   border-bottom: 1px solid #E0E0E0;
 }
-body, nav, .floter_btn, .v-dialog, .v-dialog--fullscreen, .max-w-550{
+body, nav, .floter_btn, .v-dialog, .v-dialog--fullscreen, .max-w-550, .v-snack{
   max-width: 550px;
 }
 body, nav{
@@ -70,7 +70,8 @@ body, nav{
 }
 
 .v-dialog {
-    position: absolute;
-    left: 0;
-    margin: 0px !important;
+  max-width: 550px;
+  position: absolute;
+  left: 0px;
+  margin: 0px !important;
 }

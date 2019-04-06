@@ -39,6 +39,13 @@
             <div class="font7 grey--text text-uppercase">Entry</div>
             <div class="fontw600 font9 green--text text--accent-4">&#8377;{{getPaidLeague.entry_fee}}</div>
           </v-flex>
+          <v-flex xs12 mr-1>
+            <div class="text-xs-left pa-2">
+              <div class="font8 grey--text" v-for="tag in getPaidLeague.league_tags" :key="`${tag}`">
+                <span class="font-weight-bold">{{tag.attr}} - </span><span>{{tag.desc}}</span>
+              </div>
+            </div>
+          </v-flex>
         </v-layout>
       </v-card>
       

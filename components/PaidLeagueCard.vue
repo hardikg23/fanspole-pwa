@@ -35,14 +35,16 @@
       <v-layout row grey lighten-4 ma-0>
         <v-flex xs6>
           <div class="text-xs-left">
-            <div class="font9 pl-2 fontw600 blue--text text--darken-1 cursor-p" @click="getLeaguePrizes.call(this, league.id)">
+            <div class="font9 pl-2 pt-1 fontw600 blue--text text--darken-1 cursor-p" @click="getLeaguePrizes.call(this, league.id)">
               {{league.winner_count == 1 ? "1 Winner" : league.winner_count + " Winners"}}
             </div>
           </div>
         </v-flex>
         <v-flex xs6 mr-1>
           <div class="text-xs-right mt-1">
-            <div class="font9 grey--text"><span class="border">S</span></div>
+            <span class="font7 grey--text" v-for="tag in league.league_tags" :key="`${tag}`">
+              <span class="border ma-1">{{tag.attr}}</span>
+            </span>
           </div>
         </v-flex>
       </v-layout>
@@ -98,18 +100,26 @@
               <div class="font9">Unused + Winning Balance = &#8377;{{to_number_format(getJoiningConfirmation.current_balance)}}</div>
             </v-flex>
             <v-flex xs6 class="pa-3 borderb">
-              <div class="font9">Entry</div>
+              <div class="font9">Entry Fees</div>
             </v-flex>
             <v-flex xs6 class="pa-3 text-xs-right borderb">
               <div class="">&#8377;{{to_number_format(getJoiningConfirmation.entry_fee)}}</div>
             </v-flex>
             <v-flex xs6 class="pl-3 pt-2">
-              <div class="fontw600 green--text text--accent-4">Pay</div>
+              <div class="fontw600 green--text text--accent-4">To Pay</div>
             </v-flex>
             <v-flex xs6 class="pr-3 pt-2 text-xs-right">
               <div class="fontw600 green--text text--accent-4">&#8377;{{to_number_format(getJoiningConfirmation.entry_fee)}}</div>
             </v-flex>
-            <v-flex xs12 class="pa-3 font7 grey--text text-xs-center">
+            <v-flex xs12 class="pt-3" v-show="getJoiningConfirmation.user_teams.length > 1">
+              <div class="fontw600">Select Team</div>
+            </v-flex>
+            <v-radio-group v-model="selected_team" row class="ma-1" v-show="getJoiningConfirmation.user_teams.length > 1">
+              <v-flex xs6 v-for="team in getJoiningConfirmation.user_teams" :key="team.id">
+                <v-radio :label="`Team ${team.team_no}`" :value="team.id" color="primary" :disabled="team.joined"></v-radio>
+              </v-flex>
+            </v-radio-group>
+            <v-flex xs12 class="pa-4 font7 grey--text text-xs-center">
               By joining this contest, you accept Fanspole's T&amp;C and conﬁrm that you are not a resident of Assam, Odisha, Telangana, Nagaland or Sikkim.
             </v-flex>
             <v-flex xs12 class="text-xs-center">
@@ -162,7 +172,6 @@
         </v-card>
       </div>
     </v-dialog>
-
   </v-container>
 </template>
 
@@ -181,7 +190,8 @@
         joinLeagueDialog: false,
         addFundsDialog: false,
         leaderDialog: false,
-        add_amount: 0
+        add_amount: 0,
+        selected_team: '849404'
       }
     },
     computed: {
@@ -196,6 +206,9 @@
       },
       getAddAmount(){
         return this.$store.getters['PaidLeagues/add_funds_amount'];
+      },
+      getSelectedTeam(){
+        return this.$store.getters['PaidLeagues/selected_team'];
       }
     },
     methods: {
@@ -228,6 +241,7 @@
           if(joining_confirmation != undefined){
             if(joining_confirmation.popup == "join_league"){
               this.joinLeagueDialog = true
+              this.selected_team = this.getSelectedTeam;
             }else if(joining_confirmation.popup == "event_locked"){
               this.$nuxt.$emit('snackbarError', {
                 snackbar: true,
@@ -238,6 +252,12 @@
             }else if(joining_confirmation.popup == "add_funds"){
               this.add_amount = this.getAddAmount;
               this.addFundsDialog = true
+            }else if(joining_confirmation.popup == "already_joined"){
+              this.$nuxt.$emit('snackbarError', {
+                snackbar: true,
+                message: joining_confirmation.error,
+                button: false
+              });
             }
           }
         }

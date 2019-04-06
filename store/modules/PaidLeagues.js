@@ -45,6 +45,18 @@ const getters = {
       return 100;
     }
   },
+  selected_team: state => {
+    var user_teams = state.joining_confirmation.user_teams
+    var team_id = 0
+    var i;
+    for (i = 0; i < user_teams.length; i++) { 
+      if(!user_teams[i].joined){
+        team_id = user_teams[i].id
+        break;
+      }
+    }
+    return team_id
+  }
 }
 
 const mutations = {
@@ -116,7 +128,7 @@ const mutations = {
 const actions = {
   async GET_PAID_LEAGUES({ commit, dispatch }, payload) {
     await this.$axios
-      .get(`/api/matches/${payload}/paid_leagues.json?fields=id,prize_amount,entry_fee,paid_league_members_count,members_limit,winner_count`)
+      .get(`/api/matches/${payload}/paid_leagues.json?fields=id,prize_amount,entry_fee,paid_league_members_count,league_tags,members_limit,winner_count`)
       .then(response => {
         if (response.status == 200) {
           commit('SET_PAID_LEAGUES', response.data);
