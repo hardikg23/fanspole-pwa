@@ -6,7 +6,8 @@ const state = () => ({
   current_user_members: [],
   paid_league_members: [],
   joined_paid_leagues: [],
-  paid_leagues_prizes: []
+  paid_leagues_prizes: [],
+  joining_confirmation: null,
 })
 
 const getters = {
@@ -33,6 +34,18 @@ const getters = {
   },
   paid_leagues_prizes: state => {
     return state.paid_leagues_prizes;
+  },
+  joining_confirmation: state => {
+    return state.joining_confirmation
+  },
+  join_league_popup: state => {
+    if(state.joining_confirmation == undefined){
+      return false
+    }else if(state.joining_confirmation.popup == "join_league"){
+      return true
+    }else{
+      return false
+    }
   }
 }
 
@@ -85,7 +98,6 @@ const mutations = {
     state.joined_paid_leagues = [];
   },
   SET_PRIZES: (state, payload) => {
-    console.log(payload);
     if (payload['prizes']) {
       payload['prizes'].forEach(prize => {
         state.paid_leagues_prizes.push(prize);
@@ -95,6 +107,12 @@ const mutations = {
   RESET_PRIZES: (state, payload) => {
     state.paid_leagues_prizes = [];
   },
+  SET_JOINING_CONFIRMATION: (state, payload) => {
+    state.joining_confirmation = payload;
+  },
+  RESET_JOINING_CONFIRMATION: (state, payload) => {
+    state.joining_confirmation = null;
+  }
 }
 
 const actions = {
@@ -144,6 +162,19 @@ const actions = {
         if (response.status == 200) {
           commit('RESET_PRIZES');
           commit('SET_PRIZES', response.data);
+        }
+      })
+      .catch(error => {
+        return error;
+      });
+  },
+  async GET_JOINING_CONFIRMATION({ commit, dispatch }, payload) {
+    await this.$axios
+      .post(`/api/matches/${payload.id}/paid_leagues/${payload.league_id}/joining_confirmation`)
+      .then(response => {
+        if (response.status == 200) {
+          commit('RESET_JOINING_CONFIRMATION');
+          commit('SET_JOINING_CONFIRMATION', response.data);
         }
       })
       .catch(error => {
