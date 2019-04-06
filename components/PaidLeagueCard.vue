@@ -12,7 +12,7 @@
           <v-flex xs6>
             <div class="text-xs-right">
               <div class="font8 grey--text pr-1 pb-1">Entry</div>
-              <v-btn v-on:click.stop="joinLeagueClick.call(this, league.id)" depressed class='ma-0 white--text font-weight-bold font11' small color="green accent-4">&#8377;{{league.entry_fee}}</v-btn>
+              <v-btn v-on:click.stop="joinContestConfirmationClick.call(this, league.id)" depressed class='ma-0 white--text font-weight-bold font11' small color="green accent-4">&#8377;{{league.entry_fee}}</v-btn>
             </div>
           </v-flex>
 
@@ -123,7 +123,13 @@
               By joining this contest, you accept Fanspole's T&amp;C and conﬁrm that you are not a resident of Assam, Odisha, Telangana, Nagaland or Sikkim.
             </v-flex>
             <v-flex xs12 class="text-xs-center">
-              <v-btn depressed class='ma-0 white--text font-weight-bold font11' color="green accent-4">JOIN CONTEST</v-btn>
+              <v-btn 
+                depressed
+                v-on:click.stop="joinContestClick.call(this, league.id)"
+                class='ma-0 white--text font-weight-bold font11' 
+                color="green accent-4">
+                JOIN CONTEST
+              </v-btn>
             </v-flex>
           </v-layout>
           <v-card-actions>
@@ -227,7 +233,7 @@
           return number.toLocaleString('en-IN')
         }
       },
-      async joinLeagueClick(id){
+      async joinContestConfirmationClick(id){
         var team_count = this.$store.getters['PaidLeagues/teams_count'];
         if(team_count == 0){
           this.$router.push(`/matches/${this.$route.params.id}/create-team`);
@@ -261,7 +267,16 @@
             }
           }
         }
-      }
+      },
+      async joinContestClick(id){
+        await this.$store.dispatch('PaidLeagues/JOIN_CONTEST', {id: this.$route.params.id, league_id: id, team_id: this.selected_team});
+        this.$nuxt.$emit('snackbarError', {
+          snackbar: true,
+          message: "Contest Joined",
+          button: false
+        });
+        this.joinLeagueDialog = false;
+      }   
     }
   }
 </script>

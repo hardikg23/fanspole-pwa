@@ -18,7 +18,7 @@ const getters = {
     return state.join_paid_leagues_count;
   },
   paid_leagues: state => {
-    return state.paid_leagues;
+    return state.paid_leagues.sort(function(a, b){return b.prize_amount - a.prize_amount});
   },
   paid_league: state => {
     return state.paid_league;
@@ -122,7 +122,12 @@ const mutations = {
   },
   RESET_JOINING_CONFIRMATION: (state, payload) => {
     state.joining_confirmation = null;
-  }
+  },
+  JOINED_CONTEST: (state, payload) => {
+    let i = state.paid_leagues.map(item => item.id).indexOf(payload['paid_league'].id)
+    state.paid_leagues.splice(i, 1, payload['paid_league']);
+    state.join_paid_leagues_count++
+  },
 }
 
 const actions = {
@@ -185,6 +190,18 @@ const actions = {
         if (response.status == 200) {
           commit('RESET_JOINING_CONFIRMATION');
           commit('SET_JOINING_CONFIRMATION', response.data);
+        }
+      })
+      .catch(error => {
+        return error;
+      });
+  },
+  async JOIN_CONTEST({ commit, dispatch }, payload) {
+    await this.$axios
+      .post(`/api/matches/${payload.id}/paid_leagues/${payload.league_id}/join`, {team_id: payload.team_id, fields: "id,prize_amount,entry_fee,paid_league_members_count,league_tags,members_limit,winner_count"})
+      .then(response => {
+        if (response.status == 200) {
+          commit('JOINED_CONTEST', response.data);
         }
       })
       .catch(error => {
