@@ -54,6 +54,17 @@
           </v-layout>
         </div>
       </div>
+      <div class="footer text-xs-center max-w-550" v-else>
+        <div class="primary">
+          <v-layout row wrap>
+            <v-flex xs12>
+              <nuxt-link :to="`/matches/${this.$route.params.id}/leagues`">
+                <v-btn style='padding: 0px 52px;'>Contests</v-btn>
+              </nuxt-link>
+            </v-flex>
+          </v-layout>
+        </div>
+      </div>
     </template>
   </section>
 </template>

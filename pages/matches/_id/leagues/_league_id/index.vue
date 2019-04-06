@@ -41,7 +41,7 @@
           </v-flex>
           <v-flex xs12 mr-1>
             <div class="text-xs-left pa-2">
-              <div class="font8 grey--text" v-for="tag in getPaidLeague.league_tags" :key="`${tag}`">
+              <div class="font8 grey--text" v-for="tag in getPaidLeague.league_tags" :key="`${tag.attr}`">
                 <span class="font-weight-bold">{{tag.attr}} - </span><span>{{tag.desc}}</span>
               </div>
             </div>
@@ -64,8 +64,10 @@
             <img :src="member.user.image" class="image imagec">
           </v-flex>
           <v-flex xs8 class="pa-2 pl-2" style="height:50px;"> 
-            <div class="font-weight-bold">{{member.user.team_name}} (Team {{member.event_team.team_no}})</div>
-            <div class="font8">{{to_number_format(member.event_team.score)}} POINTS</div>
+            <div v-if="member.event_team != undefined">
+              <div class="font-weight-bold">{{member.user.team_name}} (Team {{member.event_team.team_no}})</div>
+              <div class="font8">{{to_number_format(member.event_team.score)}} POINTS</div>
+            </div>
           </v-flex>
           <v-flex xs2 class="text-xs-right pr-4 pt-3" style="height:50px;">
             <div>#{{to_number_format(member.rank)}}</div>
@@ -76,8 +78,10 @@
             <img :src="member.user.image" class="image imagec">
           </v-flex>
           <v-flex xs8 class="white pa-2 pl-2" style="height:50px;"> 
-            <div class="font-weight-bold">{{member.user.team_name}} (Team {{member.event_team.team_no}})</div>
-            <div class="font8">{{to_number_format(member.event_team.score)}} POINTS</div>
+            <div v-if="member.event_team != undefined">
+              <div class="font-weight-bold">{{member.user.team_name}} (Team {{member.event_team.team_no}})</div>
+              <div class="font8">{{to_number_format(member.event_team.score)}} POINTS</div>
+            </div>
           </v-flex>
           <v-flex xs2 class="white text-xs-right pr-4 pt-3" style="height:50px;">
             <div>#{{to_number_format(member.rank)}}</div>

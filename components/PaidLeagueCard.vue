@@ -42,7 +42,7 @@
         </v-flex>
         <v-flex xs6 mr-1>
           <div class="text-xs-right mt-1">
-            <span class="font7 grey--text" v-for="tag in league.league_tags" :key="`${tag}`">
+            <span class="font7 grey--text" v-for="tag in league.league_tags" :key="`${tag.attr}`">
               <span class="border ma-1">{{tag.attr}}</span>
             </span>
           </div>
@@ -111,14 +111,16 @@
             <v-flex xs6 class="pr-3 pt-2 text-xs-right">
               <div class="fontw600 green--text text--accent-4">&#8377;{{to_number_format(getJoiningConfirmation.entry_fee)}}</div>
             </v-flex>
-            <v-flex xs12 class="pt-3" v-show="getJoiningConfirmation.user_teams.length > 1">
-              <div class="fontw600">Select Team</div>
-            </v-flex>
-            <v-radio-group v-model="selected_team" row class="ma-1" v-show="getJoiningConfirmation.user_teams.length > 1">
-              <v-flex xs6 v-for="team in getJoiningConfirmation.user_teams" :key="team.id">
-                <v-radio :label="`Team ${team.team_no}`" :value="team.id" color="primary" :disabled="team.joined"></v-radio>
+            <div v-show="getJoiningConfirmation.user_teams != undefined && getJoiningConfirmation.user_teams.length > 1">
+              <v-flex xs12 class="pt-3">
+                <div class="fontw600">Select Team</div>
               </v-flex>
-            </v-radio-group>
+              <v-radio-group v-model="selected_team" row class="ma-1">
+                <v-flex xs6 v-for="team in getJoiningConfirmation.user_teams" :key="team.id">
+                  <v-radio :label="`Team ${team.team_no}`" :value="team.id" color="primary" :disabled="team.joined"></v-radio>
+                </v-flex>
+              </v-radio-group>
+            </div>
             <v-flex xs12 class="pa-4 font7 grey--text text-xs-center">
               By joining this contest, you accept Fanspole's T&amp;C and conﬁrm that you are not a resident of Assam, Odisha, Telangana, Nagaland or Sikkim.
             </v-flex>
@@ -264,6 +266,8 @@
                 message: joining_confirmation.error,
                 button: false
               });
+            }else if(joining_confirmation.popup == "create_team"){
+              this.$router.push(`/matches/${this.$route.params.id}/create-team`);
             }
           }
         }
