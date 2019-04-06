@@ -38,15 +38,13 @@ const getters = {
   joining_confirmation: state => {
     return state.joining_confirmation
   },
-  join_league_popup: state => {
-    if(state.joining_confirmation == undefined){
-      return false
-    }else if(state.joining_confirmation.popup == "join_league"){
-      return true
+  add_funds_amount: state => {
+    if(state.joining_confirmation != undefined && state.joining_confirmation.popup == "add_funds"){
+      return (state.joining_confirmation.entry_fee - state.joining_confirmation.current_balance)
     }else{
-      return false
+      return 100;
     }
-  }
+  },
 }
 
 const mutations = {

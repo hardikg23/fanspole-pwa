@@ -124,6 +124,45 @@
       </div>
     </v-dialog>
 
+    <v-dialog v-model="addFundsDialog">
+      <div v-if="getJoiningConfirmation != undefined">
+        <v-card>
+          <v-card-title class="headline primary white--text pa-2"><div class="font7 font-weight-bold text-uppercase">Low Balance</div></v-card-title>
+          <v-layout row wrap pa-2 class="fontw600">
+            <v-flex xs6 class="pa-3">
+              <div>Current Balance</div>
+            </v-flex>
+            <v-flex xs6 class="pa-3 text-xs-right">
+              <div>&#8377;{{to_number_format(getJoiningConfirmation.current_balance)}}</div>
+            </v-flex>
+            <v-flex xs6 class="pa-3 borderb">
+              <div>Joining Amount</div>
+            </v-flex>
+            <v-flex xs6 class="pa-3 text-xs-right borderb">
+              <div>&#8377;{{to_number_format(getJoiningConfirmation.entry_fee)}}</div>
+            </v-flex>
+            <v-flex xs12 class="pa-3 grey--text">
+              <div class="mb-2">Amount To add</div>
+              <v-text-field
+                solo
+                v-model="add_amount"
+                hide-details
+                label="Amount"
+                type="text"
+              />
+            </v-flex>
+            <v-flex xs12 class="text-xs-center">
+              <v-btn depressed class='ma-0 white--text font-weight-bold font11' color="green accent-4">Add Cash</v-btn>
+            </v-flex>
+          </v-layout>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" flat @click="addFundsDialog = false">Close</v-btn>
+          </v-card-actions>
+        </v-card>
+      </div>
+    </v-dialog>
+
   </v-container>
 </template>
 
@@ -140,7 +179,9 @@
       return {
         prizeDialog: false,
         joinLeagueDialog: false,
-        leaderDialog: false
+        addFundsDialog: false,
+        leaderDialog: false,
+        add_amount: 0
       }
     },
     computed: {
@@ -152,6 +193,9 @@
       },
       getJoiningConfirmation() {
         return this.$store.getters['PaidLeagues/joining_confirmation'];
+      },
+      getAddAmount(){
+        return this.$store.getters['PaidLeagues/add_funds_amount'];
       }
     },
     methods: {
@@ -180,7 +224,22 @@
           await this.$store.commit('PaidLeagues/RESET_JOINING_CONFIRMATION');
           await this.$store.dispatch('PaidLeagues/GET_JOINING_CONFIRMATION', {id: this.$route.params.id, league_id: id});
           this.leaderDialog = false
-          this.joinLeagueDialog = this.$store.getters['PaidLeagues/join_league_popup'];
+          var joining_confirmation = this.$store.getters['PaidLeagues/joining_confirmation'];
+          if(joining_confirmation != undefined){
+            if(joining_confirmation.popup == "join_league"){
+              this.joinLeagueDialog = true
+            }else if(joining_confirmation.popup == "event_locked"){
+              this.$nuxt.$emit('snackbarError', {
+                snackbar: true,
+                message: joining_confirmation.error,
+                button: false
+              });
+              this.$router.push(`/matches/${this.$route.params.id}/my-joined-leagues`);
+            }else if(joining_confirmation.popup == "add_funds"){
+              this.add_amount = this.getAddAmount;
+              this.addFundsDialog = true
+            }
+          }
         }
       }
     }

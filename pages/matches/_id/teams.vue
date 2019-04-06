@@ -38,11 +38,20 @@
     </div>
 
     <template>
-      <div class="footer text-xs-center" v-if="getUserTeams.length < 4">
+      <div class="footer text-xs-center max-w-550" v-if="getUserTeams.length < 4">
         <div class="primary">
-          <nuxt-link :to="`/matches/${this.$route.params.id}/create-team`">
-            <v-btn style='padding: 0px 32px;'>create team {{getUserTeams.length + 1}}</v-btn>
-          </nuxt-link>
+          <v-layout row wrap>
+            <v-flex xs6>
+              <nuxt-link :to="`/matches/${this.$route.params.id}/create-team`">
+                <v-btn style='padding: 0px 32px;'>create team {{getUserTeams.length + 1}}</v-btn>
+              </nuxt-link>
+            </v-flex>
+            <v-flex xs6>
+              <nuxt-link :to="`/matches/${this.$route.params.id}/leagues`">
+                <v-btn style='padding: 0px 52px;'>Contests</v-btn>
+              </nuxt-link>
+            </v-flex>
+          </v-layout>
         </div>
       </div>
     </template>
