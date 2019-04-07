@@ -7,9 +7,11 @@
             Team {{user_team.team_no}}
           </v-flex>
           <v-flex xs6 class='text-xs-right pa-1'>
-            <nuxt-link :to="`/matches/${this.$route.params.id}/edit-team/${user_team.id}`">
-              <v-icon>edit</v-icon>
-            </nuxt-link>
+            <div v-if="user_team.is_current_user_allowed_to_edit">
+              <nuxt-link :to="`/matches/${this.$route.params.id}/edit-team/${user_team.id}`">
+                <v-icon>edit</v-icon>
+              </nuxt-link>
+            </div>
           </v-flex>
         </v-layout>
         <v-layout row wrap class='text-xs-center pa-1'>

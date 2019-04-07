@@ -65,8 +65,10 @@
           </v-flex>
           <v-flex xs8 class="pa-2 pl-2" style="height:50px;"> 
             <div v-if="member.event_team != undefined">
-              <div class="font-weight-bold">{{member.user.team_name}} (Team {{member.event_team.team_no}})</div>
-              <div class="font8">{{to_number_format(member.event_team.score)}} POINTS</div>
+              <nuxt-link :to="`/matches/${getMatch.id}/viewteam/${member.event_team.id}`">
+                <div class="font-weight-bold">{{member.user.team_name}} (Team {{member.event_team.team_no}})</div>
+                <div class="font8">{{to_number_format(member.event_team.score)}} POINTS</div>
+              </nuxt-link>
             </div>
           </v-flex>
           <v-flex xs2 class="text-xs-right pr-4 pt-3" style="height:50px;">
@@ -77,10 +79,12 @@
           <v-flex xs2 class="white pt-2 text-xs-center" style="height:50px;">
             <img :src="member.user.image" class="image imagec">
           </v-flex>
-          <v-flex xs8 class="white pa-2 pl-2" style="height:50px;"> 
+          <v-flex xs8 class="white pa-2 pl-2" style="height:50px;">
             <div v-if="member.event_team != undefined">
-              <div class="font-weight-bold">{{member.user.team_name}} (Team {{member.event_team.team_no}})</div>
-              <div class="font8">{{to_number_format(member.event_team.score)}} POINTS</div>
+              <nuxt-link :to="`/matches/${getMatch.id}/viewteam/${member.event_team.id}`">
+                <div class="font-weight-bold">{{member.user.team_name}} (Team {{member.event_team.team_no}})</div>
+                <div class="font8">{{to_number_format(member.event_team.score)}} POINTS</div>
+              </nuxt-link>
             </div>
           </v-flex>
           <v-flex xs2 class="white text-xs-right pr-4 pt-3" style="height:50px;">

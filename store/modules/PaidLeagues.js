@@ -147,7 +147,7 @@ const actions = {
   },
   async GET_PAID_LEAGUE({ commit, dispatch }, payload) {
     await this.$axios
-      .get(`/api/matches/${payload.id}/paid_leagues/${payload.league_id}.json?fields=id,rank,event_team{team_no,score},user{team_name,image,id}`)
+      .get(`/api/matches/${payload.id}/paid_leagues/${payload.league_id}.json?fields=id,rank,event_team{id,team_no,score},user{team_name,image,id}`)
       .then(response => {
         if (response.status == 200) {
           commit('RESET_PAID_LEAGUE');

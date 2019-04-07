@@ -209,24 +209,16 @@
                     FANSPOLE
                   </v-flex>
                   <v-flex xs12 class='pt-3'>
-                    <template v-for="player in getUserTeam.row1">
-                      <TeamPlayer :key="player.id" :player="player"></TeamPlayer>
-                    </template>
+                    <TeamPlayers :players="getUserTeamPlayers.row1"></TeamPlayers>
                   </v-flex>
                   <v-flex xs12>
-                    <template v-for="player in getUserTeam.row2">
-                      <TeamPlayer :key="player.id" :player="player"></TeamPlayer>
-                    </template>
+                    <TeamPlayers :players="getUserTeamPlayers.row2"></TeamPlayers>
                   </v-flex>
                   <v-flex xs12>
-                    <template v-for="player in getUserTeam.row3">
-                      <TeamPlayer :key="player.id" :player="player"></TeamPlayer>
-                    </template>
+                    <TeamPlayers :players="getUserTeamPlayers.row3"></TeamPlayers>
                   </v-flex>
                   <v-flex xs12>
-                    <template v-for="player in getUserTeam.row4">
-                      <TeamPlayer :key="player.id" :player="player"></TeamPlayer>
-                    </template>
+                    <TeamPlayers :players="getUserTeamPlayers.row4"></TeamPlayers>
                   </v-flex>
                 </v-layout>
               </v-list>
@@ -305,7 +297,7 @@
     components: {
       Back: () => import('~/components/Back'),
       MatchBar: () => import('~/components/MatchBar'),
-      TeamPlayer: () => import('~/components/TeamPlayer')
+      TeamPlayers: () => import('~/components/TeamPlayers')
     },
     computed: {
       getMatch() {

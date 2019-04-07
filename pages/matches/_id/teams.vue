@@ -41,14 +41,14 @@
       <div class="footer text-xs-center max-w-550" v-if="getUserTeams.length < 4">
         <div class="primary">
           <v-layout row wrap>
-            <v-flex xs6>
+            <v-flex xs6 style="border-right: 1px solid #E0E0E0" class="white--text fontw600 text-uppercase pa-3">
               <nuxt-link :to="`/matches/${this.$route.params.id}/create-team`">
-                <v-btn style='padding: 0px 32px;'>create team {{getUserTeams.length + 1}}</v-btn>
+                <div>create team {{getUserTeams.length + 1}}</div>
               </nuxt-link>
             </v-flex>
-            <v-flex xs6>
+            <v-flex xs6 class="white--text fontw600 text-uppercase pa-3">
               <nuxt-link :to="`/matches/${this.$route.params.id}/leagues`">
-                <v-btn style='padding: 0px 52px;'>Contests</v-btn>
+                <div>join Contests</div>
               </nuxt-link>
             </v-flex>
           </v-layout>
@@ -57,9 +57,9 @@
       <div class="footer text-xs-center max-w-550" v-else>
         <div class="primary">
           <v-layout row wrap>
-            <v-flex xs12>
+            <v-flex xs12 class="white--text fontw600 text-uppercase pa-3">
               <nuxt-link :to="`/matches/${this.$route.params.id}/leagues`">
-                <v-btn style='padding: 0px 52px;'>Contests</v-btn>
+                <div>join Contests</div>
               </nuxt-link>
             </v-flex>
           </v-layout>
@@ -98,10 +98,18 @@
         if (this.$store.getters['Matches/match'](this.$route.params.id) == undefined){
           await this.$store.dispatch('Matches/GET_MATCH', this.$route.params.id);  
         }
-        await this.$store.commit('UserTeams/RESET_USER_TEAMS');
-        await this.$store.dispatch('UserTeams/GET_USER_TEAMS', this.$route.params.id);
+        var match = this.$store.getters['Matches/match'](this.$route.params.id);
+        if(this.locked(match.event_time_in_millis)){
+          this.$router.push(`/matches/${this.$route.params.id}/my-joined-leagues`);
+        }else{
+          await this.$store.commit('UserTeams/RESET_USER_TEAMS');
+          await this.$store.dispatch('UserTeams/GET_USER_TEAMS', this.$route.params.id);
+        }
         this.loading = false
-      }
+      },
+      locked(event_time){
+        return event_time < new Date().getTime();
+      },
     }
   }
 </script>
