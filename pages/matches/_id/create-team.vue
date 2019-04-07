@@ -203,22 +203,22 @@
                   <v-icon>close</v-icon>
                 </v-btn>          
               </v-toolbar>
-              <v-list v-if="getUserTeam != undefined" :style="{ background: `url(${image}) no-repeat center center fixed`, 'background-size': '100% 100%', 'min-height': '100vh'}">
+              <v-list v-if="getUserTeam != undefined" class="grad1" style="min-height: 100vh">
                 <v-layout row wrap class="text-xs-center">
                   <v-flex xs12 class="white--text font-weight-bold font22" style='opacity:0.4'>
                     FANSPOLE
                   </v-flex>
                   <v-flex xs12 class='pt-3'>
-                    <TeamPlayers :players="getUserTeamPlayers.row1"></TeamPlayers>
+                    <TeamPlayers :players="getUserTeam.row1"></TeamPlayers>
                   </v-flex>
                   <v-flex xs12>
-                    <TeamPlayers :players="getUserTeamPlayers.row2"></TeamPlayers>
+                    <TeamPlayers :players="getUserTeam.row2"></TeamPlayers>
                   </v-flex>
                   <v-flex xs12>
-                    <TeamPlayers :players="getUserTeamPlayers.row3"></TeamPlayers>
+                    <TeamPlayers :players="getUserTeam.row3"></TeamPlayers>
                   </v-flex>
                   <v-flex xs12>
-                    <TeamPlayers :players="getUserTeamPlayers.row4"></TeamPlayers>
+                    <TeamPlayers :players="getUserTeam.row4"></TeamPlayers>
                   </v-flex>
                 </v-layout>
               </v-list>
@@ -511,5 +511,9 @@
     width: 8px;
     border-radius: 50%;
     display: inline-block;
+  }
+  .grad1 {
+    background-color: #689F38;
+    background-image: linear-gradient(to bottom,  #9CCC65, #689F38, #33691E);
   }
 </style>

@@ -21,7 +21,9 @@
             </div>
           </v-flex>
           <v-flex xs8 class="text-xs-center grey darken-3 white--text pa-2 font11 font-weight-bold">
-            <div>{{getUserTeam.user.team_name}} (Team {{getUserTeam.team_no}})</div>
+            <div v-if="getUserTeam.user != undefined">
+              {{getUserTeam.user.team_name}} (Team {{getUserTeam.team_no}})
+            </div>
           </v-flex>
           <v-flex xs2 class='text-xs-right grey darken-3 white--text pa-2'>
             <div @click="closeTeamClick">

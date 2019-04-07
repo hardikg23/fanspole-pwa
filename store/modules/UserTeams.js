@@ -65,7 +65,7 @@ const mutations = {
 const actions = {
   async GET_USER_TEAMS({ commit, dispatch }, payload) {
     await this.$axios
-      .get(`/api/matches/${payload}/user_teams.json?fields=id,team_no,rank,budget,score,captain,last_updated_at_in_millis,team_players,is_current_user_allowed_to_edit`)
+      .get(`/api/matches/${payload}/user_teams.json?fields=id,team_no,rank,budget,score,captain,last_updated_at_in_millis,team_players,is_current_user_allowed_to_edit,user{id,team_name}`)
       .then(response => {
         if (response.status == 200) {
           commit('SET_USER_TEAMS', response.data);
