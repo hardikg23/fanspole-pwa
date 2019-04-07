@@ -7,7 +7,7 @@
             <div style="z-index: -5;">
               <img v-bind:src="player.team.jersey_photo" style="width:40px;height: 40px;">
             </div>
-            <div v-bind:style="{backgroundColor: `${player.team.team_color}`}" class="white--text font7 pa-1 box_shadow fontw600">
+            <div v-bind:style="{backgroundColor: `${player.team.team_color}`}" class="white--text font7 box_shadow fontw600" style="width:90px;padding: 2px 6px;">
               {{player.display_name}}
             </div>
             <div class="white--text font6">
