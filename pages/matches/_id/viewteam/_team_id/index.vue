@@ -11,7 +11,7 @@
     </v-layout>
 
     <div v-if="!loading && getUserTeam != undefined">
-      <div :style="{ background: `url(${image}) no-repeat center center fixed`, 'background-size': '100% 100%', 'min-height': '100vh'}">
+      <div style="min-height: 100vh" class="grad1">
         <v-layout row wrap class="text-xs-center">
           <v-flex xs2 class='text-xs-left grey darken-3 pa-2'>
             <div v-if="getUserTeam.is_current_user_allowed_to_edit">
@@ -55,12 +55,10 @@
 </template>
 
 <script>
-  import backgroundUrl from '~/assets/images/ground.png'
   export default {
     data() {
       return {
-        image: backgroundUrl,
-        loading: true,
+        loading: true
       }
     },
     components: {
@@ -112,5 +110,9 @@
       position: fixed;
       bottom: 0;
       width: 100%;
+  }
+  .grad1 {
+    background-color: #689F38;
+    background-image: linear-gradient(to bottom,  #9CCC65, #689F38, #33691E);
   }
 </style>
