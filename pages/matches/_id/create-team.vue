@@ -179,12 +179,13 @@
           <v-card-title class="headline pa-0 pl-2 pt-2">Rules</v-card-title>
           <v-card-text>
             <ul>
+              <li v-bind:class="{'grey--text text--lighter-2': getSelectedPlayersCount < 11, 'green--text text--accent-4': getSelectedPlayersCount >= 11}">Select 11 players</li>
               <li v-bind:class="{'grey--text text--lighter-2': !getBalancedBat, 'green--text text--accent-4': getBalancedBat}">Minimum 4 Batsmen</li>
               <li v-bind:class="{'grey--text text--lighter-2': !getBalancedWk, 'green--text text--accent-4': getBalancedWk}">1 Wicket Keeper</li>
               <li v-bind:class="{'grey--text text--lighter-2': !getBalancedAr, 'green--text text--accent-4': getBalancedAr}">Atleast 1 All-rounder</li>
               <li v-bind:class="{'grey--text text--lighter-2': !getBalancedBowl, 'green--text text--accent-4': getBalancedBowl}">Atleast 2 Bowlers</li>
-              <li v-bind:class="{'grey--text text--lighter-2': !(getBalancedAr && getBalancedBowl), 'green--text text--accent-4': (getBalancedAr && getBalancedBowl)}">Total no of Bowlers + All-Rounders should be at least 5</li>
-              <li v-bind:class="{'grey--text text--lighter-2': !getBalancedWk, 'green--text text--accent-4': getBalancedWk}">You can not select 2 pure Wicket Keepers. If your team has 2 or more Batting Wicket Keeper one will be consider as wicket-keeper and other(s) will be consider as batsman.</li>
+              <li v-bind:class="{'grey--text text--lighter-2': !getBalancedArAndBowl, 'green--text text--accent-4': getBalancedArAndBowl}">Total no of Bowlers + All-Rounders should be at least 5</li>
+              <li v-bind:class="{'grey--text text--lighter-2': !getBalancedPureWk, 'green--text text--accent-4': getBalancedPureWk}">You can not select 2 pure Wicket Keepers. If your team has 2 or more Batting Wicket Keeper one will be consider as wicket-keeper and other(s) will be consider as batsman.</li>
             </ul>
           </v-card-text>
           <v-card-actions>
@@ -330,6 +331,9 @@
       getBalancedWk(){
         return this.$store.getters['CreateTeam/balanced_wk'];
       },
+      getBalancedPureWk(){
+        return this.$store.getters['CreateTeam/balanced_pure_wk'];
+      },
       getBalancedBat(){
         return this.$store.getters['CreateTeam/balanced_bat'];
       },
@@ -338,6 +342,9 @@
       },
       getBalancedBowl(){
         return this.$store.getters['CreateTeam/balanced_bowl'];
+      },
+      getBalancedArAndBowl(){
+        return this.$store.getters['CreateTeam/balanced_ar_and_bowl'];
       },
       getSelectedWk(){
         return this.$store.getters['CreateTeam/selected_wk'];
