@@ -11,9 +11,8 @@
               {{player.display_name}}
             </div>
             <div class="white--text font6">
-              <span>{{getStyle(player.style)}}</span>
-              |
-              <span>{{player.value}}</span>
+              <span>{{player.display_info}}</span>
+              
             </div>
           </div>
         </td>
@@ -28,25 +27,6 @@ export default {
     players: {
       type: Array,
       required: true
-    }
-  },
-  methods: {
-    getStyle(style){
-      if(style == 1){
-        return 'BAT'
-      }else if(style == 3){
-        return 'BAT/AL'
-      }else if(style == 5){
-        return 'BAT/WK'
-      }else if(style == 7){
-        return 'WK'
-      }else if(style == 9){
-        return 'AL'
-      }else if(style == 11){
-        return 'AL/BOWL'
-      }else if(style == 13){
-        return 'BOWL'
-      }
     }
   }
 };

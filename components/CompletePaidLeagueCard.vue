@@ -17,11 +17,11 @@
           </v-flex>
           <v-flex xs4 class="text-xs-center pa-2">
             <div class="font7 grey--text text-uppercase">JOINED WITH</div>
-            <div class="fontw600 font9">TEAM {{member.event_team.team_no}}</div>
+            <div class="fontw600 font9">TEAM {{member.event_team && member.event_team.team_no}}</div>
           </v-flex>
           <v-flex xs4 class="text-xs-center pa-2">
             <div class="font7 grey--text text-uppercase">Points</div>
-            <div class="fontw600 font9">{{member.event_team.score}}</div>
+            <div class="fontw600 font9">{{member.event_team && member.event_team.score}}</div>
           </v-flex>
           <v-flex xs4 class="text-xs-center pa-2">
             <div class="font7 grey--text text-uppercase">Rank</div>
