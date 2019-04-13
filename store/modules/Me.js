@@ -2,6 +2,7 @@ const state = () => ({
   me: {
     username: '',
     email: '',
+    mobile_no: '',
     full_name: '',
     team_name: '',
     image: '',
@@ -12,6 +13,9 @@ const state = () => ({
     current_balance: 0,
     unused_balance: 0,
     winning_balance: 0,
+    mobile_approved: false,
+    pancard_approved: false,
+    account_approved: false,
     dob: '2001-01-01'
   }
 });
@@ -22,6 +26,9 @@ const getters = {
   },
   email: state => {
     return state.me.email;
+  },
+  mobile_no: state => {
+    return state.me.mobile_no;
   },
   full_name: state => {
     return state.me.full_name;
@@ -53,6 +60,15 @@ const getters = {
   winning_balance: state => {
     return state.me.winning_balance;
   },
+  mobile_approved: state => {
+    return state.me.mobile_approved;
+  },
+  pancard_approved: state => {
+    return state.me.pancard_approved;
+  },
+  account_approved: state => {
+    return state.me.account_approved;
+  },
   dob: state => {
     return state.me.dob;
   }
@@ -63,6 +79,7 @@ const mutations = {
     state.me.current_balance = payload.user.current_balance
     state.me.unused_balance = payload.user.unused_balance
     state.me.winning_balance = payload.user.winning_balance
+    state.me.account_approved = payload.user.account_approved
   },
   SET_SETTINGS: (state, payload) => {
     state.me.username = payload.user.username
@@ -78,6 +95,15 @@ const mutations = {
     state.me.next_level = payload.user.next_level
     state.me.stats = payload.user.stats
     state.me.user_points = payload.user.user_points
+  },
+  SET_APPROVED_DETAILS: (state, payload) => {
+    state.me.email = payload.user.email
+    state.me.mobile_no = payload.user.mobile_no
+    state.me.mobile_approved = payload.user.mobile_approved
+    state.me.pancard_approved = payload.user.pancard_approved
+  },
+  APPROVED_MOBILE: (state, payload) => {
+    state.me.mobile_approved = true
   }
 };
 
@@ -99,7 +125,7 @@ const actions = {
   },
   async GET_BALANCE({ commit }, payload) {
     return await this.$axios
-      .get(`/api/me.json?fields=current_balance,unused_balance,winning_balance`)
+      .get(`/api/me.json?fields=current_balance,unused_balance,winning_balance,account_approved`)
       .then((response) => {
         if (response.status == 200) {
           if(process.browser){
@@ -114,6 +140,13 @@ const actions = {
       .get(`/api/me.json?fields=username,email,full_name,team_name,dob`)
       .then((response) => {
         commit('SET_SETTINGS', response.data);
+      });
+  },
+  async GET_APPROVED_DETAILS({ commit }, payload) {
+    return await this.$axios
+      .get(`/api/me.json?fields=email,mobile_no,mobile_approved,pancard_approved`)
+      .then((response) => {
+        commit('SET_APPROVED_DETAILS', response.data);
       });
   },
   async GET_PROFILE({ commit }, payload) {

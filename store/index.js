@@ -4,6 +4,7 @@ import ApiHits from './modules/ApiHits';
 import CreateTeam from './modules/CreateTeam';
 import Matches from './modules/Matches';
 import Me from './modules/Me';
+import MobileNumber from './modules/MobileNumber';
 import Notifications from './modules/Notifications';
 import Login from './modules/Login';
 import Players from './modules/Players';
@@ -21,6 +22,7 @@ export default () => {
       CreateTeam,
       Matches,
       Me,
+      MobileNumber,
       Notifications,
       Login,
       Players,

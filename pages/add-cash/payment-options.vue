@@ -15,7 +15,7 @@
     </v-container>
 
     <v-container grid-list-md pa-0 mt-3>
-      <v-layout row wrap class="white fontw600 font9" v-ripple>
+      <v-layout row wrap class="white fontw600 font9">
         <v-flex xs3 class="borderb pa-2 text-xs-center">
           <v-icon>payment</v-icon>
         </v-flex>

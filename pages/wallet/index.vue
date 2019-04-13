@@ -15,14 +15,15 @@
             </nuxt-link>
           </v-flex>
           <v-flex xs6 class='pt-2 pb-2 font8' style="border-bottom: 1px solid silver;">
-            <div>UNUSED</div>
-            <div class="font12">&#8377; {{getUnusedBalance}}</div>
+            <div class="font8">UNUSED</div>
+            <div class="font12 fontw600">&#8377; {{getUnusedBalance}}</div>
           </v-flex>
           <v-flex xs6 class='pt-3 pr-3 text-xs-right' style="border-bottom: 1px solid silver;">
             <v-icon @click.stop="unusedBalanceDialog = true">info</v-icon>
+
             <v-dialog v-model="unusedBalanceDialog">
               <v-card>
-                <v-card-title class="headline pa-0 pl-2 pt-2">Unused Balance</v-card-title>
+                <v-card-title class="headline primary white--text pa-2"><div class="font7 font-weight-bold">Unused Balance</div></v-card-title>
                 <v-card-text>
                   Funds Used in Fanspole to enter leagues
                 </v-card-text>
@@ -34,17 +35,27 @@
             </v-dialog>
           </v-flex>
           <v-flex xs6 class='pt-2 pb-2 font8'>
-            <div>WINNINGS</div>
-            <div class="font12">&#8377; {{getWinningBalance}}</div>
+            <div class="font8">WINNINGS</div>
+            <div class="font12 fontw600">&#8377; {{getWinningBalance}}</div>
+            <div class="font8 red--text darken-4">verify account to withdraw your winnings</div>
           </v-flex>
           <v-flex xs4 class='pt-2 pb-2 text-xs-right'>
-            <v-btn small color="primary" class="pa-0 pl-2 pr-2">WITHDRAW</v-btn>
+            <div v-if="getAccountApproved">
+              <nuxt-link to="/wallet/redemptions">
+                <v-btn small color="primary" class="pa-0 pl-2 pr-2">WITHDRAW</v-btn>
+              </nuxt-link>
+            </div>
+            <div v-else>
+              <nuxt-link to="/wallet/verify-account">
+                <v-btn small color="primary" class="pa-0 pl-2 pr-2">VERIFY ACCOUNT</v-btn>
+              </nuxt-link>
+            </div>
           </v-flex>
           <v-flex xs2 class='pt-3 pr-3 text-xs-right'>
             <v-icon @click.stop="winningBalanceDialog = true">info</v-icon>
             <v-dialog v-model="winningBalanceDialog">
               <v-card>
-                <v-card-title class="headline pa-0 pl-2 pt-2">Winning Balance</v-card-title>
+                <v-card-title class="headline primary white--text pa-2"><div class="font7 font-weight-bold">Winning Balance</div></v-card-title>
                 <v-card-text>
                   Funds Used in Fanspole to enter leagues or for Redemptions
                 </v-card-text>
@@ -122,6 +133,9 @@
       },
       getWinningBalance(){
         return this.$store.getters['Me/winning_balance'];
+      },
+      getAccountApproved(){
+        return this.$store.getters['Me/account_approved'];
       }
     },
     created: function() {
