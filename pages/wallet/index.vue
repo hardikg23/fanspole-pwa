@@ -10,7 +10,9 @@
           <v-flex xs12 class="text-xs-center pb-3" style="border-bottom: 1px solid silver;">
             <div class="fontw600 grey--text">Total Balance</div>
             <div class="font-weight-bold font11">&#8377; {{getCurrentBalance}}</div>
-            <v-btn class='ma-0' small color="primary">Add Cash</v-btn>
+            <nuxt-link to="/add-cash">
+              <v-btn class='ma-0' small color="primary">Add Cash</v-btn>
+            </nuxt-link>
           </v-flex>
           <v-flex xs6 class='pt-2 pb-2 font8' style="border-bottom: 1px solid silver;">
             <div>UNUSED</div>
