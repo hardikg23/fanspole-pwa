@@ -37,7 +37,7 @@
           <v-flex xs6 class='pt-2 pb-2 font8'>
             <div class="font8">WINNINGS</div>
             <div class="font12 fontw600">&#8377; {{getWinningBalance}}</div>
-            <div class="font8 red--text darken-4">verify account to withdraw your winnings</div>
+            <div class="font8 red--text darken-4" v-if="!getAccountApproved">verify account to withdraw your winnings</div>
           </v-flex>
           <v-flex xs4 class='pt-2 pb-2 text-xs-right'>
             <div v-if="getAccountApproved">

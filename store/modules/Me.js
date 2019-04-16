@@ -14,7 +14,7 @@ const state = () => ({
     unused_balance: 0,
     winning_balance: 0,
     mobile_approved: false,
-    pancard_approved: false,
+    pancard_status: '',
     account_approved: false,
     dob: '2001-01-01'
   }
@@ -63,8 +63,8 @@ const getters = {
   mobile_approved: state => {
     return state.me.mobile_approved;
   },
-  pancard_approved: state => {
-    return state.me.pancard_approved;
+  pancard_status: state => {
+    return state.me.pancard_status;
   },
   account_approved: state => {
     return state.me.account_approved;
@@ -100,10 +100,13 @@ const mutations = {
     state.me.email = payload.user.email
     state.me.mobile_no = payload.user.mobile_no
     state.me.mobile_approved = payload.user.mobile_approved
-    state.me.pancard_approved = payload.user.pancard_approved
+    state.me.pancard_status = payload.user.pancard_status
   },
   APPROVED_MOBILE: (state, payload) => {
     state.me.mobile_approved = true
+  },
+  SET_PAN: (state) => {
+    state.me.pancard_status = 'pending'
   }
 };
 
@@ -144,7 +147,7 @@ const actions = {
   },
   async GET_APPROVED_DETAILS({ commit }, payload) {
     return await this.$axios
-      .get(`/api/me.json?fields=email,mobile_no,mobile_approved,pancard_approved`)
+      .get(`/api/me.json?fields=email,mobile_no,mobile_approved,pancard_status`)
       .then((response) => {
         commit('SET_APPROVED_DETAILS', response.data);
       });
@@ -161,6 +164,20 @@ const actions = {
       .put(`/api/me.json?fields=`, payload)
       .then((response) => {
         commit('SET_SETTINGS', response.data);
+      }).catch((error) => {
+        if (error.response.status == 422) {
+          throw error.response;
+        }
+        return error;
+      });
+  },
+  async VERIFY_PAN({commit}, payload){
+    return await this.$axios
+      .put(`/api/me/save_pan.json`, payload)
+      .then((response) => {
+        if (response.status == 200) {
+          commit('SET_PAN');
+        }
       }).catch((error) => {
         if (error.response.status == 422) {
           throw error.response;
