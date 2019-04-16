@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-toolbar color="primary">
-      <div>
+      <div v-if="image">
         <img :src="image" class="image imagec" @click.stop="drawer = !drawer">
       </div>
       <h3 class="white--text fontw600">{{title}}</h3>
@@ -70,7 +70,6 @@
         </nuxt-link>
       </v-list>
     </v-navigation-drawer>
-
   </div>
 </template>
 
@@ -86,7 +85,7 @@
         current_balance: 0
       }
     },
-    created() {
+    mounted() {
       if (process.browser) {
         this.display_name = localStorage.getItem('me_display_name');
         this.team_name = localStorage.getItem('me_team_name');

@@ -41,9 +41,9 @@
           </v-flex>
           <v-flex xs4 class='pt-2 pb-2 text-xs-right'>
             <div v-if="getAccountApproved">
-              <nuxt-link to="/wallet/redemptions">
+              <a href="https://www.fanspole.com/account?tab=redemption">
                 <v-btn small color="primary" class="pa-0 pl-2 pr-2">WITHDRAW</v-btn>
-              </nuxt-link>
+              </a>
             </div>
             <div v-else>
               <nuxt-link to="/wallet/verify-account">

@@ -18,7 +18,9 @@
         <v-flex xs6>
           <div class="pl-2 pt-2">
             <div>Have a Referral Code?</div>
-            <div class="font-weight-bold">click here</div>      
+            <div class="font-weight-bold">
+              <nuxt-link :to="`${signup_path}`">Click here</nuxt-link>
+            </div>      
           </div>
         </v-flex>
         <v-flex xs6>
@@ -188,6 +190,7 @@ The Company acknowledges that the ICC, BCCI/IPL and its franchises, respective n
 
 <script>
   import { LOGIN } from '~/constants/routes.js';
+  import { SIGNUP } from '~/constants/routes.js';
   export default {
     mounted() {
       if (this.$cookies.get('at') && this.$cookies.get('rt')) {
@@ -197,6 +200,7 @@ The Company acknowledges that the ICC, BCCI/IPL and its franchises, respective n
     data() {
       return {
         login_path: LOGIN,
+        signup_path: SIGNUP,
         daily_mode: [
           {number: 1, title: "Select a Match", desc: "Select an upcoming match of your choice"},
           {number: 2, title: "Create your Fanspole Team", desc: "Use your sports knowledge to create a fantasy team using 100 credits"},
