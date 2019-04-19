@@ -34,16 +34,16 @@
             FANSPOLE
           </v-flex>
           <v-flex xs12 class='pt-2'>
-            <TeamPlayers :players="getUserTeamPlayers.row1"></TeamPlayers>
+            <TeamPlayers :players="getUserTeamPlayers.row1" :captain="getUserTeam.captain"></TeamPlayers>
           </v-flex>
           <v-flex xs12>
-            <TeamPlayers :players="getUserTeamPlayers.row2"></TeamPlayers>
+            <TeamPlayers :players="getUserTeamPlayers.row2" :captain="getUserTeam.captain"></TeamPlayers>
           </v-flex>
           <v-flex xs12>
-            <TeamPlayers :players="getUserTeamPlayers.row3"></TeamPlayers>
+            <TeamPlayers :players="getUserTeamPlayers.row3" :captain="getUserTeam.captain"></TeamPlayers>
           </v-flex>
           <v-flex xs12>
-            <TeamPlayers :players="getUserTeamPlayers.row4"></TeamPlayers>
+            <TeamPlayers :players="getUserTeamPlayers.row4" :captain="getUserTeam.captain"></TeamPlayers>
           </v-flex>
         </v-layout>
       </div>
