@@ -49,7 +49,7 @@
               />
           </div>
           <div class="text-xs-right primary--text">
-            Forgot password?
+            <nuxt-link to="/login/forgot-password">Forgot password?</nuxt-link>
           </div>
           <div>
             <v-btn large style="width:80%" color='primary'>SIGN UP</v-btn>

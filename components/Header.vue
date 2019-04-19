@@ -1,6 +1,11 @@
 <template>
   <div>
     <v-toolbar color="primary">
+      <div v-if="!is_logged_in">
+        <nuxt-link to="/login">
+          <img src="https://res.cloudinary.com/fantasy/image/upload/v1554208678/uploads/development/avatar/5/1554208676.png" class="image imagec">
+        </nuxt-link>
+      </div>
       <div v-if="image">
         <img :src="image" class="image imagec" @click.stop="drawer = !drawer">
       </div>
@@ -82,7 +87,8 @@
         team_name: '',
         image: '',
         cricket_level: '',
-        current_balance: 0
+        current_balance: 0,
+        is_logged_in: false
       }
     },
     mounted() {
@@ -92,6 +98,11 @@
         this.image = localStorage.getItem('me_image');
         this.cricket_level = localStorage.getItem('me_cricket_level');
         this.current_balance = localStorage.getItem('me_current_balance');
+      }
+      if (this.$cookies.get('at') && this.$cookies.get('rt')) {
+        this.is_logged_in = true
+      }else{
+        this.is_logged_in = false
       }
     },
     props: {
