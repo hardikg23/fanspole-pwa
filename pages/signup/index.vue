@@ -2,16 +2,16 @@
   <section>
     <div class="white" style="min-height: 100vh;">
       <v-dialog v-model="loading">
-      <v-layout class="white">
-        <v-flex xs12 class="text-xs-center pa-4">
-          <v-progress-circular
-            indeterminate
-            :width="3"
-            color="primary"
-          ></v-progress-circular>
-        </v-flex>
-      </v-layout>
-    </v-dialog>
+        <v-layout class="white">
+          <v-flex xs12 class="text-xs-center pa-4">
+            <v-progress-circular
+              indeterminate
+              :width="3"
+              color="primary"
+            ></v-progress-circular>
+          </v-flex>
+        </v-layout>
+      </v-dialog>
 
     <div v-if="!link_sent">
       <v-layout row wrap pa-2>

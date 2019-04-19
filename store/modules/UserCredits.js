@@ -34,6 +34,21 @@ const actions = {
       .catch(error => {
         return error;
       });
+  },
+  async CREATE_USER_CREDITS({ commit, dispatch }, payload) {
+    return await this.$axios
+      .post(`/api/user_credits.json?fields=id,payment_data,service_provider`, payload)
+      .then(response => {
+        if (response.status == 201){
+          return response.data
+        }
+      })
+      .catch((error) => {
+        if (error.response.status == 422) {
+          throw error.response;
+        }
+        return error;
+      });
   }
 }
 
