@@ -40,7 +40,9 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/vuetify', '@/plugins/axios', { src: '@/plugins/ga', ssr: false }
+    '@/plugins/vuetify', 
+    '@/plugins/axios', 
+    { src: '@/plugins/ga', ssr: false }
   ],
 
   /*
@@ -49,6 +51,7 @@ module.exports = {
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
+    '@nuxtjs/sentry',
     ['cookie-universal-nuxt', { parseJSON: true }]
   ],
   /*
@@ -57,6 +60,11 @@ module.exports = {
   axios: {
     proxy: true,
     baseUrl: MasterKeys[appEnv].apiEndPoint
+  },
+  sentry: {
+    public_key: "2c5212aa893f4b3cb1df21c33a6315ab",
+    private_key: '',
+    project_id: "1442703"
   },
 
   proxy: {
