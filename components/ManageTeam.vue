@@ -40,12 +40,12 @@
               @click="click_on_players(props.item)" 
               v-bind:class="{'player-selected': getSelectedPlayers.indexOf(props.item.id) != -1, 'player-disabled': ((props.item.value > getBudget || getSelectedPlayers.length == 11) && getSelectedPlayers.indexOf(props.item.id) == -1)}"
             >
-              <td class="text-xs-left pa-0 pl-1">
-                <img :alt="props.item.team.name_attr" v-bind:src="props.item.team.jersey_photo" style="width:32px;height: 32px;">
+              <td class="text-xs-left pa-0 py-2 pl-1">
+                <img :alt="props.item.team.name_attr" v-bind:src="props.item.team.jersey_photo" style="width:40px;height: 40px;">
               </td>
               <td class="text-xs-left pa-2">
-                <div class="font-weight-bold font11">{{props.item.name}}</div>
-                <div class="font9"><span class="font-weight-bold">{{props.item.team.name_attr}}</span> - <span>{{getStyle(props.item.style)}}</span></div>
+                <div class="fontw600">{{props.item.name}}</div>
+                <div class="font8"><span>{{props.item.team.name_attr}}</span> - <span>{{getStyle(props.item.style)}}</span></div>
               </td>
               <td class="text-xs-center pa-0"><div>{{props.item.last_series_score}}</div></td>
               <td class="text-xs-center font-weight-bold pa-0"><div>{{props.item.value}}</div></td>
@@ -73,12 +73,12 @@
               @click="click_on_players(props.item)" 
               v-bind:class="{'player-selected': getSelectedPlayers.indexOf(props.item.id) != -1, 'player-disabled': ((props.item.value > getBudget || getSelectedPlayers.length == 11) && getSelectedPlayers.indexOf(props.item.id) == -1)}"
             >
-              <td class="text-xs-left pa-0 pl-1">
-                <img :alt="props.item.team.name_attr" v-bind:src="props.item.team.jersey_photo" style="width:32px;height: 32px;">
+              <td class="text-xs-left pa-0 py-2 pl-1">
+                <img :alt="props.item.team.name_attr" v-bind:src="props.item.team.jersey_photo" style="width:40px;height: 40px;">
               </td>
               <td class="text-xs-left pa-2">
-                <div class="font-weight-bold font11">{{props.item.name}}</div>
-                <div class="font9"><span class="font-weight-bold">{{props.item.team.name_attr}}</span> - <span>{{getStyle(props.item.style)}}</span></div>
+                <div class="fontw600">{{props.item.name}}</div>
+                <div class="font8"><span>{{props.item.team.name_attr}}</span> - <span>{{getStyle(props.item.style)}}</span></div>
               </td>
               <td class="text-xs-center pa-0"><div>{{props.item.last_series_score}}</div></td>
               <td class="text-xs-center font-weight-bold pa-0"><div>{{props.item.value}}</div></td>
@@ -106,12 +106,12 @@
               @click="click_on_players(props.item)" 
               v-bind:class="{'player-selected': getSelectedPlayers.indexOf(props.item.id) != -1, 'player-disabled': ((props.item.value > getBudget || getSelectedPlayers.length == 11) && getSelectedPlayers.indexOf(props.item.id) == -1)}"
             >
-              <td class="text-xs-left pa-0 pl-1">
-                <img :alt="props.item.team.name_attr" v-bind:src="props.item.team.jersey_photo" style="width:32px;height: 32px;">
+              <td class="text-xs-left pa-0 py-2 pl-1">
+                <img :alt="props.item.team.name_attr" v-bind:src="props.item.team.jersey_photo" style="width:40px;height: 40px;">
               </td>
               <td class="text-xs-left pa-2">
-                <div class="font-weight-bold font11">{{props.item.name}}</div>
-                <div class="font9"><span class="font-weight-bold">{{props.item.team.name_attr}}</span> - <span>{{getStyle(props.item.style)}}</span></div>
+                <div class="fontw600">{{props.item.name}}</div>
+                <div class="font8"><span>{{props.item.team.name_attr}}</span> - <span>{{getStyle(props.item.style)}}</span></div>
               </td>
               <td class="text-xs-center pa-0"><div>{{props.item.last_series_score}}</div></td>
               <td class="text-xs-center font-weight-bold pa-0"><div>{{props.item.value}}</div></td>
@@ -139,12 +139,12 @@
               @click="click_on_players(props.item)" 
               v-bind:class="{'player-selected': getSelectedPlayers.indexOf(props.item.id) != -1, 'player-disabled': ((props.item.value > getBudget || getSelectedPlayers.length == 11) && getSelectedPlayers.indexOf(props.item.id) == -1)}"
             >
-              <td class="text-xs-left pa-0 pl-1">
-                <img :alt="props.item.team.name_attr" v-bind:src="props.item.team.jersey_photo" style="width:32px;height: 32px;">
+              <td class="text-xs-left pa-0 py-2 pl-1">
+                <img :alt="props.item.team.name_attr" v-bind:src="props.item.team.jersey_photo" style="width:40px;height: 40px;">
               </td>
               <td class="text-xs-left pa-2">
-                <div class="font-weight-bold font11">{{props.item.name}}</div>
-                <div class="font9"><span class="font-weight-bold">{{props.item.team.name_attr}}</span> - <span>{{getStyle(props.item.style)}}</span></div>
+                <div class="fontw600">{{props.item.name}}</div>
+                <div class="font8"><span>{{props.item.team.name_attr}}</span> - <span>{{getStyle(props.item.style)}}</span></div>
               </td>
               <td class="text-xs-center pa-0"><div>{{props.item.last_series_score}}</div></td>
               <td class="text-xs-center font-weight-bold pa-0"><div>{{props.item.value}}</div></td>
@@ -181,7 +181,7 @@
       </v-dialog>
 
       <v-dialog v-model="captainDialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-        <v-card style='padding-bottom: 100px;'>
+        <v-card style='padding-bottom: 100px !important;'>
           <v-toolbar dark class="grey darken-3">
             <v-btn icon dark @click="captainDialog = false">
               <v-icon>close</v-icon>
@@ -199,12 +199,12 @@
             >
               <template v-slot:items="props">
                 <tr>
-                  <td class="text-xs-left pa-0 pl-1">
-                    <img :alt="props.item.team.name_attr" v-bind:src="props.item.team.jersey_photo" style="width:32px;height: 32px;">
+                  <td class="text-xs-left pa-0 py-2 pl-1">
+                    <img :alt="props.item.team.name_attr" v-bind:src="props.item.team.jersey_photo" style="width:40px;height: 40px;">
                   </td>
                   <td class="text-xs-left pa-2">
-                    <div class="font-weight-bold font11">{{props.item.name}}</div>
-                    <div class="font9"><span class="font-weight-bold">{{props.item.team.name_attr}}</span> - <span>{{getStyle(props.item.style)}}</span></div>
+                    <div class="fontw600">{{props.item.name}}</div>
+                    <div class="font8"><span>{{props.item.team.name_attr}}</span> - <span>{{getStyle(props.item.style)}}</span></div>
                   </td>
                   <td class="text-xs-center pa-0"><div>{{props.item.last_series_score}} Pts</div></td>
                   <td class="text-xs-right pa-0 pr-4">
