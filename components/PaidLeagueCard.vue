@@ -111,17 +111,19 @@
             <v-flex xs6 class="pr-3 pt-2 text-xs-right">
               <div class="fontw600 green--text text--accent-4">&#8377;{{to_number_format(getJoiningConfirmation.entry_fee)}}</div>
             </v-flex>
-            <div v-show="getJoiningConfirmation.user_teams != undefined && getJoiningConfirmation.user_teams.length > 1">
-              <v-flex xs12 class="pt-3">
-                <div class="fontw600">Select Team</div>
-              </v-flex>
-              <v-radio-group v-model="selected_team" row class="ma-1">
-                <v-flex xs6 v-for="team in getJoiningConfirmation.user_teams" :key="team.id">
-                  <v-radio :label="`Team ${team.team_no}`" :value="team.id" color="primary" :disabled="team.joined"></v-radio>
+            <v-flex xs12 v-show="getJoiningConfirmation.user_teams != undefined && getJoiningConfirmation.user_teams.length > 1">
+              <v-layout row wrap pa-2>
+                <v-flex xs12 class="pt-3">
+                  <div class="fontw600">Select Team</div>
                 </v-flex>
-              </v-radio-group>
-            </div>
-            <v-flex xs12 class="pa-4 font7 grey--text text-xs-center">
+                <v-radio-group v-model="selected_team" row class="ma-1">
+                  <v-flex xs6 v-for="team in getJoiningConfirmation.user_teams" :key="team.id" class="pa-1">
+                    <v-radio :label="`Team ${team.team_no}`" :value="team.id" color="primary" :disabled="team.joined"></v-radio>
+                  </v-flex>
+                </v-radio-group>
+              </v-layout>
+            </v-flex>
+            <v-flex xs12 class="pa-3 font7 grey--text text-xs-center">
               By joining this contest, you accept Fanspole's T&amp;C and conﬁrm that you are not a resident of Assam, Odisha, Telangana, Nagaland or Sikkim.
             </v-flex>
             <v-flex xs12 class="text-xs-center">

@@ -4,7 +4,7 @@
       <tr align="center">
         <td v-for="player in players" :key="player.id">
           <div class="white--text font6" style="height:0px;">
-            <div v-if="player.id == captain.id" class="captain">C</div>
+            <div v-if="player.id == captain" class="captain">C</div>
           </div>
           <div style="display: inline-block;">
             <div style="z-index: -5;">
@@ -31,7 +31,7 @@ export default {
       required: true
     },
     captain: {
-      type: Object
+      type: Number
     }
   }
 };

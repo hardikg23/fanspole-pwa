@@ -46,16 +46,18 @@ const getters = {
     }
   },
   selected_team: state => {
-    var user_teams = state.joining_confirmation.user_teams
-    var team_id = 0
-    var i;
-    for (i = 0; i < user_teams.length; i++) { 
-      if(!user_teams[i].joined){
-        team_id = user_teams[i].id
-        break;
+    if(state.joining_confirmation != undefined){
+      var user_teams = state.joining_confirmation.user_teams
+      var team_id = 0
+      var i;
+      for (i = 0; i < user_teams.length; i++) { 
+        if(!user_teams[i].joined){
+          team_id = user_teams[i].id
+          break;
+        }
       }
+      return team_id
     }
-    return team_id
   }
 }
 
