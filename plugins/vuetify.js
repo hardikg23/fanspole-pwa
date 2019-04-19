@@ -9,7 +9,7 @@ Vue.use(Vuetify, {
     secondary: '#1D89D1',
     info: colors.teal.lighten1,
     warning: colors.amber.base,
-    error: colors.deepOrange.accent4,
+    error: '#D50000',
     success: colors.green.accent3
   }
 })

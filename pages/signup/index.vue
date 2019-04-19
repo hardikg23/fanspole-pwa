@@ -1,6 +1,19 @@
 <template>
   <section>
     <div class="white" style="min-height: 100vh;">
+      <v-dialog v-model="loading">
+      <v-layout class="white">
+        <v-flex xs12 class="text-xs-center pa-4">
+          <v-progress-circular
+            indeterminate
+            :width="3"
+            color="primary"
+          ></v-progress-circular>
+        </v-flex>
+      </v-layout>
+    </v-dialog>
+
+    <div v-if="!link_sent">
       <v-layout row wrap pa-2>
         <v-flex xs12 class="text-xs-center pa-2">
           <div class="grey--text text--darken-3 font-weight-bold font11">Welcome to Fanspole</div>
@@ -14,31 +27,37 @@
           </div>
           <div>Or</div>
           <div>
-            
-            <v-text-field
+            <v-form
+              ref="form"
+              v-model="valid"
+              method="post"
+              >
+              <v-text-field
                 class="pa-0"
                 solo
                 v-model="login.email"
                 prepend-inner-icon="email"
                 name="login"
+                :rules="[(v) => !!v || 'Email is required']"
                 label="Email"
                 type="text"
                 required
               />
-            <v-text-field
+              <v-text-field
                 solo
                 class="pa-0"
                 id="password"
                 :append-icon="show_password ? 'visibility' : 'visibility_off'"
                 v-model="login.password"
                 prepend-inner-icon="lock"
+                :rules="[(v) => !!v || 'Password is required']"
                 name="password"
                 label="Password"
                 :type="show_password ? 'text' : 'password'"
                 required
                 @click:append="show_password = !show_password"
               />
-            <v-text-field
+              <v-text-field
                 solo
                 v-model="login.refer_code"
                 prepend-inner-icon="email"
@@ -47,12 +66,13 @@
                 type="text"
                 required
               />
+            </v-form>
           </div>
           <div class="text-xs-right primary--text">
             <nuxt-link to="/login/forgot-password">Forgot password?</nuxt-link>
           </div>
           <div>
-            <v-btn large style="width:80%" color='primary'>SIGN UP</v-btn>
+            <v-btn large style="width:96%" color='primary' :loading="formLoading" @click="handleSubmit()">SIGN UP</v-btn>
           </div>
           
           <div class="pt-5">
@@ -61,6 +81,19 @@
           </div>
         </v-flex>
       </v-layout>
+      </div>
+      <div v-else>
+        <v-layout row wrap pa-2 class="text-xs-center mt-4">
+          <v-flex xs12 class="pa-2">
+            <div>
+              We have sent you the activation email to your email address you need to verify your email address first.
+            </div>
+            <div class="pt-4">
+              <nuxt-link to="/matches" class="primary--text fontw600">Go To Home</nuxt-link>
+            </div>
+          </v-flex>
+        </v-layout>
+      </div>
     </div>
 
     <template>
@@ -77,6 +110,21 @@
 <script type="text/javascript">
   import { LOGIN } from '~/constants/routes.js';
   export default {
+    data() {
+      return {
+        login_path: LOGIN,
+        login: {
+          email: '',
+          password: '',
+          refer_code: ''
+        },
+        show_password: false,
+        formLoading: false,
+        loading: false,
+        link_sent: false,
+        valid: false
+      }
+    },
     mounted() {
       window.addEventListener('keyup', (event) => {
         if (event.keyCode === 13) {
@@ -87,15 +135,32 @@
         this.$router.push('/');
       }
     },
-    data() {
-      return {
-        login_path: LOGIN,
-        login: {
-          email: '',
-          password: '',
-          refer_code: ''
-        },
-        show_password: false
+    methods: {
+      async handleSubmit() {
+        this.loading = true;
+        if (this.$refs.form.validate()) {
+          const formData = new FormData();
+          formData.append('email', this.login.email);
+          formData.append('password', this.login.password);
+          formData.append('ref_code', this.login.refer_code);
+
+          await this.$store
+            .dispatch('User/REGISTER', formData)
+            .then((res) => {
+              this.formLoading = false;
+              this.link_sent = true;
+            })
+            .catch((error) => {
+              this.showSnackBar = true;
+              this.formLoading = false;
+              this.$nuxt.$emit('snackbarError', {
+                snackbar: this.showSnackBar,
+                message: error.data.error,
+                button: false
+              });
+            });
+        }
+        this.loading = false;
       }
     }
   }
