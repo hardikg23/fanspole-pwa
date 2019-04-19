@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="overflow:hidden;">
-      <v-toolbar extended color="primary" style="position: fixed;top:0;z-index:10;">
+      <v-toolbar extended color="primary" height="56" style="position: fixed;top:0;z-index:10;">
         <Back/>
         <span class="white--text fontw600">{{title}}</span>
         <v-toolbar-items slot="extension" style='width:100%; margin-left: 0px;'>
@@ -23,8 +23,8 @@
       if (store.getters['Matches/match'](params.id) == undefined){
         await store.dispatch('Matches/GET_MATCH', params.id);  
       }
-      if (store.getters['Players/players'](1507).length == 0){
-        await store.dispatch('Players/GET_PLAYERS', 1507);
+      if (store.getters['Players/players'](params.id).length == 0){
+        await store.dispatch('Players/GET_PLAYERS', params.id);
       }
     },
     data() {
