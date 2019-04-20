@@ -42,7 +42,9 @@
     },
     methods: {
       async getApiSeriesPhase(){
-        await this.$store.dispatch('SeriesPhases/GET_PHASES');
+        if (this.$store.getters['SeriesPhases/series_phases'].length == 0){
+          await this.$store.dispatch('SeriesPhases/GET_PHASES');
+        }
         this.loading = false
       }
     }
