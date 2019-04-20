@@ -133,7 +133,9 @@
     <div class="pt-4">
       <div class="text-xs-center font-weight-bold">Get the Fanspole app for exclusive features</div>
       <div class="text-xs-center pa-2">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0s4AayiLNri23FQy-3n4ynvJqiF1-rAWcbSAGjH96TvXe_Wls" style="width:65%;">  
+        <a href="https://www.fanspole.com/android-app">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0s4AayiLNri23FQy-3n4ynvJqiF1-rAWcbSAGjH96TvXe_Wls" style="width:65%;">  
+        </a>
       </div>
     </div>
 
@@ -143,25 +145,31 @@
           <div class="text-xs-center pt-3">
             <div class="font-weight-bold display-1">FANSPOLE</div>
             <div class="pt-2">
-              <img src="https://img.icons8.com/material/48/000000/facebook.png" class="filter">
-              <img src="https://img.icons8.com/material/48/000000/instagram-new.png" class="filter">
-              <img src="https://img.icons8.com/material/48/000000/twitter.png" class="filter">
+              <a href="https://www.facebook.com/fanspole">
+                <img src="https://img.icons8.com/material/48/000000/facebook.png" class="filter">
+              </a>
+              <a href="https://www.instagram.com/fanspole.fantasycricket/?hl=en">
+                <img src="https://img.icons8.com/material/48/000000/instagram-new.png" class="filter">
+              </a>
+              <a href="https://twitter.com/fanspole">
+                <img src="https://img.icons8.com/material/48/000000/twitter.png" class="filter">
+              </a>
             </div>
           </div>
           <hr>
         </v-flex>
         <v-flex xs6 class="text-xs-center font-weight-bold" pt-4>
-          <div class="pa-2">Download App</div>
-          <div class="pa-2">How to Play</div>
+          <a href="https://www.fanspole.com/android-app"><div class="pa-2">Download App</div></a>
+          <nuxt-link to="/daily/how-to-play"><div class="pa-2">How to Play</div></nuxt-link>
           <div class="pa-2">Refer & Earn</div>
-          <div class="pa-2">Account</div>
+          <nuxt-link to="/profile"><div class="pa-2">Account</div></nuxt-link>
           <hr>
         </v-flex>
         <v-flex xs6 class="text-xs-center font-weight-bold" pt-4>
-          <div class="pa-2">Home</div>
-          <div class="pa-2">About Us</div>
-          <div class="pa-2">Log In</div>
-          <div class="pa-2">Sign Up</div>
+          <nuxt-link to="/matches"><div class="pa-2">Home</div></nuxt-link>
+          <nuxt-link to="/about-us"><div class="pa-2">About Us</div></nuxt-link>
+          <nuxt-link to="/login"><div class="pa-2">Log In</div></nuxt-link>
+          <nuxt-link to="/signup"><div class="pa-2">Sign Up</div></nuxt-link>
           <hr>
         </v-flex>
         <v-flex xs12 class="text-xs-center grey--text text--lighten-2 font7 pt-2">
@@ -173,10 +181,10 @@ The Company acknowledges that the ICC, BCCI/IPL and its franchises, respective n
         </v-flex>
 
         <v-flex xs6 class="text-xs-center font-weight-bold grey darken-4">
-          <div class="py-4">Privacy Policy</div>
+          <nuxt-link to="/privacy-policy"><div class="py-4">Privacy Policy</div></nuxt-link>
         </v-flex>
         <v-flex xs6 class="text-xs-center font-weight-bold grey darken-4">
-          <div class="py-4">Terms & conditions</div>
+          <nuxt-link to="/terms-and-conditions"><div class="py-4">Terms & conditions</div></nuxt-link>
         </v-flex>
 
         <v-flex xs12 class="font8 pa-2 text-xs-center">

@@ -54,7 +54,7 @@
     </div>
 
     <template>
-      <div class="footer text-xs-center white">
+      <div class="footer text-xs-center white max-w-550">
         <hr>
         <div class="pa-3">
           <span class="grey--text text--lighten-1">Haven't an account?</span> <nuxt-link :to="`${signup_path}`" class="font-weight-bold primary--text">Sign Up</nuxt-link>

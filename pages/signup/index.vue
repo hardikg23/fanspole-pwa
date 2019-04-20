@@ -18,7 +18,10 @@
         <v-flex xs12 class="text-xs-center pa-2">
           <div class="grey--text text--darken-3 font-weight-bold font11">Welcome to Fanspole</div>
           <div class="grey--text text--lighten-1 font9 pa-2">
-            By Clicking on Signup, I hereby confirm to be 18 years old & provide my acceptance to <span class="primary--text font-weight-bold">Terms & Conditions</span> and <span class="primary--text font-weight-bold">Privacy Policy of Fanspole</span>
+            By Clicking on Signup, I hereby confirm to be 18 years old & provide my acceptance to 
+            <nuxt-link to="/terms-and-conditions"><span class="primary--text font-weight-bold">Terms & Conditions</span></nuxt-link>
+            and 
+            <nuxt-link to="/privacy-policy"><span class="primary--text font-weight-bold">Privacy Policy of Fanspole</span></nuxt-link>
           </div>
           <div class="grey--text text--darken-3 font-weight-bold font11 pt-4">Sign in with Social</div>
           <div>
@@ -97,7 +100,7 @@
     </div>
 
     <template>
-      <div class="footer text-xs-center white">
+      <div class="footer text-xs-center white max-w-550">
         <hr>
         <div class="pa-3">
           <span class="grey--text text--lighten-1">Already have an account?</span> <nuxt-link :to="`${login_path}`" class="font-weight-bold primary--text">Log In</nuxt-link>
