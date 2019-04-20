@@ -80,7 +80,9 @@
           
           <div class="pt-5">
             <div class="pa-1">Get Fanspole App</div>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0s4AayiLNri23FQy-3n4ynvJqiF1-rAWcbSAGjH96TvXe_Wls" style="width:40%;">  
+            <a href="https://www.fanspole.com/android-app">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0s4AayiLNri23FQy-3n4ynvJqiF1-rAWcbSAGjH96TvXe_Wls" style="width:40%;">
+            </a>
           </div>
         </v-flex>
       </v-layout>

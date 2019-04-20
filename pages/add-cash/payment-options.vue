@@ -27,32 +27,32 @@
     </v-container>
 
     <v-container grid-list-md pa-0 mt-3>
-      <v-layout row wrap class="white fontw600 font9">
-        <v-flex xs3 class="borderb pa-2 text-xs-center">
+      <v-layout row wrap class="white fontw600 font9 cursor-p">
+        <v-flex xs3 class="borderb pa-2 text-xs-center" @click="paymentOptionClicked('payumoney')">
           <v-icon>payment</v-icon>
         </v-flex>
-        <v-flex xs7 class="font11 borderb pa-2">
-          <div @click="paymentOptionClicked('payumoney')">Debit/Credit card</div>
+        <v-flex xs7 class="font11 borderb pa-2" @click="paymentOptionClicked('payumoney')">
+          <div>Debit/Credit card</div>
         </v-flex>
-        <v-flex xs2 class="borderb pa-2">
+        <v-flex xs2 class="borderb pa-2" @click="paymentOptionClicked('payumoney')">
           <v-icon>navigate_next</v-icon>
         </v-flex>
-        <v-flex xs3 class="borderb pa-2 text-xs-center">
+        <v-flex xs3 class="borderb pa-2 text-xs-center" @click="paymentOptionClicked('paytm')">
           <img src="~/assets/images/payments/paytm.png" class="image">
         </v-flex>
-        <v-flex xs7 class="font11 borderb pa-2">
-          <div @click="paymentOptionClicked('paytm')">Paytm</div>
+        <v-flex xs7 class="font11 borderb pa-2" @click="paymentOptionClicked('paytm')">
+          <div>Paytm</div>
         </v-flex>
-        <v-flex xs2 class="borderb pa-2">
+        <v-flex xs2 class="borderb pa-2" @click="paymentOptionClicked('paytm')">
           <v-icon>navigate_next</v-icon>
         </v-flex>
-        <v-flex xs3 class="borderb pa-2 text-xs-center">
+        <v-flex xs3 class="borderb pa-2 text-xs-center" @click="paymentOptionClicked('payumoney')">
           <img src="~/assets/images/payments/pauymoney.gif" class="image">
         </v-flex>
-        <v-flex xs7 class="font11 borderb pa-2">
-          <div @click="paymentOptionClicked('payumoney')">PayuMoney</div>
+        <v-flex xs7 class="font11 borderb pa-2" @click="paymentOptionClicked('payumoney')">
+          <div>PayuMoney</div>
         </v-flex>
-        <v-flex xs2 class="borderb pa-2">
+        <v-flex xs2 class="borderb pa-2" @click="paymentOptionClicked('payumoney')">
           <v-icon>navigate_next</v-icon>
         </v-flex>
       </v-layout>
