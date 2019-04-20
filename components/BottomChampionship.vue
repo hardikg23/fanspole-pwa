@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-bottom-nav fixed :value="true" :active.sync="e3" class="grey lighten-3" style="max-width: 550px;">
-      <v-btn flat color="championship" to="/championship">
+      <v-btn flat color="championship" to="/championship/home">
         <span>Home</span>
         <v-icon>home</v-icon>
       </v-btn>
