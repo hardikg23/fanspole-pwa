@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-top: 112px;width:100%;overflow-y:auto;">
+  <div style="margin-top: 112px;width:100%;overflow-y:auto;z-index:1000 !important">
     <v-layout row wrap class="primary pa-2">
       <v-flex xs6 class='white--text'>
         <div class="text-xs-center">
@@ -234,17 +234,14 @@
               <v-flex xs12 class="white--text font-weight-bold font22" style='opacity:0.4'>
                 FANSPOLE
               </v-flex>
-              <v-flex xs12 class='pt-3'>
+              <v-flex xs12 class='py-2'>
                 <TeamPlayers :players="getUserTeam.row1" :captain="getCaptainId"></TeamPlayers>
               </v-flex>
-              <v-flex xs12>
+              <v-flex xs12 class='py-2'>
                 <TeamPlayers :players="getUserTeam.row2" :captain="getCaptainId"></TeamPlayers>
               </v-flex>
-              <v-flex xs12>
+              <v-flex xs12 class='py-2'>
                 <TeamPlayers :players="getUserTeam.row3" :captain="getCaptainId"></TeamPlayers>
-              </v-flex>
-              <v-flex xs12>
-                <TeamPlayers :players="getUserTeam.row4" :captain="getCaptainId"></TeamPlayers>
               </v-flex>
             </v-layout>
           </v-list>
@@ -357,29 +354,14 @@
       },
       getUserTeam() {
         var team_players = this.$store.getters['CreateTeam/selected_players_hash'];
-        var row1 = [];
+        var row1 = []
         var row2 = []
         var row3 = []
-        var row4 = []
         if(team_players != undefined){
-          let wk = team_players.find((player) => {
-            if(player.style == 5 || player.style == 7){
-              return player;
-            }
-          });
-          var other_players = []
-          if(wk != undefined){
-            row1 = [wk];
-            other_players = team_players.filter((player) => {
-              if(player.id != wk.id){
-                return player;
-              }
-            });
-          }
-          row2 = other_players.slice(0, 4);
-          row3 = other_players.slice(4, 6);
-          row4 = other_players.slice(6, 10);
-          return {row1: row1, row2: row2, row3: row3, row4: row4}
+          row1 = team_players.slice(0, 4);
+          row2 = team_players.slice(4, 7);
+          row3 = team_players.slice(7, 11);
+          return {row1: row1, row2: row2, row3: row3}
         }
       }
     },

@@ -40,21 +40,10 @@ const mutations = {
       }
     });
     if(user_team != undefined){
-      let wk = user_team.team_players.find((player) => {
-        if(player.style == 5 || player.style == 7){
-          return player;
-        }
-      });
-      let other_players = user_team.team_players.filter((player) => {
-        if(player.id != wk.id){
-          return player;
-        }
-      });
-      let row1 = [wk];
-      let row2 = other_players.slice(0, 4);
-      let row3 = other_players.slice(4, 6);
-      let row4 = other_players.slice(6, 10);
-      state.user_team_row = {row1: row1, row2: row2, row3: row3, row4: row4}
+      let row1 = user_team.team_players.slice(0, 4);
+      let row2 = user_team.team_players.slice(4, 7);
+      let row3 = user_team.team_players.slice(7, 11);
+      state.user_team_row = {row1: row1, row2: row2, row3: row3}
     }
   },
   RESET_USER_TEAMS: (state, payload) => {

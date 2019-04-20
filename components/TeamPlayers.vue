@@ -13,7 +13,7 @@
             <div v-bind:style="{backgroundColor: `${player.team.team_color}`}" class="white--text font7 box_shadow fontw600" style="min-width:75px;padding: 4px;">
               {{player.display_name}}
             </div>
-            <div class="white--text font6">
+            <div class="white--text font7 pa-1">
               <span>{{player.display_info}}</span>
             </div>
           </div>

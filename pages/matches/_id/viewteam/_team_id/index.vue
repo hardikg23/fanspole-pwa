@@ -33,17 +33,14 @@
           <v-flex xs12 class="white--text font-weight-bold font22" style='opacity:0.4'>
             FANSPOLE
           </v-flex>
-          <v-flex xs12 class='pt-2'>
+          <v-flex xs12 class='py-3'>
             <TeamPlayers :players="getUserTeamPlayers.row1" :captain="getUserTeam.captain.id"></TeamPlayers>
           </v-flex>
-          <v-flex xs12>
+          <v-flex xs12 class="py-3">
             <TeamPlayers :players="getUserTeamPlayers.row2" :captain="getUserTeam.captain.id"></TeamPlayers>
           </v-flex>
-          <v-flex xs12>
+          <v-flex xs12 class='py-3'>
             <TeamPlayers :players="getUserTeamPlayers.row3" :captain="getUserTeam.captain.id"></TeamPlayers>
-          </v-flex>
-          <v-flex xs12>
-            <TeamPlayers :players="getUserTeamPlayers.row4" :captain="getUserTeam.captain.id"></TeamPlayers>
           </v-flex>
         </v-layout>
       </div>

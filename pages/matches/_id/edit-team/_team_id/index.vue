@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="overflow:hidden;">
-      <v-toolbar extended color="primary" style="position: fixed;top:0;z-index:10;">
+      <v-toolbar extended color="primary" height="56" style="position: fixed;top:0;z-index:10;">
         <Back/>
         <span class="white--text fontw600">{{title}}</span>
         <v-toolbar-items slot="extension" style='width:100%; margin-left: 0px;'>
