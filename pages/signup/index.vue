@@ -38,7 +38,7 @@
                 v-model="login.email"
                 prepend-inner-icon="email"
                 name="login"
-                :rules="[(v) => !!v || 'Email is required']"
+                :rules="emailRules"
                 label="Email"
                 type="text"
                 required
@@ -50,7 +50,7 @@
                 :append-icon="show_password ? 'visibility' : 'visibility_off'"
                 v-model="login.password"
                 prepend-inner-icon="lock"
-                :rules="[(v) => !!v || 'Password is required']"
+                :rules="passwordRules"
                 name="password"
                 label="Password"
                 :type="show_password ? 'text' : 'password'"
@@ -119,6 +119,14 @@
           password: '',
           refer_code: ''
         },
+        emailRules: [
+          (v) => !!v || 'Email is required',
+          (v) => (v && v.length >= 3) || 'Email is too short (minimum is 3 characters)'
+        ],
+        passwordRules: [
+          (v) => !!v || 'Password is required',
+          (v) => (v && v.length >= 8) || 'Password is too short (minimum is 8 characters)'
+        ],
         show_password: false,
         formLoading: false,
         loading: false,

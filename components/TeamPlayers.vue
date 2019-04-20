@@ -1,6 +1,6 @@
 <template>
   <div align="center">
-    <table width="95%" class="my-3">
+    <table width="95%" class="my-3" style="height:15vh;">
       <tr align="center">
         <td v-for="player in players" :key="player.id">
           <div class="white--text font6" style="height:0px;">

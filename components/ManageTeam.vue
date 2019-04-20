@@ -224,26 +224,30 @@
       
       <v-dialog v-model="previewDialog" fullscreen hide-overlay transition="dialog-bottom-transition">
         <v-card>
-          <v-toolbar dark class="grey darken-3">
-            <v-btn icon dark @click="previewDialog = false">
-              <v-icon>close</v-icon>
-            </v-btn>          
-          </v-toolbar>
           <v-list v-if="getUserTeam != undefined" class="grad1" style="min-height: 100vh">
             <v-layout row wrap class="text-xs-center">
               <v-flex xs12 class="white--text font-weight-bold font22" style='opacity:0.4'>
                 FANSPOLE
               </v-flex>
-              <v-flex xs12 class='py-2'>
+              <v-flex xs12>
                 <TeamPlayers :players="getUserTeam.row1" :captain="getCaptainId"></TeamPlayers>
               </v-flex>
-              <v-flex xs12 class='py-2'>
+              <v-flex xs12>
                 <TeamPlayers :players="getUserTeam.row2" :captain="getCaptainId"></TeamPlayers>
               </v-flex>
-              <v-flex xs12 class='py-2'>
+              <v-flex xs12>
                 <TeamPlayers :players="getUserTeam.row3" :captain="getCaptainId"></TeamPlayers>
               </v-flex>
             </v-layout>
+            
+            <v-layout row wrap pa-2 class="text-xs-center">
+              <v-flex xs12>
+                <v-btn small class='f_btn primary--text font-weight-bold font8' @click="previewDialog = false">
+                  CLOSE PREVIEW
+                </v-btn> 
+              </v-flex>
+            </v-layout>
+            
           </v-list>
         </v-card>
       </v-dialog>

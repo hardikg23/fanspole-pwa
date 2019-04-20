@@ -18,7 +18,7 @@ module.exports = {
       { hid: 'description', name: 'description', content: "Real Fantasy Cricket games online in India. Join Fantasy Sports @ FANSPOLE & play cricket games online to win cash daily. Play and earn points with family & friends while playing fun fantasy cricket games online." }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'shortcut icon', type: 'image/png', href: 'https://www.fanspole.com/assets/head-7d59a3c7d10ba34190eed709544545a9.png' },
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,600,700,800,900|Material+Icons' }
     ]
   },

@@ -85,7 +85,7 @@
         ],
         passwordRules: [
           (v) => !!v || 'Password is required',
-          (v) => (v && v.length >= 8) || 'Password is too short (minimum is 8 characters)'
+          (v) => (v && v.length >= 6) || 'Password is too short (minimum is 6 characters)'
         ],
       }
     },
