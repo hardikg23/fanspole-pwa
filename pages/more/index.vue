@@ -31,9 +31,9 @@
         title: "MORE",
         links: [
           {id: 1, icon: 'poll', text: 'Ranking', path: '/daily/leaderboard'},
-          {id: 2, icon: 'star', text: 'Matches', path: '/daily/matches'},
+          {id: 2, icon: 'star', text: 'Matches', path: '/info/matches'},
           {id: 3, icon: 'group', text: 'Gangs'},
-          {id: 4, icon: 'compare_arrows', text: 'Players', path: '/daily/players'},
+          {id: 4, icon: 'compare_arrows', text: 'Players', path: '/info/players'},
           {id: 5, icon: 'local_parking', text: 'Fantasy Points System', path: '/point-system'},
           {id: 6, icon: 'help_outline', text: 'How To Play', path: '/daily/how-to-play'},
           {id: 7, icon: 'whatshot', text: 'About Us', path: '/about-us'},

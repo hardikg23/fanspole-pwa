@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-toolbar color="primary">
+    <v-toolbar :color="bar_color">
       <div v-if="!is_logged_in">
         <nuxt-link to="/login">
           <img src="https://res.cloudinary.com/fantasy/image/upload/v1554208678/uploads/development/avatar/5/1554208676.png" class="image imagec">
@@ -47,7 +47,10 @@
               <v-icon>account_balance_wallet</v-icon>
             </v-list-tile-avatar>
             <v-list-tile-content>
-              <v-list-tile-title class="font12">My Balance <span class="ftr pr-2 font-weight-bold primary--text">&#8377;{{current_balance}}</span></v-list-tile-title>
+              <v-list-tile-title class="font12">
+                My Balance 
+                <span :class="`ftr pr-2 font-weight-bold ${bar_color}--text`">&#8377;{{current_balance}}</span>
+              </v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </nuxt-link>
@@ -108,6 +111,10 @@
     props: {
       title: {
         type: String
+      },
+      bar_color:{
+        type: String,
+        default: 'primary'
       }
     }
   }

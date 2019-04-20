@@ -11,6 +11,7 @@ import Players from './modules/Players';
 import PaidLeagues from './modules/PaidLeagues';
 import Redemptions from './modules/Redemptions';
 import Series from './modules/Series';
+import SeriesPhases from './modules/SeriesPhases';
 import User from './modules/User';
 import UserTeams from './modules/UserTeams';
 import UserCredits from './modules/UserCredits';
@@ -30,6 +31,7 @@ export default () => {
       PaidLeagues,
       Redemptions,
       Series,
+      SeriesPhases,
       User,
       UserTeams,
       UserCredits,
