@@ -24,4 +24,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
 to start server in Prod
 npm run build
+
+pm2 restart nuxt
+
 pm2 start npm --name "nuxt" -- start
