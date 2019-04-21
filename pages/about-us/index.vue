@@ -1,6 +1,6 @@
 <template>
   <section>
-    <v-toolbar color="primary">
+    <v-toolbar :color="color">
       <Back :showhome="true" />
       <span class="white--text fontw600">{{title}}</span>
     </v-toolbar>
@@ -17,12 +17,12 @@
       </v-layout>
     </v-card>
 
-    <div class="primary white--text pa-2 font11">
+    <div :class="`${color} white--text pa-2 font11`">
       Our Team
     </div>
     <v-card class="ma-2 pa-2">
       <v-layout row wrap>
-        <v-flex xs12 class="primary--text font-weight-bold font11">
+        <v-flex xs12 :class="`${color}--text font-weight-bold font11`">
           HARDIK GONDALIYA(Co-Founder)
         </v-flex>
         <v-flex xs12 class="font9">
@@ -33,7 +33,7 @@
 
     <v-card class="ma-2 pa-2">
       <v-layout row wrap>
-        <v-flex xs12 class="primary--text font-weight-bold font11">
+        <v-flex xs12 :class="`${color}--text font-weight-bold font11`">
           ANIKET SHINDE(Co-Founder)
         </v-flex>
         <v-flex xs12 class="font9">
@@ -44,7 +44,7 @@
 
     <v-card class="ma-2 pa-2">
       <v-layout row wrap>
-        <v-flex xs12 class="primary--text font-weight-bold font11">
+        <v-flex xs12 :class="`${color}--text font-weight-bold font11`">
           AKSHAY CHAVAN
         </v-flex>
         <v-flex xs12 class="font9">
@@ -55,7 +55,7 @@
 
     <v-card class="ma-2 pa-2">
       <v-layout row wrap>
-        <v-flex xs12 class="primary--text font-weight-bold font11">
+        <v-flex xs12 :class="`${color}--text font-weight-bold font11`">
           BHANU JALAN
         </v-flex>
         <v-flex xs12 class="font9">
@@ -66,7 +66,7 @@
 
     <v-card class="ma-2 pa-2">
       <v-layout row wrap>
-        <v-flex xs12 class="primary--text font-weight-bold font11">
+        <v-flex xs12 :class="`${color}--text font-weight-bold font11`">
           JHANVI SHAH
         </v-flex>
         <v-flex xs12 class="font9">
@@ -77,7 +77,7 @@
 
     <div class="text-xs-center pa-2 mb-4">
       <div>For any queries you can contact:</div>
-      <div class="primary--text font-weight-bold">admin@fanspole.com</div>
+      <div :class="`${color}--text font-weight-bold`">admin@fanspole.com</div>
     </div>
         
 
@@ -89,10 +89,19 @@
     data() {
       return {
         title: "ABOUT US",
+        mode: 'da',
+        color: 'primary',
       }
     },
     components: {
       Back: () => import('~/components/Back'),
+    },
+    created(){
+      if(this.$route.query.mode != undefined){
+        this.mode = this.$route.query.mode
+        if(this.mode == 'ch')
+          this.color = 'championship'
+      }
     }
   }
 </script>

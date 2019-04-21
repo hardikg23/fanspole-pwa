@@ -1,11 +1,11 @@
 <template>
   <section>
-    <v-toolbar color="primary">
+    <v-toolbar :color="color">
       <Back/>
       <span class="white--text fontw600">{{title}}</span>
     </v-toolbar>
   
-    <v-tabs grow centered slider-color="primary">
+    <v-tabs grow centered :slider-color="color">
       <v-tab ripple :key="1">T20</v-tab>
       <v-tab ripple :key="2">ODI</v-tab>
       <v-tab ripple :key="3">TEST</v-tab>
@@ -103,6 +103,8 @@
     data() {
       return {
         title: 'POINT SYSTEM',
+        mode: 'da',
+        color: 'primary',
         point_system: {
           t20: [
             { main_title: 'BATTING',
@@ -198,6 +200,13 @@
             }
           ]
         }
+      }
+    },
+    created(){
+      if(this.$route.query.mode != undefined){
+        this.mode = this.$route.query.mode
+        if(this.mode == 'ch')
+          this.color = 'championship'
       }
     }
   }

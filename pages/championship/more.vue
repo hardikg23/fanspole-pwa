@@ -32,11 +32,11 @@
         links: [
           {id: 1, icon: 'poll', text: 'Transfer Window', path: '/championship/transfer-window'},
           {id: 2, icon: 'poll', text: 'Prizes', path: '/championship/prizes'},
-          {id: 3, icon: 'star', text: 'Matches', path: '/info/matches'},
-          {id: 4, icon: 'compare_arrows', text: 'Players', path: '/info/players'},
-          {id: 5, icon: 'local_parking', text: 'Fantasy Points System', path: '/point-system'},
+          {id: 3, icon: 'star', text: 'Matches', path: '/info/matches?mode=ch'},
+          {id: 4, icon: 'compare_arrows', text: 'Players', path: '/info/players?mode=ch'},
+          {id: 5, icon: 'local_parking', text: 'Fantasy Points System', path: '/point-system?mode=ch'},
           {id: 6, icon: 'help_outline', text: 'How To Play', path: '/championship/how-to-play'},
-          {id: 7, icon: 'whatshot', text: 'About Us', path: '/about-us'},
+          {id: 7, icon: 'whatshot', text: 'About Us', path: '/about-us?mode=ch'},
           {id: 8, icon: 'android', text: 'Fanspole App'},
           {id: 9, icon: 'power_settings_new', text: 'Logout', path: '/logout'}
         ]

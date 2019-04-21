@@ -1,6 +1,6 @@
 <template>
   <section>
-    <v-toolbar color="primary">
+    <v-toolbar :color="color">
       <Back :showhome="true" />
       <span class="white--text fontw600">{{title}}</span>
     </v-toolbar>
@@ -55,6 +55,8 @@
         loading: true,
         defaultSelected: null,
         dropdown_series: [],
+        mode: 'da',
+        color: 'primary'
       }
     },
     components: {
@@ -69,6 +71,11 @@
     },
     created: function() {
       this.getSeries();
+      if(this.$route.query.mode != undefined){
+        this.mode = this.$route.query.mode
+        if(this.mode == 'ch')
+          this.color = 'championship'
+      }
     },
     methods: {
       async getSeries(){
