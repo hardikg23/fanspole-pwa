@@ -43,7 +43,7 @@
     methods: {
       async getApiSeriesPhase(){
         if (this.$store.getters['SeriesPhases/series_phases'].length == 0){
-          await this.$store.dispatch('SeriesPhases/GET_PHASES');
+          await this.$store.dispatch('SeriesPhases/GET_PHASES', {fields: 'id,name,current_user_classic_team'});
         }
         this.loading = false
       }
