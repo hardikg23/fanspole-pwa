@@ -116,15 +116,17 @@
         if (this.$store.getters['SeriesPhases/series_phases'].length == 0){
           await this.$store.dispatch('SeriesPhases/GET_PHASES', {fields: 'id,name'});
         }
-        var series = this.$store.getters['SeriesPhases/series_phases'];
-        series.forEach(s => {
-          this.dropdown_series_phase.push({id: s.id, name: s.name});
+        var phases = this.$store.getters['SeriesPhases/series_phases'];
+        phases.forEach(p => {
+          this.dropdown_series_phase.push({id: p.id, name: p.name});
         });
-        if(this.$route.query.phase_id != undefined)
+        if(this.$route.query.phase_id != undefined){
           this.defaultSelected = Number(this.$route.query.phase_id)
-        else
-          this.defaultSelected = this.dropdown_series_phase[0]
-        await this.$store.dispatch('SeriesPhases/GET_LEADERBOARD', {id: this.defaultSelected.id, fields: 'id,score,rank,sum_free_sub_used,sum_paid_sub_used,user{id,team_name,image}'});
+        }
+        else{
+          this.defaultSelected = this.dropdown_series_phase[0].id
+        }
+        await this.$store.dispatch('SeriesPhases/GET_LEADERBOARD', {id: this.defaultSelected, fields: 'id,score,rank,sum_free_sub_used,sum_paid_sub_used,user{id,team_name,image}'});
         this.loading = false
       },
       async update_leaderboard(val) {

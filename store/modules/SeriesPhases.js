@@ -1,12 +1,28 @@
 const state = () => ({
   series_phases: [],
   current_user_classic_team: null,
-  classic_teams: []
+  classic_teams: [],
+  transfer_windows: null,
+  prizes: null
 })
 
 const getters = {
   series_phases: state => {
     return state.series_phases;
+  },
+  series_phase: (state) => (id) => {
+    let series_phase = state.series_phases.find((phase) => {
+      if(phase.id == id){
+        return phase;
+      }
+    });
+    return series_phase;
+  },
+  transfer_windows: state => {
+    return state.transfer_windows;
+  },
+  prizes: state => {
+    return state.prizes;
   },
   classic_teams: state => {
     return state.classic_teams;
@@ -40,7 +56,23 @@ const mutations = {
   RESET_LEADERBOARD: (state, payload) => {
     state.current_user_classic_team = null;
     state.classic_teams = [];
-  }
+  },
+  SET_TRANSFER_WINDOW: (state, payload) => {
+    let series_phase = state.series_phases.find((phase) => {
+      if(phase.id == payload){
+        return phase;
+      }
+    });
+    state.transfer_windows = series_phase.transfer_windows
+  },
+  SET_PRIZES: (state, payload) => {
+    let series_phase = state.series_phases.find((phase) => {
+      if(phase.id == payload){
+        return phase;
+      }
+    });
+    state.prizes = series_phase.prizes
+  },
 }
 
 const actions = {
