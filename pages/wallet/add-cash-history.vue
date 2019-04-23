@@ -69,7 +69,7 @@
         return this.$store.getters['UserCredits/user_credits'];
       },
     },
-    created: function() {
+    mounted: function() {
       this.getApiUserCredits();
     },
     methods: {

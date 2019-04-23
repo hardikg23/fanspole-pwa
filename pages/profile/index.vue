@@ -115,7 +115,7 @@
         return ((this.getCricketLevel.xp_points-this.getCricketLevel.min_xp)/(this.getNextLevel.min_xp-this.getCricketLevel.min_xp))*100.0;
       }
     },
-    created() {
+    mounted() {
       if (process.browser) {
         this.image = localStorage.getItem('me_image')
       }

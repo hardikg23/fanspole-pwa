@@ -69,7 +69,7 @@
         return this.$store.getters['Matches/series_matches'];
       }
     },
-    created: function() {
+    mounted: function() {
       this.getSeries();
       if(this.$route.query.mode != undefined){
         this.mode = this.$route.query.mode

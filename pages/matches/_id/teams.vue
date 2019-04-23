@@ -90,7 +90,7 @@
         return this.$store.getters['UserTeams/user_teams'];
       }
     },
-    created: function() {
+    mounted: function() {
       this.getApiUserTeams();
     },
     methods: {

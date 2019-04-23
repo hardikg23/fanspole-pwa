@@ -53,7 +53,7 @@
         return this.$store.getters['Notifications/notifications'];
       }
     },
-    created: function() {
+    mounted: function() {
       this.getApiNotifications();
     },
     methods: {

@@ -78,7 +78,7 @@ const mutations = {
 const actions = {
   async GET_PHASES({ commit, dispatch }, payload) {
     await this.$axios
-      .get(`/api/championship/series_phases?fields=${payload.fields}`)
+      .get(`/api/championship/series_phases.json?fields=${payload.fields}`)
       .then(response => {
         if (response.status == 200) {
           commit('RESET_PHASES');
@@ -91,7 +91,7 @@ const actions = {
   },
   async GET_LEADERBOARD({ commit, dispatch }, payload) {
     await this.$axios
-      .get(`/api/championship/series_phases/${payload.id}/leaderboard?fields=${payload.fields}`)
+      .get(`/api/championship/series_phases/${payload.id}/leaderboard.json?fields=${payload.fields}`)
       .then(response => {
         if (response.status == 200) {
           commit('RESET_LEADERBOARD');

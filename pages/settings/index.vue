@@ -152,7 +152,7 @@
         return this.$store.getters['Me/dob'];
       }
     },
-    created() {
+    mounted() {
       this.getApiGetProfile();
     },
     methods: {

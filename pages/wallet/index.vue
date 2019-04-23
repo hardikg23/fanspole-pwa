@@ -138,7 +138,7 @@
         return this.$store.getters['Me/account_approved'];
       }
     },
-    created: function() {
+    mounted: function() {
       this.getBalance();
     },
     methods: {

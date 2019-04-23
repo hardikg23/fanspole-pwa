@@ -72,7 +72,7 @@
         return this.$store.getters['ClassicTeams/classic_team_row'];
       }
     },
-    created: function() {
+    mounted: function() {
       this.getApiClassicTeam();
     },
     methods: {

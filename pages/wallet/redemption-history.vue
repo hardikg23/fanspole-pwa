@@ -64,7 +64,7 @@
         return this.$store.getters['Redemptions/redemptions'];
       },
     },
-    created: function() {
+    mounted: function() {
       this.getApiRedemptions();
     },
     methods: {

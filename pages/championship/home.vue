@@ -37,7 +37,7 @@
         return this.$store.getters['SeriesPhases/series_phases'];
       }
     },
-    created: function() {
+    mounted: function() {
       this.getApiSeriesPhase();
     },
     methods: {

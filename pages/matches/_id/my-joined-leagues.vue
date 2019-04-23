@@ -65,7 +65,7 @@
         return this.$store.getters['PaidLeagues/joined_paid_leagues'];
       }
     },
-    created: function() {
+    mounted: function() {
       this.getApiJoinedPaidLeagues();
     },
     methods: {

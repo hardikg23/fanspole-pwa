@@ -44,7 +44,7 @@
         return this.$store.getters['Matches/finished_matches'];
       }
     },
-    created: function() {
+    mounted: function() {
       this.getApiMatches();
     },
     methods: {

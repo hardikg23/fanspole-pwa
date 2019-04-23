@@ -58,7 +58,7 @@
     },
     computed: {
     },
-    created: function() {
+    mounted: function() {
       this.amount = this.$route.query.amount || 100;
     },
     methods: {

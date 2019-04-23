@@ -76,7 +76,7 @@
         return this.$store.getters['SeriesPhases/prizes'];
       }
     },
-    created: function() {
+    mounted: function() {
       this.getApiSeriesPhase();
     },
     methods: {

@@ -103,7 +103,7 @@
         return this.$store.getters['Players/series_players'];
       }  
     },
-    created: function() {
+    mounted: function() {
       this.getSeries();
       if(this.$route.query.mode != undefined){
         this.mode = this.$route.query.mode

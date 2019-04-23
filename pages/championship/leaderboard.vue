@@ -108,7 +108,7 @@
         return this.$store.getters['SeriesPhases/classic_teams'];
       }
     },
-    created: function() {
+    mounted: function() {
       this.getSeriesPhase();
     },
     methods: {

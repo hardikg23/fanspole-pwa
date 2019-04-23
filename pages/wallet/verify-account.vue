@@ -279,7 +279,7 @@
         return this.$store.getters['Me/pancard_status'];
       }
     },
-    created: function() {
+    mounted: function() {
       this.getApiAccountDetails();
     },
     methods: {

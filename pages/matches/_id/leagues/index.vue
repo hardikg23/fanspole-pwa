@@ -91,7 +91,7 @@
         return this.$store.getters['PaidLeagues/paid_leagues'];
       }
     },
-    created: function() {
+    mounted: function() {
       this.getApiPaidLeagues();
     },
     methods: {

@@ -71,7 +71,7 @@
         return this.$store.getters['UserTeams/user_team_row'];
       }
     },
-    created: function() {
+    mounted: function() {
       this.getApiUserTeam();
     },
     methods: {

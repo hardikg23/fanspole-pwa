@@ -100,7 +100,7 @@
         return this.$store.getters['UserPoints/users_points'];
       }
     },
-    created: function() {
+    mounted: function() {
       this.getSeries();
     },
     methods: {

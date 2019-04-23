@@ -52,7 +52,7 @@
         classic_team: null,
       }
     },
-    created(){
+    mounted(){
       this.classic_team = this.phase.current_user_classic_team
     },
     methods: {

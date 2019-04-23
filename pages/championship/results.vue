@@ -28,7 +28,7 @@
     },
     computed: {
     },
-    created: function() {
+    mounted: function() {
     },
     methods: {
     }

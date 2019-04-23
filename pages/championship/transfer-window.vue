@@ -83,7 +83,7 @@
         return this.$store.getters['SeriesPhases/transfer_windows'];
       }
     },
-    created: function() {
+    mounted: function() {
       this.getApiSeriesPhase();
     },
     methods: {

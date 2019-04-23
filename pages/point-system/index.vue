@@ -202,7 +202,7 @@
         }
       }
     },
-    created(){
+    mounted(){
       if(this.$route.query.mode != undefined){
         this.mode = this.$route.query.mode
         if(this.mode == 'ch')
