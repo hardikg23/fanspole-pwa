@@ -10,13 +10,17 @@
         </v-flex>
       </v-layout>
       <v-layout row wrap class='text-xs-center pa-1 font9'>
-        <v-flex xs6>
+        <v-flex xs4>
           <div>Score</div>
-          <div class="font15 fontw600 pa-2">{{to_number_format(team.score)}}</div>
+          <div class="font11 fontw600 pa-2">{{to_number_format(team.score)}}</div>
         </v-flex>
-        <v-flex xs3>
+        <v-flex xs4>
+          <div>Captain</div>
+          <div class="font11 fontw600 pa-2">{{team.captain.name}}</div>
+        </v-flex>
+        <v-flex xs4>
           <div>Subs</div>
-          <div class="font15 fontw600 pa-2">
+          <div class="font11 fontw600 pa-2">
             <span class="red--text text--accent-4">{{team.paid_sub_used}}</span>
             /
             <span class="green--text text--accent-4">{{team.free_sub_used}}</span>

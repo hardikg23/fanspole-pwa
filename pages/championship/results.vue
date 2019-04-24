@@ -83,7 +83,7 @@
           this.defaultSelected = this.dropdown_series_phase[0].id
         }
         if (this.$store.getters['ClassicTeamScores/classic_team_scores'](this.defaultSelected).length == 0){
-          await this.$store.dispatch('ClassicTeamScores/GET_RESULTS', {id: this.defaultSelected, fields: 'id,score,series_phase_id,free_sub_used,paid_sub_used,match{match_no,match_stage,team1,team2}'});
+          await this.$store.dispatch('ClassicTeamScores/GET_RESULTS', {id: this.defaultSelected, fields: 'id,score,series_phase_id,captain,free_sub_used,paid_sub_used,match{match_no,match_stage,team1,team2}'});
         }
         this.loading = false
       },
@@ -91,7 +91,7 @@
         this.loading = true
         if(typeof(val) == "number"){
           if (this.$store.getters['ClassicTeamScores/classic_team_scores'](val).length == 0){
-            await this.$store.dispatch('ClassicTeamScores/GET_RESULTS', {id: val, fields: 'id,score,series_phase_id,free_sub_used,paid_sub_used,match{match_no,match_stage,team1,team2}'});
+            await this.$store.dispatch('ClassicTeamScores/GET_RESULTS', {id: val, fields: 'id,score,series_phase_id,captain,free_sub_used,paid_sub_used,match{match_no,match_stage,team1,team2}'});
           }
           this.loading = false
         }
