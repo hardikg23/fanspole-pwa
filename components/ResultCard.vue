@@ -30,7 +30,7 @@
       <v-layout row wrap grey lighten-4 ma-0>
         <v-flex xs12 class='text-xs-center pa-2 text-uppercase font9 championship--text fontw600'>
           <div>
-            <nuxt-link :to="`/championship/`">score</nuxt-link>
+            <nuxt-link :to="`/championship/results/${team.id}`">score</nuxt-link>
           </div>
         </v-flex>
       </v-layout>

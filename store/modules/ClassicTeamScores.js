@@ -1,5 +1,6 @@
 const state = () => ({
-  classic_team_scores: []
+  classic_team_scores: [],
+  classic_team_scores_result: null
 })
 
 const getters = {
@@ -8,6 +9,9 @@ const getters = {
       return parseInt(team.series_phase_id) == parseInt(phase_id)
     });
   },
+  classic_team_scores_result: state => {
+    return state.classic_team_scores_result;
+  }
 }
 
 const mutations = {
@@ -20,7 +24,12 @@ const mutations = {
   },
   RESET_RESULTS: (state, payload) => {
     state.classic_team_scores = [];
-  }
+  },
+  SET_CLASSIC_TEAM_SCORE: (state, payload) => {
+    if (payload['classic_team_score']) {
+      state.classic_team_scores_result = payload['classic_team_score']
+    }
+  },
 }
 
 const actions = {
@@ -36,6 +45,18 @@ const actions = {
         return error;
       });
   },
+  async GET_CLASSIC_TEAM_SCORE({ commit, dispatch }, payload) {
+    await this.$axios
+      .get(`/api/championship/classic_team_scores/${payload.id}.json?fields=${payload.fields}`)
+      .then(response => {
+        if (response.status == 200) {
+          commit('SET_CLASSIC_TEAM_SCORE', response.data);
+        }
+      })
+      .catch(error => {
+        return error;
+      });
+  }
 }
 
 export default {
