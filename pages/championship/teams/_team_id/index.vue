@@ -91,10 +91,10 @@
         await this.$store.commit('ClassicTeams/SET_CLASSIC_TEAM_ROW', this.$route.params.team_id); 
       },
       closeTeamClick(){
-        if (this.$store.getters['common/getBrowsed'] || window.history.length > 2) {
+        if (window.history.length >= 2) {
           this.$router.go(-1);
         }else{
-          this.$router.push('/');
+          this.$router.push('/championship/home');
         }
       }
     }

@@ -49,7 +49,7 @@
           <v-flex xs2 class="pt-2 text-xs-center" style="height:56px;">
             <img :src="getCurrentUserClassicTeam.user.image" class="image imagec">
           </v-flex>
-          <v-flex xs6 class="pa-2 pl-2" style="height:56px;"> 
+          <v-flex xs6 class="pa-2 pl-2" style="height:56px;" v-on:click.stop="viewTeamClick.call(this, getCurrentUserClassicTeam.id)"> 
             <div class="font-weight-bold">{{getCurrentUserClassicTeam.user.team_name}}</div>
             <div class="font8">{{to_number_format(getCurrentUserClassicTeam.score)}} POINTS</div>
           </v-flex>
@@ -66,7 +66,7 @@
           <v-flex xs2 class="white pt-2 text-xs-center" style="height:56px;">
             <img :src="team.user.image" class="image imagec">
           </v-flex>
-          <v-flex xs6 class="white pa-2 pl-2" style="height:56px;"> 
+          <v-flex xs6 class="white pa-2 pl-2" style="height:56px;" v-on:click.stop="viewTeamClick.call(this, team.id)"> 
             <div class="font-weight-bold">{{team.user.team_name}}</div>
             <div class="font8">{{to_number_format(team.score)}} POINTS</div>
           </v-flex>
@@ -102,10 +102,10 @@
     },
     computed: {
       getCurrentUserClassicTeam(){
-        return this.$store.getters['SeriesPhases/current_user_classic_team'];
+        return this.$store.getters['SeriesPhases/current_user_classic_team'](this.defaultSelected);
       },
       getClassicTeams(){
-        return this.$store.getters['SeriesPhases/classic_teams'];
+        return this.$store.getters['SeriesPhases/classic_teams'](this.defaultSelected);
       }
     },
     mounted: function() {
@@ -114,7 +114,7 @@
     methods: {
       async getSeriesPhase(){
         if (this.$store.getters['SeriesPhases/series_phases'].length == 0){
-          await this.$store.dispatch('SeriesPhases/GET_PHASES', {fields: 'id,name'});
+          await this.$store.dispatch('SeriesPhases/GET_PHASES', {fields: 'id,name,current_user_classic_team,transfer_windows,prizes'});
         }
         var phases = this.$store.getters['SeriesPhases/series_phases'];
         phases.forEach(p => {
@@ -126,13 +126,17 @@
         else{
           this.defaultSelected = this.dropdown_series_phase[0].id
         }
-        await this.$store.dispatch('SeriesPhases/GET_LEADERBOARD', {id: this.defaultSelected, fields: 'id,score,rank,sum_free_sub_used,sum_paid_sub_used,user{id,team_name,image}'});
+        if (this.$store.getters['SeriesPhases/classic_teams'](this.defaultSelected).length == 0){
+          await this.$store.dispatch('SeriesPhases/GET_LEADERBOARD', {id: this.defaultSelected, fields: 'id,score,rank,sum_free_sub_used,series_phase_id,sum_paid_sub_used,user{id,team_name,image}'});
+        }
         this.loading = false
       },
       async update_leaderboard(val) {
         this.loading = true
         if(typeof(val) == "number"){
-          await this.$store.dispatch('SeriesPhases/GET_LEADERBOARD', {id: val, fields: 'id,score,rank,sum_free_sub_used,sum_paid_sub_used,user{id,team_name,image}'});
+          if (this.$store.getters['SeriesPhases/classic_teams'](val).length == 0){
+            await this.$store.dispatch('SeriesPhases/GET_LEADERBOARD', {id: val, fields: 'id,score,rank,sum_free_sub_used,series_phase_id,sum_paid_sub_used,user{id,team_name,image}'});
+          }
           this.loading = false
         }
       },
@@ -140,11 +144,15 @@
         if(number != undefined){
           return number.toLocaleString('en-IN')
         }
+      },
+      viewTeamClick(id){
+        this.$router.push(`/championship/teams/${id}`);
       }
     },
     watch: {
-      defaultSelected(val) {
-        this.update_leaderboard(val)
+      defaultSelected(val, oldVal) {
+        if(oldVal != undefined)
+          this.update_leaderboard(val)
       }
     }
   }

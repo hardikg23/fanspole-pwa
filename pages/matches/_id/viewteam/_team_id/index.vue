@@ -95,7 +95,7 @@
         }
       },
       closeTeamClick(){
-        if (this.$store.getters['common/getBrowsed'] || window.history.length > 2) {
+        if (window.history.length > 2) {
           this.$router.go(-1);
         }else{
           this.$router.push('/');

@@ -1,6 +1,6 @@
 const state = () => ({
   series_phases: [],
-  current_user_classic_team: null,
+  current_user_classic_team: [],
   classic_teams: [],
   transfer_windows: null,
   prizes: null
@@ -24,11 +24,18 @@ const getters = {
   prizes: state => {
     return state.prizes;
   },
-  classic_teams: state => {
-    return state.classic_teams;
+  classic_teams: (state) => (phase_id) => {
+    return state.classic_teams.filter((team) => {
+      return parseInt(team.series_phase_id) == parseInt(phase_id)
+    });
   },
-  current_user_classic_team: state => {
-    return state.current_user_classic_team;
+  current_user_classic_team: (state) => (phase_id) => {
+    let team = state.current_user_classic_team.find((team) => {
+      if(parseInt(team.series_phase_id) == parseInt(phase_id)){
+        return team;
+      }
+    });
+    return team
   }
 }
 
@@ -50,12 +57,12 @@ const mutations = {
       });
     }
     if (payload['current_user_classic_team']) {
-      state.current_user_classic_team = payload['current_user_classic_team']
+      state.current_user_classic_team.push(payload['current_user_classic_team'])
     }
   },
   RESET_LEADERBOARD: (state, payload) => {
-    state.current_user_classic_team = null;
     state.classic_teams = [];
+    state.current_user_classic_team = [];
   },
   SET_TRANSFER_WINDOW: (state, payload) => {
     let series_phase = state.series_phases.find((phase) => {
@@ -94,7 +101,6 @@ const actions = {
       .get(`/api/championship/series_phases/${payload.id}/leaderboard.json?fields=${payload.fields}`)
       .then(response => {
         if (response.status == 200) {
-          commit('RESET_LEADERBOARD');
           commit('SET_LEADERBOARD', response.data);
         }
       })

@@ -54,6 +54,10 @@ module.exports = {
     '@nuxtjs/sentry',
     ['cookie-universal-nuxt', { parseJSON: true }]
   ],
+
+  serverMiddleware: [
+      { path: '/paytm/payment', handler: '~/server-middleware/postRequestHandler.js' },
+  ],
   /*
   ** Axios module configuration
   */

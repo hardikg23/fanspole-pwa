@@ -2,6 +2,7 @@ import Vuex from 'vuex';
 
 import ApiHits from './modules/ApiHits';
 import ClassicTeams from './modules/ClassicTeams';
+import ClassicTeamScores from './modules/ClassicTeamScores';
 import CreateTeam from './modules/CreateTeam';
 import Matches from './modules/Matches';
 import Me from './modules/Me';
@@ -23,6 +24,7 @@ export default () => {
     modules: {
       ApiHits,
       ClassicTeams,
+      ClassicTeamScores,
       CreateTeam,
       Matches,
       Me,
