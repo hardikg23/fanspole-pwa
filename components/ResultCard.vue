@@ -28,13 +28,77 @@
         </v-flex>
       </v-layout>
       <v-layout row wrap grey lighten-4 ma-0>
-        <v-flex xs12 class='text-xs-center pa-2 text-uppercase font9 championship--text fontw600'>
+        <v-flex xs12 class='text-xs-center text-uppercase'>
           <div>
-            <nuxt-link :to="`/championship/results/${team.id}`">score</nuxt-link>
+            <v-btn flat small class="pa-0 ma-0 championship--text fontw600 font8" @click="getScoreClick.call(this, team.id)">score</v-btn>
           </div>
         </v-flex>
       </v-layout>
     </v-card>
+
+    <v-dialog v-model="scoreDialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+      <v-card>
+        <v-card-title class="headline championship white--text pa-2"><div class="font7 font-weight-bold">SCORE</div></v-card-title>
+        <v-card class="mb-4">
+          <v-layout row wrap class="font8 pa-1 championship font-weight-bold white--text text-uppercase">
+            <v-flex xs6 class="text-xs-center">
+              Players
+            </v-flex>
+            <v-flex xs6 class="text-xs-center">
+              Score
+            </v-flex>
+          </v-layout>
+          <div v-if="getClassisTeamScore != undefined && getClassisTeamScore.players_scores.length > 0">
+            <v-layout class="font9" row wrap v-for="player in getClassisTeamScore.players_scores">
+              <v-flex xs6 class="text-xs-center borderb pa-2">
+                <span>{{player.name}}</span><span v-if="getClassisTeamScore.captain.id == player.id"> (c)</span>
+              </v-flex>
+              <v-flex xs6 class="text-xs-center borderb pa-2">
+                {{getClassisTeamScore.captain.id == player.id ? player.score*2 : player.score}}
+              </v-flex>
+            </v-layout>
+          </div>
+          <div v-else>
+            <div class="pa-4 grey--text text-xs-center font8">
+              No players for this match
+            </div>
+          </div>
+        </v-card>
+        <v-card>
+          <v-layout row wrap class="font8 pa-1 font-weight-bold text-uppercase">
+            <v-flex xs6 class="borderb pa-1 text-xs-center red--text text--accent-4">
+              Player out
+            </v-flex>
+            <v-flex xs6 class="borderb pa-1 text-xs-center green--text text--accent-4">
+              Player in
+            </v-flex>
+          </v-layout>
+          <div v-if="getClassisTeamScore != undefined && getClassisTeamScore.player_out.length > 0">
+            <v-layout class="font9" row wrap>
+              <v-flex xs6 class="text-xs-center">
+                <div class="borderb pa-2" v-for="player in getClassisTeamScore.player_out">
+                  {{player.name}}
+                </div>
+              </v-flex>
+              <v-flex xs6 class="text-xs-center">
+                <div class="borderb pa-2" v-for="player in getClassisTeamScore.player_in">
+                  {{player.name}}
+                </div>
+              </v-flex>
+            </v-layout>
+          </div>
+          <div v-else>
+            <div class="pa-4 grey--text text-xs-center font8">
+              No Transfers
+            </div>
+          </div>
+        </v-card>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="championship" flat @click="scoreDialog = false">Close</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -46,7 +110,21 @@
         required: true
       }
     },
+    data() {
+      return {
+        scoreDialog: false,
+      }
+    },
+    computed: {
+      getClassisTeamScore(){
+        return this.$store.getters['ClassicTeamScores/classic_team_scores_result'];
+      }
+    },
     methods: {
+      async getScoreClick(id){
+        await this.$store.dispatch('ClassicTeamScores/GET_CLASSIC_TEAM_SCORE', {id: id, fields: 'id,captain,player_in,player_out,players_scores'});
+        this.scoreDialog = true
+      },
       to_number_format(number){
         if(number != undefined){
           return number.toLocaleString('en-IN')

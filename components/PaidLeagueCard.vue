@@ -1,37 +1,35 @@
 <template>
   <v-container grid-list-md text-xs-center px-3 py-2>
     <v-card md5 ripple class="box_shadow_common">
-      
-        <v-layout row wrap pa-2 @click="cardClick.call(this, league.id)">
-          <v-flex xs6>
-            <div class="text-xs-left">
-              <div class="font8 grey--text">Prize pool</div>
-              <div class="font18 fontw600 pt-1">&#8377;{{league.prize_amount}}</div>
-            </div>
-          </v-flex>
-          <v-flex xs6>
-            <div class="text-xs-right">
-              <div class="font8 grey--text pr-1 pb-1">Entry</div>
-              <v-btn v-on:click.stop="joinContestConfirmationClick.call(this, league.id)" depressed class='ma-0 white--text font-weight-bold font11' small color="green accent-4">&#8377;{{league.entry_fee}}</v-btn>
-            </div>
-          </v-flex>
+      <v-layout row wrap pa-2 @click="cardClick.call(this, league.id)">
+        <v-flex xs6>
+          <div class="text-xs-left">
+            <div class="font8 grey--text">Prize pool</div>
+            <div class="font18 fontw600 pt-1">&#8377;{{league.prize_amount}}</div>
+          </div>
+        </v-flex>
+        <v-flex xs6>
+          <div class="text-xs-right">
+            <div class="font8 grey--text pr-1 pb-1">Entry</div>
+            <v-btn v-on:click.stop="joinContestConfirmationClick.call(this, league.id)" depressed class='ma-0 white--text font-weight-bold font11' small color="green accent-4">&#8377;{{league.entry_fee}}</v-btn>
+          </div>
+        </v-flex>
 
-          <v-flex xs12 pa-0 style="height:20px;">
-            <v-progress-linear class="progress" background-color="grey lighten-3" color="red darken-1" height="6" v-model="valueDeterminate"></v-progress-linear>
-          </v-flex>
+        <v-flex xs12 pa-0 style="height:20px;">
+          <v-progress-linear class="progress" background-color="grey lighten-3" color="red darken-1" height="6" v-model="valueDeterminate"></v-progress-linear>
+        </v-flex>
 
-          <v-flex xs6>
-            <div class="text-xs-left">
-              <div class="font9 fontw600 red--text text--accent-4" color=''>{{this.league.members_limit - this.league.paid_league_members_count}} spots left</div>
-            </div>
-          </v-flex>
-          <v-flex xs6>
-            <div class="text-xs-right">
-              <div class="font9 grey--text">{{league.members_limit}} spots</div>
-            </div>
-          </v-flex>
-        </v-layout>  
-
+        <v-flex xs6>
+          <div class="text-xs-left">
+            <div class="font9 fontw600 red--text text--accent-4" color=''>{{this.league.members_limit - this.league.paid_league_members_count}} spots left</div>
+          </div>
+        </v-flex>
+        <v-flex xs6>
+          <div class="text-xs-right">
+            <div class="font9 grey--text">{{league.members_limit}} spots</div>
+          </div>
+        </v-flex>
+      </v-layout>
       <v-layout row grey lighten-4 ma-0>
         <v-flex xs6>
           <div class="text-xs-left">
