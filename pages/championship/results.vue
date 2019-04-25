@@ -10,7 +10,6 @@
         ></v-progress-circular>
       </v-flex>
     </v-layout>
-
     <div v-if="!loading">
       <v-card>
         <v-layout row wrap>
@@ -33,13 +32,11 @@
         </v-layout>
       </v-card>
     </div>
-
     <template v-for="r in getResults" v-if="!loading">
       <div>
         <ResultCard :key="r.id" :team="r"></ResultCard>
       </div>
     </template>
-
     <BottomChampionship></BottomChampionship>
   </section>
 </template>
@@ -104,8 +101,10 @@
     },
     watch: {
       defaultSelected(val, oldVal) {
-        if(oldVal != undefined)
+        if(oldVal != undefined){
+          this.$router.push('/championship/results?phase_id=' + val);
           this.update_results(val)
+        }
       }
     }
   }

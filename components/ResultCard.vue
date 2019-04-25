@@ -93,10 +93,11 @@
             </div>
           </div>
         </v-card>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="championship" flat @click="scoreDialog = false">Close</v-btn>
-        </v-card-actions>
+        <template>
+          <div class="footer text-xs-center championship pa-2 white--text cursor-p" @click="scoreDialog = false" style="max-width: 550px;">
+            CLOSE
+          </div>
+        </template>
       </v-card>
     </v-dialog>
   </v-container>
@@ -135,6 +136,11 @@
 </script>
 
 <style scoped>
+  .footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+  }
   .container{
     padding: 8px;
   }

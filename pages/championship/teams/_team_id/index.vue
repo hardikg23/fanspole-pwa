@@ -5,7 +5,7 @@
         <v-progress-circular
           indeterminate
           :width="3"
-          color="primary"
+          color="championship"
         ></v-progress-circular>
       </v-flex>
     </v-layout>
@@ -14,11 +14,6 @@
       <div style="min-height: 100vh" class="grad1">
         <v-layout row wrap class="text-xs-center">
           <v-flex xs2 class='text-xs-left grey darken-3 pa-2'>
-            <div v-if="true">
-              <nuxt-link :to="`/matches/${this.$route.params.id}/edit-team/${this.$route.params.team_id}`">
-                <v-icon class='white--text'>edit</v-icon>
-              </nuxt-link>
-            </div>
           </v-flex>
           <v-flex xs8 class="text-xs-center grey darken-3 white--text pa-2 font11 font-weight-bold">
             <div v-if="getClassicTeam.user != undefined">
@@ -44,9 +39,14 @@
           </v-flex>
         </v-layout>
       </div>
+      <div class='floter_btn'>
+        <nuxt-link :to="`/championship/teams/${getClassicTeam.id}/history`">
+          <v-btn small class='f_btn championship--text'>VIEW HISTORY</v-btn>
+        </nuxt-link>
+      </div>
       <template>
         <div class="footer text-xs-left grey darken-3 pa-2" style="max-width: 550px;">
-         <div class="white--text font-weight-bold">SCORE: {{getClassicTeam.score}} PTS</div>
+         <div class="white--text font-weight-bold">SCORE: {{to_number_format(getClassicTeam.score)}} PTS</div>
         </div>
       </template>
     </div>
@@ -96,6 +96,11 @@
         }else{
           this.$router.push('/championship/home');
         }
+      },
+      to_number_format(number){
+        if(number != undefined){
+          return number.toLocaleString('en-IN')
+        }
       }
     }
   }
@@ -105,6 +110,17 @@
       position: fixed;
       bottom: 0;
       width: 100%;
+  }
+  .floter_btn{
+    position: fixed;
+    bottom: 40px;
+    text-align: center;
+    width: 100%;
+  }
+  .f_btn{
+    width: 132px;
+    font-weight: 600 !important;
+    font-size: 0.8em !important;
   }
   .grad1 {
     background-color: #689F38;
