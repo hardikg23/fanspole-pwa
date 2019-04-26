@@ -24,7 +24,7 @@
         await store.dispatch('Matches/GET_MATCH', params.id);  
       }
       if (store.getters['Players/players'](params.id).length == 0){
-        await store.dispatch('Players/GET_PLAYERS', params.id);
+        await store.dispatch('Players/GET_PLAYERS', {id: params.id, fields: 'id,name,display_name,display_info,value,style,last_series_score,team{name_attr,jersey_photo,team_color}'});
       }
     },
     data() {

@@ -75,11 +75,11 @@ const mutations = {
     state.created_team.captain_id = id;
   },
   SET_CREATE_TEAM: (state, payload) => {
-    state.created_team.captain_id = payload.user_team.captain.id;
-    state.created_team.selected_players_hash = payload.user_team.team_players;
+    state.created_team.captain_id = null
+    state.created_team.selected_players_hash = payload.classic_team.team_players;
     state.created_team.valid_team = true;
     state.created_team.selected_players = []
-    payload.user_team.team_players.forEach(player => {
+    payload.classic_team.team_players.forEach(player => {
       state.created_team.selected_players.push(parseInt(player.id));
     });
     state.created_team.selected_players_count = state.created_team.selected_players.length;
@@ -89,7 +89,25 @@ const mutations = {
     state.created_team.balanced_ar = true
     state.created_team.balanced_bowl = true
     state.created_team.balanced_ar_and_bowl = true
-    state.created_team.budget = 100.0 - payload.user_team.budget;
+    state.created_team.budget = 100.0 - payload.classic_team.budget;
+  },
+  RESET_CREATE_TEAM: (state, payload) => {
+    state.created_team.captain_id = null
+    state.created_team.selected_players_count = 0
+    state.created_team.selected_players = []
+    state.created_team.selected_players_hash = []
+    state.created_team.balanced_wk = false
+    state.created_team.balanced_pure_wk = false
+    state.created_team.balanced_bat = false
+    state.created_team.balanced_ar = false
+    state.created_team.balanced_bowl = false
+    state.created_team.balanced_ar_and_bowl = false
+    state.created_team.selected_wk = 0
+    state.created_team.selected_bat = 0
+    state.created_team.selected_ar = 0
+    state.created_team.selected_bowl = 0
+    state.created_team.budget = 100.0
+    state.created_team.valid_team = false
   },
   PUSH_SELECTED_PLAYER: (state, id) => {
     state.created_team.selected_players.push(id);
@@ -197,7 +215,7 @@ const mutations = {
 const actions = {
   async GET_TEAM({ commit }, payload) {
     return await this.$axios
-      .get(`/api/matches/${payload.id}/user_teams/${payload.team_id}/edit?fields=id,team_no,budget,captain,team_players`)
+      .get(`/api/championship/classic_teams/${payload.team_id}/edit.json?fields=${payload.fields}`)
       .then((response) => {
         if (response.status == 200) {
           commit('SET_CREATE_TEAM', response.data);
@@ -212,10 +230,11 @@ const actions = {
   },
   async SAVE_TEAM({ commit }, payload) {
     return await this.$axios
-      .post(`/api/matches/${payload.id}/user_teams`, {player_ids: payload.player_ids.join(','), captain: payload.captain})
+      .post(`/api/championship/classic_teams.json`, {phase_id: payload.phase_id, player_ids: payload.player_ids.join(','), captain: payload.captain})
       .then((response) => {
         if (response.status == 201 || response.status == 200) {
-          this.$router.push(`/matches/${payload.id}/teams`);
+          commit('SeriesPhases/RESET_PHASES', null, { root: true });
+          this.$router.push("/championship/home");
         }
       })
       .catch((error) => {
@@ -227,10 +246,11 @@ const actions = {
   },
   async EDIT_TEAM({ commit }, payload) {
     return await this.$axios
-      .put(`/api/matches/${payload.id}/user_teams/${payload.team_id}`, {player_ids: payload.player_ids.join(','), captain: payload.captain})
+      .put(`/api/championship/classic_teams/${payload.team_id}.json`, {phase_id: payload.phase_id, player_ids: payload.player_ids.join(','), captain: payload.captain})
       .then((response) => {
         if (response.status == 201 || response.status == 200) {
-          this.$router.push(`/matches/${payload.id}/teams`);
+          commit('SeriesPhases/RESET_PHASES', null, { root: true });
+          this.$router.push("/championship/home");
         }
       })
       .catch((error) => {

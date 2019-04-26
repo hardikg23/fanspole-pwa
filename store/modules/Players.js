@@ -1,6 +1,7 @@
 const state = () => ({
   players: [],
-  series_players: []
+  series_players: [],
+  phase_players: [],
 })
 
 const getters = {
@@ -32,6 +33,32 @@ const getters = {
       return (parseInt(player.match_id) == parseInt(match_id)) && (player.style === 11 || player.style === 13);
     });
   },
+
+  phase_players: (state) => (phase_id) => {
+    return state.phase_players.filter((player) => {
+      return parseInt(player.phase_id) == parseInt(phase_id)
+    });
+  },
+  get_phase_wk_players: (state) => (phase_id) => {
+    return state.phase_players.filter((player) => {
+      return (parseInt(player.phase_id) == parseInt(phase_id)) && (player.style === 5 || player.style === 7);
+    });
+  },
+  get_phase_bat_players: (state) => (phase_id) => {
+    return state.phase_players.filter((player) => {
+      return (parseInt(player.phase_id) == parseInt(phase_id)) && (player.style === 1 || player.style === 3 || player.style === 5);
+    });
+  },
+  get_phase_ar_players: (state) => (phase_id) => {
+    return state.phase_players.filter((player) => {
+      return (parseInt(player.phase_id) == parseInt(phase_id)) && (player.style === 3 || player.style === 9 || player.style === 11);
+    });
+  },
+  get_phase_bowl_players: (state) => (phase_id) => {
+    return state.phase_players.filter((player) => {
+      return (parseInt(player.phase_id) == parseInt(phase_id)) && (player.style === 11 || player.style === 13);
+    });
+  },
 }
 
 const mutations = {
@@ -53,15 +80,23 @@ const mutations = {
   RESET_SERIES_PLAYERS: (state, payload) => {
     state.series_players = []
   },
+  SET_PHASE_PLAYERS: (state, payload) => {
+    if(payload.data['players']) {
+      payload.data['players'].forEach(player => {
+        player.phase_id = parseInt(payload.phase_id);
+        state.phase_players.push(player);
+      });
+    }
+  },
 }
 
 const actions = {
   async GET_PLAYERS({ commit, dispatch }, payload) {
     await this.$axios
-      .get(`/api/matches/${payload}/players.json?fields=id,name,display_name,display_info,value,style,last_series_score,team{name_attr,jersey_photo,team_color}`)
+      .get(`/api/matches/${payload.id}/players.json?fields=${payload.fields}`)
       .then(response => {
         if (response.status == 200) {
-          let state_payload = {'data': response.data, 'match_id': payload}
+          let state_payload = {'data': response.data, 'match_id': payload.id}
           commit('SET_PLAYERS', state_payload);
         }
       })
@@ -76,6 +111,19 @@ const actions = {
         if (response.status == 200) {
           commit('RESET_SERIES_PLAYERS', response.data);
           commit('SET_SERIES_PLAYERS', response.data);
+        }
+      })
+      .catch(error => {
+        return error;
+      });
+  },
+  async GET_PHASE_PLAYERS({ commit, dispatch }, payload) {
+    await this.$axios
+      .get(`/api/championship/series_phases/${payload.id}/players.json?fields=${payload.fields}`)
+      .then(response => {
+        if (response.status == 200) {
+          let state_payload = {'data': response.data, 'phase_id': payload.id}
+          commit('SET_PHASE_PLAYERS', state_payload);
         }
       })
       .catch(error => {

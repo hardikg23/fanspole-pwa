@@ -1,12 +1,12 @@
 <template>
   <v-container grid-list-md px-3 py-2>
     <v-card md5 class='pa-0 box_shadow_common'>
-      <v-layout row wrap grey lighten-4 ma-0>
+      <v-layout row wrap grey lighten-4 ma-0 @click="cardClick.call(this, phase)">
         <v-flex xs12 class='text-xs-left pa-2 font9'>
           {{phase.name}}
         </v-flex>
       </v-layout>
-      <v-layout row wrap class='text-xs-center pa-1 font9'>
+      <v-layout row wrap class='text-xs-center pa-1 font9' @click="cardClick.call(this, phase)">
         <v-flex xs3>
           <div>Score</div>
           <div class="font15 fontw600 pa-2">{{classic_team ? to_number_format(classic_team.score) : '-'}}</div>
@@ -33,6 +33,9 @@
           <div v-if="classic_team">
             <nuxt-link :to="`/championship/teams/${classic_team.id}`">team preview</nuxt-link>
           </div>
+          <div v-else>
+            <nuxt-link :to="`/championship/phases/${phase.id}/create-team`">team preview</nuxt-link>
+          </div>
         </v-flex>
       </v-layout>
     </v-card>
@@ -56,6 +59,13 @@
       this.classic_team = this.phase.current_user_classic_team
     },
     methods: {
+      cardClick(phase){
+        if(phase.current_user_classic_team != undefined){
+          this.$router.push(`/championship/phases/${phase.id}/edit-team/${phase.current_user_classic_team.id}`);
+        }else{
+          this.$router.push(`/championship/phases/${phase.id}/create-team`);
+        }
+      },
       to_number_format(number){
         if(number != undefined){
           return number.toLocaleString('en-IN')

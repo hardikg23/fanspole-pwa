@@ -49,7 +49,7 @@
             </v-flex>
           </v-layout>
           <div v-if="getClassisTeamScore != undefined && getClassisTeamScore.players_scores.length > 0">
-            <v-layout class="font9" row wrap v-for="player in getClassisTeamScore.players_scores">
+            <v-layout class="font9" row wrap v-for="player in getClassisTeamScore.players_scores" :key="player.id">
               <v-flex xs6 class="text-xs-center borderb pa-2">
                 <span>{{player.name}}</span><span v-if="getClassisTeamScore.captain.id == player.id"> (c)</span>
               </v-flex>
@@ -76,12 +76,12 @@
           <div v-if="getClassisTeamScore != undefined && getClassisTeamScore.player_out.length > 0">
             <v-layout class="font9" row wrap>
               <v-flex xs6 class="text-xs-center">
-                <div class="borderb pa-2" v-for="player in getClassisTeamScore.player_out">
+                <div class="borderb pa-2" v-for="player in getClassisTeamScore.player_out" :key="player.id">
                   {{player.name}}
                 </div>
               </v-flex>
               <v-flex xs6 class="text-xs-center">
-                <div class="borderb pa-2" v-for="player in getClassisTeamScore.player_in">
+                <div class="borderb pa-2" v-for="player in getClassisTeamScore.player_in" :key="player.id">
                   {{player.name}}
                 </div>
               </v-flex>

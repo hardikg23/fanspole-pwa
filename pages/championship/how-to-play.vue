@@ -128,7 +128,6 @@
     },
     components: {
       BackChampionship: () => import('~/components/BackChampionship'),
-      BottomChampionship: () => import('~/components/BottomChampionship'),
     }
   }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div style="margin-top: 112px;width:100%;overflow-y:auto;z-index:1000 !important">
-    <v-layout row wrap class="primary pa-2">
+    <v-layout row wrap class="championship pa-2">
       <v-flex xs6 class='white--text'>
         <div class="text-xs-center">
           <div class="font8 opacity06">Players</div>
@@ -19,7 +19,7 @@
       </v-flex>
     </v-layout>
 
-    <v-tabs grow centered slider-color="primary">
+    <v-tabs grow centered slider-color="championship">
       <v-tab ripple :key="1">WK <span v-bind:class="{'grey lighter-2': !getBalancedWk, 'green accent-4': getBalancedWk}" class="dot grey lighter-2 ml-1"></span></v-tab>
       <v-tab ripple :key="2">BAT <span v-bind:class="{'grey lighter-2': !getBalancedBat, 'green accent-4': getBalancedBat}" class="dot grey lighter-2 ml-1"></span></v-tab>
       <v-tab ripple :key="3">AR <span v-bind:class="{'grey lighter-2': !getBalancedAr, 'green accent-4': getBalancedAr}" class="dot grey lighter-2 ml-1"></span></v-tab>
@@ -36,7 +36,8 @@
           expand
         >
           <template v-slot:items="props">
-            <tr 
+            <tr
+              :key="props.item.id"
               @click="click_on_players(props.item)" 
               v-bind:class="{'player-selected': getSelectedPlayers.indexOf(props.item.id) != -1, 'player-disabled': ((props.item.value > getBudget || getSelectedPlayers.length == 11) && getSelectedPlayers.indexOf(props.item.id) == -1)}"
             >
@@ -70,6 +71,7 @@
         >
           <template v-slot:items="props">
             <tr 
+              :key="props.item.id"
               @click="click_on_players(props.item)" 
               v-bind:class="{'player-selected': getSelectedPlayers.indexOf(props.item.id) != -1, 'player-disabled': ((props.item.value > getBudget || getSelectedPlayers.length == 11) && getSelectedPlayers.indexOf(props.item.id) == -1)}"
             >
@@ -103,6 +105,7 @@
         >
           <template v-slot:items="props">
             <tr 
+              :key="props.item.id"
               @click="click_on_players(props.item)" 
               v-bind:class="{'player-selected': getSelectedPlayers.indexOf(props.item.id) != -1, 'player-disabled': ((props.item.value > getBudget || getSelectedPlayers.length == 11) && getSelectedPlayers.indexOf(props.item.id) == -1)}"
             >
@@ -136,6 +139,7 @@
         >
           <template v-slot:items="props">
             <tr 
+              :key="props.item.id"
               @click="click_on_players(props.item)" 
               v-bind:class="{'player-selected': getSelectedPlayers.indexOf(props.item.id) != -1, 'player-disabled': ((props.item.value > getBudget || getSelectedPlayers.length == 11) && getSelectedPlayers.indexOf(props.item.id) == -1)}"
             >
@@ -175,7 +179,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" flat @click="rulesDialog = false">Close</v-btn>
+            <v-btn color="championship" flat @click="rulesDialog = false">Close</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -208,7 +212,7 @@
                   </td>
                   <td class="text-xs-center pa-0"><div>{{props.item.last_series_score}} Pts</div></td>
                   <td class="text-xs-right pa-0 pr-4">
-                    <v-btn class='captain_btn' @click="captain_selected(props.item.id)" v-bind:class="{'primary': getCaptainId == props.item.id}">C</v-btn>
+                    <v-btn class='captain_btn' @click="captain_selected(props.item.id)" v-bind:class="{'championship white--text': getCaptainId == props.item.id}">C</v-btn>
                   </td>
                 </tr>
               </template>
@@ -216,8 +220,8 @@
           </v-list>
           
           <div class='floter_btn'>
-            <v-btn small class='f_btn primary--text font-weight-bold font8' @click.stop="previewDialog = true">TEAM PREVIEW</v-btn>
-            <v-btn small v-bind:class="{'primary': getCaptainId != undefined, 'grey lighter-2': getCaptainId == undefined}" class='f_btn font-weight-bold font8' @click="save_team" :loading="loading">SAVE TEAM</v-btn>
+            <v-btn small class='f_btn championship--text font-weight-bold font8' @click.stop="previewDialog = true">TEAM PREVIEW</v-btn>
+            <v-btn small v-bind:class="{'championship': getCaptainId != undefined, 'grey lighter-2': getCaptainId == undefined}" class='f_btn font-weight-bold font8 white--text' @click="save_team" :loading="loading">SAVE TEAM</v-btn>
           </div>
         </v-card>
       </v-dialog>
@@ -242,7 +246,7 @@
             
             <v-layout row wrap pa-2 class="text-xs-center">
               <v-flex xs12>
-                <v-btn small class='f_btn primary--text font-weight-bold font8' @click="previewDialog = false">
+                <v-btn small class='f_btn championship--text font-weight-bold font8' @click="previewDialog = false">
                   CLOSE PREVIEW
                 </v-btn> 
               </v-flex>
@@ -254,8 +258,8 @@
       
     </div>
     <div class='floter_btn'>
-      <v-btn small class='f_btn primary--text font-weight-bold font8' @click.stop="previewDialog = true">TEAM PREVIEW</v-btn>
-      <v-btn small v-bind:class="{'primary': getValidTeam, 'grey lighter-2': !getValidTeam}" class='f_btn font-weight-bold font8 white--text' @click.stop="getValidTeam ? captainDialog = true : rulesDialog = true">CONTINUE</v-btn>
+      <v-btn small class='f_btn championship--text font-weight-bold font8' @click.stop="previewDialog = true">TEAM PREVIEW</v-btn>
+      <v-btn small v-bind:class="{'championship': getValidTeam, 'grey lighter-2': !getValidTeam}" class='f_btn font-weight-bold font8 white--text' @click.stop="getValidTeam ? captainDialog = true : rulesDialog = true">CONTINUE</v-btn>
     </div>
   </div>
 </template>
@@ -293,71 +297,69 @@
       TeamPlayers: () => import('~/components/TeamPlayers')
     },
     computed: {
-      getMatch() {
-        return this.$store.getters['Matches/match'](this.$route.params.id);
-      },
       getWK(){
-        return this.$store.getters['Players/get_wk_players'](this.$route.params.id);
+        console.log(this.$store.getters['Players/get_phase_wk_players'](this.$route.params.phase_id))
+        return this.$store.getters['Players/get_phase_wk_players'](this.$route.params.phase_id);
       },
       getBAT(){
-        return this.$store.getters['Players/get_bat_players'](this.$route.params.id);
+        return this.$store.getters['Players/get_phase_bat_players'](this.$route.params.phase_id);
       },
       getAR(){
-        return this.$store.getters['Players/get_ar_players'](this.$route.params.id);
+        return this.$store.getters['Players/get_phase_ar_players'](this.$route.params.phase_id);
       },
       getBOWL(){
-        return this.$store.getters['Players/get_bowl_players'](this.$route.params.id);
+        return this.$store.getters['Players/get_phase_bowl_players'](this.$route.params.phase_id);
       },
       getCaptainId(){
-        return this.$store.getters['CreateTeam/captain_id'];
+        return this.$store.getters['ClassicCreateTeam/captain_id'];
       },
       getSelectedPlayersCount(){
-        return this.$store.getters['CreateTeam/selected_players_count'];
+        return this.$store.getters['ClassicCreateTeam/selected_players_count'];
       },
       getSelectedPlayers(){
-        return this.$store.getters['CreateTeam/selected_players'];
+        return this.$store.getters['ClassicCreateTeam/selected_players'];
       },
       getSelectedPlayersHash(){
-        return this.$store.getters['CreateTeam/selected_players_hash'];
+        return this.$store.getters['ClassicCreateTeam/selected_players_hash'];
       },
       getBalancedWk(){
-        return this.$store.getters['CreateTeam/balanced_wk'];
+        return this.$store.getters['ClassicCreateTeam/balanced_wk'];
       },
       getBalancedPureWk(){
-        return this.$store.getters['CreateTeam/balanced_pure_wk'];
+        return this.$store.getters['ClassicCreateTeam/balanced_pure_wk'];
       },
       getBalancedBat(){
-        return this.$store.getters['CreateTeam/balanced_bat'];
+        return this.$store.getters['ClassicCreateTeam/balanced_bat'];
       },
       getBalancedAr(){
-        return this.$store.getters['CreateTeam/balanced_ar'];
+        return this.$store.getters['ClassicCreateTeam/balanced_ar'];
       },
       getBalancedBowl(){
-        return this.$store.getters['CreateTeam/balanced_bowl'];
+        return this.$store.getters['ClassicCreateTeam/balanced_bowl'];
       },
       getBalancedArAndBowl(){
-        return this.$store.getters['CreateTeam/balanced_ar_and_bowl'];
+        return this.$store.getters['ClassicCreateTeam/balanced_ar_and_bowl'];
       },
       getSelectedWk(){
-        return this.$store.getters['CreateTeam/selected_wk'];
+        return this.$store.getters['ClassicCreateTeam/selected_wk'];
       },
       getSelectedBat(){
-        return this.$store.getters['CreateTeam/selected_bat'];
+        return this.$store.getters['ClassicCreateTeam/selected_bat'];
       },
       getSelectedAr(){
-        return this.$store.getters['CreateTeam/selected_ar'];
+        return this.$store.getters['ClassicCreateTeam/selected_ar'];
       },
       getSelectedBowl(){
-        return this.$store.getters['CreateTeam/selected_bowl'];
+        return this.$store.getters['ClassicCreateTeam/selected_bowl'];
       },
       getBudget(){
-        return this.$store.getters['CreateTeam/budget'];
+        return this.$store.getters['ClassicCreateTeam/budget'];
       },
       getValidTeam(){
-        return this.$store.getters['CreateTeam/valid_team'];
+        return this.$store.getters['ClassicCreateTeam/valid_team'];
       },
       getUserTeam() {
-        var team_players = this.$store.getters['CreateTeam/selected_players_hash'];
+        var team_players = this.$store.getters['ClassicCreateTeam/selected_players_hash'];
         var row1 = []
         var row2 = []
         var row3 = []
@@ -407,17 +409,17 @@
           }
         }
         if(this.getSelectedPlayers.indexOf(item.id) == -1){
-          this.$store.commit('CreateTeam/PUSH_SELECTED_PLAYER', item.id);
-          this.$store.commit('CreateTeam/PUSH_SELECTED_PLAYER_HASH', item);
+          this.$store.commit('ClassicCreateTeam/PUSH_SELECTED_PLAYER', item.id);
+          this.$store.commit('ClassicCreateTeam/PUSH_SELECTED_PLAYER_HASH', item);
         }else{
-          this.$store.commit('CreateTeam/POP_SELECTED_PLAYER', item.id);
-          this.$store.commit('CreateTeam/POP_SELECTED_PLAYER_HASH', item.id);
+          this.$store.commit('ClassicCreateTeam/POP_SELECTED_PLAYER', item.id);
+          this.$store.commit('ClassicCreateTeam/POP_SELECTED_PLAYER_HASH', item.id);
         }
-        this.$store.commit('CreateTeam/UPDATE_DATA');
-        this.$store.commit('CreateTeam/VALIDATE_TEAM');
+        this.$store.commit('ClassicCreateTeam/UPDATE_DATA');
+        this.$store.commit('ClassicCreateTeam/VALIDATE_TEAM');
       },
       captain_selected(id){
-        this.$store.commit('CreateTeam/SET_CAPTAIN', id);
+        this.$store.commit('ClassicCreateTeam/SET_CAPTAIN', id);
       },
       async save_team(){
         this.loading = true;
@@ -431,9 +433,18 @@
           return false;
         }else{
           if(this.new_team){
-            await this.$store.dispatch('CreateTeam/SAVE_TEAM', {id: this.$route.params.id, player_ids: this.getSelectedPlayers, captain: this.getCaptainId});
+            await this.$store.dispatch('ClassicCreateTeam/SAVE_TEAM', {phase_id: this.$route.params.phase_id, player_ids: this.getSelectedPlayers, captain: this.getCaptainId});
           }else{
-            await this.$store.dispatch('CreateTeam/EDIT_TEAM', {id: this.$route.params.id, team_id: this.$route.params.team_id, player_ids: this.getSelectedPlayers, captain: this.getCaptainId})
+            await this.$store.dispatch('ClassicCreateTeam/EDIT_TEAM', {phase_id: this.$route.params.phase_id, team_id: this.$route.params.team_id, player_ids: this.getSelectedPlayers, captain: this.getCaptainId})
+            .catch((error) => {
+              this.showSnackBar = true;
+              this.formLoading = false;
+              this.$nuxt.$emit('snackbarError', {
+                snackbar: this.showSnackBar,
+                message: error.data.error,
+                button: false
+              });
+            });
           }
           this.loading = false;
         }
