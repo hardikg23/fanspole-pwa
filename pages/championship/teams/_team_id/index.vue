@@ -28,6 +28,8 @@
           <v-flex xs12 class="white--text font-weight-bold font22" style='opacity:0.4'>
             FANSPOLE
           </v-flex>
+        </v-layout>
+        <v-layout row wrap class="text-xs-center" v-if="getClassicTeam.team_players.length > 0">
           <v-flex xs12>
             <TeamPlayers :players="getClassicTeamPlayers.row1" :captain="getClassicTeam.captain.id"></TeamPlayers>
           </v-flex>
@@ -36,6 +38,11 @@
           </v-flex>
           <v-flex xs12>
             <TeamPlayers :players="getClassicTeamPlayers.row3" :captain="getClassicTeam.captain.id"></TeamPlayers>
+          </v-flex>
+        </v-layout>
+        <v-layout row wrap class="text-xs-center" v-else>
+          <v-flex xs12 class="pt-4 mt-4 white--text font9">
+            No Players preview
           </v-flex>
         </v-layout>
       </div>

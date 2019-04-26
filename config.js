@@ -1,7 +1,9 @@
 const MasterKeys = {
   development: {
-    apiOauthEndPoint: 'http://localhost:3000/oauth/token.json',
-    apiEndPoint: 'http://localhost:3000/api/v3/',
+    // apiOauthEndPoint: 'http://localhost:3000/oauth/token.json',
+    // apiEndPoint: 'http://localhost:3000/api/v3/',
+    apiOauthEndPoint: 'http://10.0.4.91:3005/oauth/token.json',
+    apiEndPoint: 'http://10.0.4.91:3005/api/v3/',
     clientId: '94755f4859da968586e894f5f699c98efd77d4a9737a9f74faad0fac04210814',
     facebookAppId: '669362659769837',
     googleClientId: '264550764233-aqbbl4las10s5avh3tbg2cedkr0ahavp.apps.googleusercontent.com'
