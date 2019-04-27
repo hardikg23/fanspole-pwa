@@ -298,7 +298,6 @@
     },
     computed: {
       getWK(){
-        console.log(this.$store.getters['Players/get_phase_wk_players'](this.$route.params.phase_id))
         return this.$store.getters['Players/get_phase_wk_players'](this.$route.params.phase_id);
       },
       getBAT(){

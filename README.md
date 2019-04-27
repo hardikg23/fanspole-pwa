@@ -27,4 +27,6 @@ npm run build
 
 pm2 restart nuxt
 
+pm2 delete nuxt
+
 pm2 start npm --name "nuxt" -- start

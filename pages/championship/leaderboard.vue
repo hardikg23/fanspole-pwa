@@ -50,7 +50,7 @@
             <img :src="getCurrentUserClassicTeam.user.image" class="image imagec">
           </v-flex>
           <v-flex xs6 class="pa-2 pl-2" style="height:56px;" v-on:click.stop="viewTeamClick.call(this, getCurrentUserClassicTeam.id)"> 
-            <div class="font-weight-bold">{{getCurrentUserClassicTeam.user.team_name}}</div>
+            <div class="fontw600 font9">{{getCurrentUserClassicTeam.user.team_name.substring(0, 18)}}</div>
             <div class="font8">{{to_number_format(getCurrentUserClassicTeam.score)}} POINTS</div>
           </v-flex>
           <v-flex xs2 class="text-xs-center pr-4 pt-3" style="height:56px;">
@@ -67,7 +67,7 @@
             <img :src="team.user.image" class="image imagec">
           </v-flex>
           <v-flex xs6 class="white pa-2 pl-2" style="height:56px;" v-on:click.stop="viewTeamClick.call(this, team.id)"> 
-            <div class="font-weight-bold">{{team.user.team_name}}</div>
+            <div class="fontw600 font9">{{team.user.team_name.substring(0, 18)}}</div>
             <div class="font8">{{to_number_format(team.score)}} POINTS</div>
           </v-flex>
           <v-flex xs2 class="white text-xs-center pr-4 pt-3" style="height:56px;">
