@@ -5,8 +5,10 @@
 
 <script>
   export default {
-    async asyncData({store, params}) {
-      await store.dispatch('Me/LOGOUT');
-    }
+    mounted() {
+      if (this.$cookies.get('at') && this.$cookies.get('rt')) {
+        this.$store.dispatch('Me/LOGOUT');
+      }
+    },
   }
 </script>
