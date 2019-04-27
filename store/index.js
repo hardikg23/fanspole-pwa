@@ -5,6 +5,7 @@ import ClassicCreateTeam from './modules/ClassicCreateTeam';
 import ClassicTeams from './modules/ClassicTeams';
 import ClassicTeamScores from './modules/ClassicTeamScores';
 import CreateTeam from './modules/CreateTeam';
+import Common from './modules/Common';
 import Matches from './modules/Matches';
 import Me from './modules/Me';
 import MobileNumber from './modules/MobileNumber';
@@ -28,6 +29,7 @@ export default () => {
       ClassicTeams,
       ClassicTeamScores,
       CreateTeam,
+      Common,
       Matches,
       Me,
       MobileNumber,

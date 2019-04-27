@@ -75,7 +75,7 @@ const mutations = {
     state.created_team.captain_id = id;
   },
   SET_CREATE_TEAM: (state, payload) => {
-    state.created_team.captain_id = null
+    state.created_team.captain_id = payload.classic_team.captain.id;;
     state.created_team.selected_players_hash = payload.classic_team.team_players;
     state.created_team.valid_team = true;
     state.created_team.selected_players = []

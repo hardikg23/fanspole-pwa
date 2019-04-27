@@ -36,7 +36,6 @@ const actions = {
             maxAge: 60 * 60 * 24 * 365
           });
           dispatch('Me/GET_ME', null, { root: true });
-          this.$router.push('/');
         }
       })
       .catch((error) => {

@@ -1,15 +1,28 @@
 <template>
   <div>
     <v-toolbar :color="bar_color">
-      <div v-if="!is_logged_in">
-        <nuxt-link to="/login">
-          <img src="https://res.cloudinary.com/fantasy/image/upload/v1554208678/uploads/development/avatar/5/1554208676.png" class="image imagec">
-        </nuxt-link>
-      </div>
-      <div v-if="image">
-        <img :src="image" class="image imagec" @click.stop="drawer = !drawer">
-      </div>
-      <h3 class="white--text fontw600">{{title}}</h3>
+      <v-layout row wrap>
+        <v-flex xs1 class="py-2 text-xs-left">
+          <div v-if="!is_logged_in">
+            <nuxt-link to="/login">
+              <img src="https://res.cloudinary.com/fantasy/image/upload/v1554208678/uploads/development/avatar/5/1554208676.png" class="image imagec">
+            </nuxt-link>
+          </div>
+          <div v-if="image">
+            <img :src="image" class="image imagec" @click.stop="drawer = !drawer">
+          </div>
+        </v-flex>
+        <v-flex xs10>
+          <div class="white--text fontw600 font12 pa-3">{{title}}</div>
+        </v-flex>
+        <v-flex xs1 class="text-xs-center">
+          <div>
+            <nuxt-link to="/mode">
+              <v-icon class="white--text font12 pa-2" style="font-size:2.6em;">swap_horizontal_circle</v-icon>
+            </nuxt-link>
+          </div>
+        </v-flex>
+      </v-layout>
     </v-toolbar>
     <v-navigation-drawer
       v-model="drawer"

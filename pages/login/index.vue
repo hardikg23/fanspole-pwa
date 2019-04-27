@@ -161,6 +161,12 @@
             .dispatch('Login/LOGIN', postData)
             .then(() => {
               this.loading = false;
+              let last_path = this.$store.getters['Common/last_visited_url']
+              if(last_path != undefined){
+                this.$router.push(last_path);  
+              } else{
+                this.$router.push('/');
+              }
             })
             .catch((error) => {
               this.loading = false;
