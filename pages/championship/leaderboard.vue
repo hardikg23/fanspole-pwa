@@ -34,10 +34,10 @@
       </v-card>
 
       <v-layout row wrap class="font8 pa-1 championship font-weight-bold white--text">
-        <v-flex xs8 class="text-xs-left pl-2">
+        <v-flex xs7 class="text-xs-left pl-2">
           TEAM
         </v-flex>
-        <v-flex xs2 class="text-xs-center pr-4">
+        <v-flex xs3 class="text-xs-center pr-4">
           SUBS
         </v-flex>
         <v-flex xs2 class="text-xs-right pr-4">
@@ -49,7 +49,7 @@
           <v-flex xs2 class="pt-2 text-xs-center" style="height:56px;">
             <img :src="getCurrentUserClassicTeam.user.image" class="image imagec">
           </v-flex>
-          <v-flex xs6 class="pa-2 pl-2" style="height:56px;" v-on:click.stop="viewTeamClick.call(this, getCurrentUserClassicTeam.id)"> 
+          <v-flex xs5 class="pa-2 pl-2" style="height:56px;" v-on:click.stop="viewTeamClick.call(this, getCurrentUserClassicTeam.id)"> 
             <div class="fontw600 font9">{{getCurrentUserClassicTeam.user.team_name.substring(0, 18)}}</div>
             <div class="font8">{{to_number_format(getCurrentUserClassicTeam.score)}} POINTS</div>
           </v-flex>
@@ -58,7 +58,7 @@
             /
             <span>{{getCurrentUserClassicTeam.sum_free_sub_used}}</span>
           </v-flex>
-          <v-flex xs1 class="text-xs-right pr-4 pt-3" style="height:56px;">
+          <v-flex xs2 class="text-xs-center pt-3" style="height:56px;">
             <div>#{{to_number_format(getCurrentUserClassicTeam.rank)}}</div>
           </v-flex>
         </v-layout>
@@ -66,7 +66,7 @@
           <v-flex xs2 class="white pt-2 text-xs-center" style="height:56px;">
             <img :src="team.user.image" class="image imagec">
           </v-flex>
-          <v-flex xs6 class="white pa-2 pl-2" style="height:56px;" v-on:click.stop="viewTeamClick.call(this, team.id)"> 
+          <v-flex xs5 class="white pa-2 pl-2" style="height:56px;" v-on:click.stop="viewTeamClick.call(this, team.id)"> 
             <div class="fontw600 font9">{{team.user.team_name.substring(0, 18)}}</div>
             <div class="font8">{{to_number_format(team.score)}} POINTS</div>
           </v-flex>
@@ -75,7 +75,7 @@
             /
             <span class="green--text text--accent-4">{{team.sum_free_sub_used}}</span>
           </v-flex>
-          <v-flex xs1 class="white text-xs-right pr-4 pt-3" style="height:56px;">
+          <v-flex xs2 class="white text-xs-center pr-4 pt-3" style="height:56px;">
             <div>#{{to_number_format(team.rank)}}</div>
           </v-flex>
         </v-layout>
