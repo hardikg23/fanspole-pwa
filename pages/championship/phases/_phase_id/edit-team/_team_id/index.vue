@@ -46,15 +46,15 @@
         if (this.$store.getters['Players/phase_players'](this.$route.params.phase_id).length == 0){
           await this.$store.dispatch('Players/GET_PHASE_PLAYERS', {id: this.$route.params.phase_id, fields: 'id,name,display_name,display_info,value,style,last_series_score,team{name_attr,jersey_photo,team_color}'})
         }
-        await this.$store.dispatch('ClassicCreateTeam/GET_TEAM', {phase_id: this.$route.params.phase_id, team_id: this.$route.params.team_id, fields: 'id,budget,captain,team_players'}).catch((error) => {
-          this.$router.push("/championship/home");
-          this.$nuxt.$emit('snackbarError', {
-            snackbar: true,
-            message: error.data.error,
-            button: false
+        await this.$store.dispatch('ClassicCreateTeam/GET_TEAM', {phase_id: this.$route.params.phase_id, team_id: this.$route.params.team_id, fields: 'id,budget,captain,team_players'})
+          .catch((error) => {
+            this.$nuxt.$emit('snackbarError', {
+              snackbar: true,
+              message: error.data.error,
+              button: false
+            });
+            return false;
           });
-          return false;
-        });
         this.loading = false
       },
     }

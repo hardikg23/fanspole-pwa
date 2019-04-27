@@ -53,12 +53,12 @@
             <div class="fontw600 font9">{{getCurrentUserClassicTeam.user.team_name.substring(0, 18)}}</div>
             <div class="font8">{{to_number_format(getCurrentUserClassicTeam.score)}} POINTS</div>
           </v-flex>
-          <v-flex xs2 class="text-xs-center pr-4 pt-3" style="height:56px;">
+          <v-flex xs3 class="text-xs-center pr-4 pt-3" style="height:56px;">
             <span>{{getCurrentUserClassicTeam.sum_paid_sub_used}}</span>
             /
             <span>{{getCurrentUserClassicTeam.sum_free_sub_used}}</span>
           </v-flex>
-          <v-flex xs2 class="text-xs-right pr-4 pt-3" style="height:56px;">
+          <v-flex xs1 class="text-xs-right pr-4 pt-3" style="height:56px;">
             <div>#{{to_number_format(getCurrentUserClassicTeam.rank)}}</div>
           </v-flex>
         </v-layout>
@@ -70,12 +70,12 @@
             <div class="fontw600 font9">{{team.user.team_name.substring(0, 18)}}</div>
             <div class="font8">{{to_number_format(team.score)}} POINTS</div>
           </v-flex>
-          <v-flex xs2 class="white text-xs-center pr-4 pt-3" style="height:56px;">
+          <v-flex xs3 class="white text-xs-center pr-4 pt-3" style="height:56px;">
             <span class="red--text text--accent-4">{{team.sum_paid_sub_used}}</span>
             /
             <span class="green--text text--accent-4">{{team.sum_free_sub_used}}</span>
           </v-flex>
-          <v-flex xs2 class="white text-xs-right pr-4 pt-3" style="height:56px;">
+          <v-flex xs1 class="white text-xs-right pr-4 pt-3" style="height:56px;">
             <div>#{{to_number_format(team.rank)}}</div>
           </v-flex>
         </v-layout>
