@@ -53,14 +53,19 @@
               <v-flex xs6 class="text-xs-center borderb pa-2">
                 <span>{{player.name}}</span><span v-if="getClassisTeamScore.captain.id == player.id"> (c)</span>
               </v-flex>
-              <v-flex xs6 class="text-xs-center borderb pa-2">
-                {{getClassisTeamScore.captain.id == player.id ? player.score*2 : player.score}}
+              <v-flex xs6 class="text-xs-center borderb pa-2 fontw600">
+                <div v-if="player.score >= 0" class="green--text text--accent-4">
+                  {{getClassisTeamScore.captain.id == player.id ? player.score*2 : player.score}}
+                </div>
+                <div v-else class="red--text text--accent-4">
+                  {{getClassisTeamScore.captain.id == player.id ? player.score*2 : player.score}}
+                </div>
               </v-flex>
             </v-layout>
           </div>
           <div v-else>
             <div class="pa-4 grey--text text-xs-center font8">
-              No players for this match
+              No scores
             </div>
           </div>
         </v-card>
