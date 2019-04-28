@@ -196,7 +196,6 @@
     methods: {
       doLogin(){
         let last_path = this.$store.getters['Common/last_visited_url']
-        console.log(last_path);
         if(last_path != undefined){
           this.$router.push(last_path);  
         } else{
@@ -312,6 +311,7 @@
               .dispatch('Login/LOGIN', GoogleData)
               .then(() => {
                 this.loading = false;
+                this.doLogin();
               })
               .catch((error) => {
                 this.$nuxt.$emit('snackbarError', {
