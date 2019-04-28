@@ -2,6 +2,8 @@ const state = () => ({
   players: [],
   series_players: [],
   phase_players: [],
+  phase_filters: [],
+  applied_filter: null,
 })
 
 const getters = {
@@ -39,6 +41,21 @@ const getters = {
       return parseInt(player.phase_id) == parseInt(phase_id)
     });
   },
+  phase_filters: (state) => (phase_id) => {
+    return state.phase_filters.filter((filter) => {
+      return parseInt(filter.phase_id) == parseInt(phase_id)
+    });
+  },
+  applied_filter: (state) => (phase_id) => {
+    if(state.applied_filter == undefined){
+      let filters = state.phase_filters.filter((f) => {
+        return parseInt(f.phase_id) == parseInt(phase_id)
+      });
+      return filters[0]
+    }else{
+      return state.applied_filter;
+    }
+  },
   get_phase_wk_players: (state) => (phase_id) => {
     return state.phase_players.filter((player) => {
       return (parseInt(player.phase_id) == parseInt(phase_id)) && (player.style === 5 || player.style === 7);
@@ -58,7 +75,7 @@ const getters = {
     return state.phase_players.filter((player) => {
       return (parseInt(player.phase_id) == parseInt(phase_id)) && (player.style === 11 || player.style === 13);
     });
-  },
+  }
 }
 
 const mutations = {
@@ -87,7 +104,16 @@ const mutations = {
         state.phase_players.push(player);
       });
     }
+    if(payload.data['filters']) {
+      payload.data['filters'].forEach(filter => {
+        filter.phase_id = parseInt(payload.phase_id);
+        state.phase_filters.push(filter);
+      });
+    }
   },
+  SET_APPLIED_FILTER: (state, payload) => {
+    state.applied_filter = payload;
+  }
 }
 
 const actions = {

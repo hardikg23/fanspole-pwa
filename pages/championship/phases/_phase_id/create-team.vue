@@ -2,7 +2,7 @@
   <section>
     <v-toolbar color="championship">
       <BackChampionship />
-      <span class="white--text fontw600">{{getPhase.name}}</span>
+      <span class="white--text fontw600">{{loading == false ? getPhase.name : ''}}</span>
     </v-toolbar>
     <ManageTeamChampionship :new_team="true"></ManageTeamChampionship>
   </section>
@@ -38,7 +38,7 @@
           await this.$store.dispatch('SeriesPhases/GET_PHASES', {fields: 'id,name,current_user_classic_team,transfer_windows,prizes'});
         }
         if (this.$store.getters['Players/phase_players'](this.$route.params.phase_id).length == 0){
-          await this.$store.dispatch('Players/GET_PHASE_PLAYERS', {id: this.$route.params.phase_id, fields: 'id,name,display_name,display_info,value,style,last_series_score,team{name_attr,jersey_photo,team_color}'})
+          await this.$store.dispatch('Players/GET_PHASE_PLAYERS', {id: this.$route.params.phase_id, fields: 'id,name,display_name,display_info,value,style,last_series_score,team{id,name_attr,jersey_photo,team_color}'})
         }
         this.loading = false
       }
