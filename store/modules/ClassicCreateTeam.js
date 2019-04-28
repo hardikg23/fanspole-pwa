@@ -15,6 +15,8 @@ const state = () => ({
     selected_ar: 0,
     selected_bowl: 0,
     budget: 100.0,
+    free_transfers: '',
+    paid_transfers: '',
     valid_team: false
   }
 })
@@ -65,6 +67,12 @@ const getters = {
   budget: state => {
     return state.created_team.budget;
   },
+  free_transfers: state => {
+    return state.created_team.free_transfers;
+  },
+  paid_transfers: state => {
+    return state.created_team.paid_transfers;
+  },
   valid_team: state => {
     return state.created_team.valid_team;
   }
@@ -75,7 +83,7 @@ const mutations = {
     state.created_team.captain_id = id;
   },
   SET_CREATE_TEAM: (state, payload) => {
-    state.created_team.captain_id = payload.classic_team.captain.id;;
+    state.created_team.captain_id = payload.classic_team.captain.id;
     state.created_team.selected_players_hash = payload.classic_team.team_players;
     state.created_team.valid_team = true;
     state.created_team.selected_players = []
@@ -89,6 +97,8 @@ const mutations = {
     state.created_team.balanced_ar = true
     state.created_team.balanced_bowl = true
     state.created_team.balanced_ar_and_bowl = true
+    state.created_team.free_transfers = payload.classic_team.free_transfers;
+    state.created_team.paid_transfers = payload.classic_team.paid_transfers;
     state.created_team.budget = 100.0 - payload.classic_team.budget;
   },
   RESET_CREATE_TEAM: (state, payload) => {
@@ -107,6 +117,8 @@ const mutations = {
     state.created_team.selected_ar = 0
     state.created_team.selected_bowl = 0
     state.created_team.budget = 100.0
+    state.created_team.free_transfers = ''
+    state.created_team.paid_transfers = ''
     state.created_team.valid_team = false
   },
   PUSH_SELECTED_PLAYER: (state, id) => {

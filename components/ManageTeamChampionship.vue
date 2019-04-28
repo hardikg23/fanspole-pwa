@@ -1,7 +1,7 @@
 <template>
-  <div style="margin-top: 112px;width:100%;overflow-y:auto;z-index:1000 !important">
+  <div style="">
     <v-layout row wrap class="championship pa-2">
-      <v-flex xs6 class='white--text'>
+      <v-flex xs4 class='white--text'>
         <div class="text-xs-center">
           <div class="font8 opacity06">Players</div>
           <div>
@@ -9,11 +9,20 @@
           </div>
         </div>
       </v-flex>
-      <v-flex xs6 class='white--text'>
+      <v-flex xs4 class='white--text'>
         <div class="text-xs-center">
           <div class="font8 opacity06">Credit Left</div>
           <div>
             <span class="font-weight-bold font12">{{getBudget}}</span>
+          </div>
+        </div>
+      </v-flex>
+      <v-flex xs4 class='white--text'>
+        <div class="text-xs-center">
+          <div class="font8 opacity06">Subs</div>
+          <div>
+            <span class="font-weight-bold font12" v-if="new_team">&#8734;/&#8734;</span>
+            <span class="font-weight-bold font12" v-else>{{getPaidTransfers}}/{{getFreeTransfers}}</span>
           </div>
         </div>
       </v-flex>
@@ -26,12 +35,21 @@
       <v-tab ripple :key="4">BOWL <span v-bind:class="{'grey lighter-2': !getBalancedBowl, 'green accent-4': getBalancedBowl}" class="dot grey lighter-2 ml-1"></span></v-tab>
       <v-tab-item :key="1">
         <div class="text-xs-center font-weight-bold pa-2">PICK 1 WICKET-KEEPER <v-icon @click.stop="rulesDialog = true">info</v-icon></div>
+        <v-text-field
+          v-model="search"
+          append-icon="search"
+          label="Search"
+          color="championship"
+          solo
+          hide-details
+        ></v-text-field>
         <v-data-table
           :headers="headers"
           :items="getWK"
           class="data-table"
           align='center'
           :pagination.sync="pagination"
+          :search="search"
           hide-actions
           expand
         >
@@ -60,12 +78,21 @@
       </v-tab-item>
       <v-tab-item :key="2">
         <div class="text-xs-center font-weight-bold pa-2">PICK MIN 4 BATSMEN <v-icon @click.stop="rulesDialog = true">info</v-icon></div>
+        <v-text-field
+          v-model="search"
+          append-icon="search"
+          label="Search"
+          color="championship"
+          solo
+          hide-details
+        ></v-text-field>
         <v-data-table
           :headers="headers"
           :items="getBAT"
           class="data-table"
           align='center'
           :pagination.sync="pagination"
+          :search="search"
           hide-actions
           expand
         >
@@ -94,12 +121,21 @@
       </v-tab-item>
       <v-tab-item :key="3">
         <div class="text-xs-center font-weight-bold pa-2">PICK MIN 1 ALL-ROUNDER <v-icon @click.stop="rulesDialog = true">info</v-icon></div>
+        <v-text-field
+          v-model="search"
+          append-icon="search"
+          label="Search"
+          color="championship"
+          solo
+          hide-details
+        ></v-text-field>
         <v-data-table
           :headers="headers"
           :items="getAR"
           class="data-table"
           align='center'
           :pagination.sync="pagination"
+          :search="search"
           hide-actions
           expand
         >
@@ -128,12 +164,21 @@
       </v-tab-item>
       <v-tab-item :key="4">
         <div class="text-xs-center font-weight-bold pa-2">PICK MIN 2 BOWLERS <v-icon @click.stop="rulesDialog = true">info</v-icon></div>
+        <v-text-field
+          v-model="search"
+          append-icon="search"
+          label="Search"
+          color="championship"
+          solo
+          hide-details
+        ></v-text-field>
         <v-data-table
           :headers="headers"
           :items="getBOWL"
           class="data-table"
           align='center'
           :pagination.sync="pagination"
+          :search="search"
           hide-actions
           expand
         >
@@ -278,6 +323,7 @@
         previewDialog: false,
         captainDialog: false,
         loading: false,
+        search: '',
         pagination: {
           page: 1,
           rowsPerPage: -1,
@@ -353,6 +399,12 @@
       },
       getBudget(){
         return this.$store.getters['ClassicCreateTeam/budget'];
+      },
+      getPaidTransfers(){
+        return this.$store.getters['ClassicCreateTeam/paid_transfers'];
+      },
+      getFreeTransfers(){
+        return this.$store.getters['ClassicCreateTeam/free_transfers'];
       },
       getValidTeam(){
         return this.$store.getters['ClassicCreateTeam/valid_team'];

@@ -1,15 +1,8 @@
 <template>
   <section>
-    <v-toolbar extended color="championship" height="56" style="position: fixed;top:0;z-index:10;">
+    <v-toolbar color="championship">
       <BackChampionship />
-      <span class="white--text fontw600">{{title}}</span>
-      <v-toolbar-items slot="extension" style='width:100%; margin-left: 0px;'>
-        <div style="width:100%;background-color: #fff;height:32px;line-height:32px;padding-left:5px;" class="box_shadow" color='championship'>
-          <div v-if="!loading">
-            {{getPhase.name}}
-          </div>
-        </div>
-      </v-toolbar-items>
+      <span class="white--text fontw600">{{getPhase.name}}</span>
     </v-toolbar>
     <ManageTeamChampionship :new_team="true"></ManageTeamChampionship>
   </section>
