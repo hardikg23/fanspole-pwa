@@ -12,7 +12,7 @@ export default {
   },
   watch: {
     '$route.path': function(val) {
-      if(val.indexOf('/login') == -1){
+      if(val.indexOf('/login') == -1 && val.indexOf('/signup') == -1){
         this.$store.commit('Common/SET_LAST_VISITED_URL', val);  
       }
     }

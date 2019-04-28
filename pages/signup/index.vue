@@ -25,7 +25,7 @@
           </div>
           <div class="grey--text text--darken-3 font-weight-bold font11 pt-4">Sign in with Social</div>
           <div>
-            <img src="~/assets/images/facebook-login.png" class="box_shadow">
+            <img src="~/assets/images/facebook-login.png" @click="fbAuthUser" class="box_shadow">
             <img src="~/assets/images/google-login.png" id="customBtn" class="box_shadow">
           </div>
           <div>Or</div>
@@ -161,6 +161,12 @@
             xfbml: true,
             version: 'v3.2'
           });
+
+          FB.getLoginStatus((response) => {
+            if (response.status === 'connected') {
+              this.getUserData(response);
+            }
+          });
         };
 
         (function(d, s, id) {
@@ -188,6 +194,15 @@
       }
     },
     methods: {
+      doLogin(){
+        let last_path = this.$store.getters['Common/last_visited_url']
+        console.log(last_path);
+        if(last_path != undefined){
+          this.$router.push(last_path);  
+        } else{
+          this.$router.push('/');
+        }
+      },
       async handleSubmit() {
         this.loading = true;
         if (this.$refs.form.validate()) {
@@ -213,6 +228,45 @@
             });
         }
         this.loading = false;
+      },
+      getUserData(response) {
+        let accessToken = response.authResponse.accessToken;
+        FB.api('/me?fields=id,name,email', (response) => {
+          let FBData = {
+            grant_type: 'password',
+            email: response.email,
+            provider: 'facebook',
+            uid: response.id,
+            access_token: accessToken,
+            oauth_version: 2
+          };
+          this.$store.dispatch('Login/LOGIN', FBData)
+          .then(() => {
+              this.loading = false;
+              this.doLogin();
+            })
+          .catch((error) => {
+            this.loading = false;
+            this.$nuxt.$emit('snackbarError', {
+              snackbar: true,
+              message: error.data.error,
+              button: false
+            });
+          });
+        });
+      },
+      fbAuthUser() {
+        FB.login((response) => {
+          if (response.authResponse) {
+            this.getUserData(response);
+          } else {
+            this.$nuxt.$emit('snackbarError', {
+              snackbar: true,
+              message: 'User cancelled login/did not fully authorize',
+              button: false
+            });
+          }
+        });
       },
       startApp() {
         let appEnv = process.env.NODE_ENV || 'development';

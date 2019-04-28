@@ -155,6 +155,14 @@
       this.$nuxt.$off('snackbarError');
     },
     methods: {
+      doLogin(){
+        let last_path = this.$store.getters['Common/last_visited_url']
+        if(last_path != undefined){
+          this.$router.push(last_path);  
+        } else{
+          this.$router.push('/');
+        }
+      },
       async handleLoginFormSubmit() {
         const postData = {
           grant_type: 'password',
@@ -167,12 +175,7 @@
             .dispatch('Login/LOGIN', postData)
             .then(() => {
               this.loading = false;
-              let last_path = this.$store.getters['Common/last_visited_url']
-              if(last_path != undefined){
-                this.$router.push(last_path);  
-              } else{
-                this.$router.push('/');
-              }
+              this.doLogin();
             })
             .catch((error) => {
               this.loading = false;
@@ -199,6 +202,7 @@
           this.$store.dispatch('Login/LOGIN', FBData)
           .then(() => {
               this.loading = false;
+              this.doLogin();
             })
           .catch((error) => {
             this.loading = false;
@@ -267,6 +271,7 @@
               .dispatch('Login/LOGIN', GoogleData)
               .then(() => {
                 this.loading = false;
+                this.doLogin();
               })
               .catch((error) => {
                 this.$nuxt.$emit('snackbarError', {
