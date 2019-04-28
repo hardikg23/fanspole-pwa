@@ -25,7 +25,7 @@
           </div>
           <div class="grey--text text--darken-3 font-weight-bold font11 pt-4">Sign in with Social</div>
           <div>
-            <!-- <img src="~/assets/images/facebook-login.png" class="box_shadow"> -->
+            <img src="~/assets/images/facebook-login.png" class="box_shadow">
             <img src="~/assets/images/google-login.png" id="customBtn" class="box_shadow">
           </div>
           <div>Or</div>

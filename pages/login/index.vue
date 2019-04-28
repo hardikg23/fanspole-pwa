@@ -7,7 +7,7 @@
           <div class="grey--text text--lighten-1 font9 pa-2">Enter your Email to Start Your Fantasy Journey with Fanspole.</div>
           <div class="grey--text text--darken-3 font-weight-bold font11 pt-4">Sign in with Social</div>
           <div>
-            <!-- <img src="~/assets/images/facebook-login.png" @click="fbAuthUser" class="box_shadow"> -->
+            <img src="~/assets/images/facebook-login.png" @click="fbAuthUser" class="box_shadow">
             <img src="~/assets/images/google-login.png" id="customBtn" class="box_shadow">
           </div>
           <div>Or</div>
