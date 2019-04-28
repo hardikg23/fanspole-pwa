@@ -2,6 +2,7 @@ import Vuex from 'vuex';
 
 import ApiHits from './modules/ApiHits';
 import ClassicCreateTeam from './modules/ClassicCreateTeam';
+import ClassicGangs from './modules/ClassicGangs';
 import ClassicTeams from './modules/ClassicTeams';
 import ClassicTeamScores from './modules/ClassicTeamScores';
 import CreateTeam from './modules/CreateTeam';
@@ -26,6 +27,7 @@ export default () => {
     modules: {
       ApiHits,
       ClassicCreateTeam,
+      ClassicGangs,
       ClassicTeams,
       ClassicTeamScores,
       CreateTeam,

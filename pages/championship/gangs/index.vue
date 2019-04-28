@@ -10,6 +10,7 @@
         ></v-progress-circular>
       </v-flex>
     </v-layout>
+    
     <div v-if="!loading">
       <v-card>
         <v-layout row wrap>
@@ -33,15 +34,15 @@
       </v-card>
     </div>
     <div v-if="!loading">
-      <div v-if="getResults.length > 0">
-        <template v-for="r in getResults">
+      <div v-if="getGangs.length > 0">
+        <template v-for="g in getGangs">
           <div>
-            <ResultCard :key="r.id" :team="r"></ResultCard>
+            <GangCard :key="g.id" :gang="g"></GangCard>
           </div>
         </template>
       </div>
       <div v-else class="text-xs-center pt-4 mt-4">
-        No results
+        No Gangs
       </div>
     </div>
     <BottomChampionship></BottomChampionship>
@@ -52,7 +53,7 @@
   export default {
     data() {
       return {
-        title: "RESULTS",
+        title: "GANGS",
         loading: true,
         defaultSelected: null,
         dropdown_series_phase: [],
@@ -60,12 +61,12 @@
     },
     components: {
       Header: () => import('~/components/Header'),
-      ResultCard: () => import('~/components/ResultCard'),
       BottomChampionship: () => import('~/components/BottomChampionship'),
+      GangCard: () => import('~/components/GangCard'),
     },
     computed: {
-      getResults(){
-        return this.$store.getters['ClassicTeamScores/classic_team_scores'](this.defaultSelected);
+      getGangs(){
+        return this.$store.getters['ClassicGangs/gangs'](this.defaultSelected);
       }
     },
     mounted: function() {
@@ -86,17 +87,15 @@
         else{
           this.defaultSelected = this.dropdown_series_phase[0].id
         }
-        if (this.$store.getters['ClassicTeamScores/classic_team_scores'](this.defaultSelected).length == 0){
-          await this.$store.dispatch('ClassicTeamScores/GET_RESULTS', {id: this.defaultSelected, fields: 'id,score,series_phase_id,captain,free_sub_used,paid_sub_used,match{match_no,match_stage,team1,team2}'});
+        if (this.$store.getters['ClassicGangs/gangs'](this.defaultSelected).length == 0){
+          await this.$store.dispatch('ClassicGangs/GET_GANGS', {id: this.defaultSelected, fields: 'id,name,league_motto,league_members_count,league_code,user{id,display_name}'});
         }
         this.loading = false
       },
-      async update_results(val) {
+      async update_gangs(val) {
         this.loading = true
         if(typeof(val) == "number"){
-          if (this.$store.getters['ClassicTeamScores/classic_team_scores'](val).length == 0){
-            await this.$store.dispatch('ClassicTeamScores/GET_RESULTS', {id: val, fields: 'id,score,series_phase_id,captain,free_sub_used,paid_sub_used,match{match_no,match_stage,team1,team2}'});
-          }
+
           this.loading = false
         }
       },
@@ -104,14 +103,15 @@
         if(number != undefined){
           return number.toLocaleString('en-IN')
         }
+      },
+      viewTeamClick(id){
+        this.$router.push(`/championship/teams/${id}`);
       }
     },
     watch: {
       defaultSelected(val, oldVal) {
-        if(oldVal != undefined){
-          this.$router.push('/championship/results?phase_id=' + val);
-          this.update_results(val)
-        }
+        if(oldVal != undefined)
+          this.update_gangs(val)
       }
     }
   }
@@ -121,12 +121,5 @@
 <style type="text/css" scoped>
   .v-text-field--box .v-input__slot, .v-text-field--outline .v-input__slot{
     height: 6px !important;
-  }
-  .imagec{
-    border-radius: 50%; 
-    border: 1px solid #fff;
-  }
-  .image{
-    width: 42px;
   }
 </style>

@@ -13,6 +13,10 @@
         <span>Leaderboard</span>
         <v-icon>poll</v-icon>
       </v-btn>
+      <v-btn flat color="championship" to="/championship/gangs">
+        <span>Gangs</span>
+        <v-icon>group</v-icon>
+      </v-btn>
       <v-btn flat color="championship" to="/championship/more">
         <span>More</span>
         <v-icon>more_horiz</v-icon>
@@ -22,8 +26,8 @@
 </template>
 
 <style scoped>
-  .btn {
-    min-width: 60px;
+  .v-btn {
+    min-width: 50px;
   }
 </style>
 
