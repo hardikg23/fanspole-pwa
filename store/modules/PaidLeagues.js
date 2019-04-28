@@ -23,17 +23,23 @@ const getters = {
   paid_league: state => {
     return state.paid_league;
   },
-  current_user_members: state => {
-    return state.current_user_members;
+  current_user_members: (state) => (league_id) => {
+    return state.current_user_members.filter((member) => {
+      return parseInt(member.league_id) == parseInt(league_id)
+    });
   },
-  paid_league_members: state => {
-    return state.paid_league_members;
+  paid_league_members: (state) => (league_id) => {
+    return state.paid_league_members.filter((member) => {
+      return parseInt(member.league_id) == parseInt(league_id)
+    });
   },
   joined_paid_leagues: state => {
     return state.joined_paid_leagues;
   },
-  paid_leagues_prizes: state => {
-    return state.paid_leagues_prizes;
+  paid_leagues_prizes: (state) => (league_id) => {
+    return state.paid_leagues_prizes.filter((prize) => {
+      return parseInt(prize.league_id) == parseInt(league_id)
+    });
   },
   joining_confirmation: state => {
     return state.joining_confirmation
@@ -75,24 +81,21 @@ const mutations = {
     state.paid_leagues = [];
   },
   SET_PAID_LEAGUE: (state, payload) => {
-    if (payload['current_user_member']) {
-      payload['current_user_member'].forEach(member => {
+    if(payload.data['current_user_member']) {
+      payload.data['current_user_member'].forEach(member => {
+        member.league_id = parseInt(payload.league_id);
         state.current_user_members.push(member);
       });
     }
-    if (payload['paid_league_members']) {
-      payload['paid_league_members'].forEach(member => {
+    if(payload.data['paid_league_members']) {
+      payload.data['paid_league_members'].forEach(member => {
+        member.league_id = parseInt(payload.league_id);
         state.paid_league_members.push(member);
       });
     }
-    if (payload['paid_league']) {
-      state.paid_league = payload['paid_league']
+    if (payload.data['paid_league']) {
+      state.paid_league = payload.data['paid_league']
     }
-  },
-  RESET_PAID_LEAGUE: (state, payload) => {
-    state.current_user_members = [];
-    state.paid_league_members = [];
-    state.paid_league = null;
   },
   SET_JOINED_PAID_LEAGUES: (state, payload) => {
     if (payload['joined_paid_leagues']) {
@@ -110,14 +113,12 @@ const mutations = {
     state.joined_paid_leagues = [];
   },
   SET_PRIZES: (state, payload) => {
-    if (payload['prizes']) {
-      payload['prizes'].forEach(prize => {
+    if(payload.data['prizes']) {
+      payload.data['prizes'].forEach(prize => {
+        prize.league_id = parseInt(payload.league_id);
         state.paid_leagues_prizes.push(prize);
       });
     }
-  },
-  RESET_PRIZES: (state, payload) => {
-    state.paid_leagues_prizes = [];
   },
   SET_JOINING_CONFIRMATION: (state, payload) => {
     state.joining_confirmation = payload;
@@ -149,11 +150,11 @@ const actions = {
   },
   async GET_PAID_LEAGUE({ commit, dispatch }, payload) {
     await this.$axios
-      .get(`/api/matches/${payload.id}/paid_leagues/${payload.league_id}.json?fields=id,rank,event_team{id,team_no,score},user{team_name,image,id}`)
+      .get(`/api/matches/${payload.id}/paid_leagues/${payload.league_id}.json?fields=${payload.fields}`)
       .then(response => {
         if (response.status == 200) {
-          commit('RESET_PAID_LEAGUE');
-          commit('SET_PAID_LEAGUE', response.data);
+          let state_payload = {'data': response.data, 'league_id': payload.league_id}
+          commit('SET_PAID_LEAGUE', state_payload);
         }
       })
       .catch(error => {
@@ -174,11 +175,11 @@ const actions = {
   },
   async GET_PRIZES({ commit, dispatch }, payload) {
     await this.$axios
-      .get(`/api/matches/${payload.id}/paid_leagues/${payload.league_id}/prizes?fields=id,rank_text,amount`)
+      .get(`/api/matches/${payload.id}/paid_leagues/${payload.league_id}/prizes?fields=${payload.fields}`)
       .then(response => {
         if (response.status == 200) {
-          commit('RESET_PRIZES');
-          commit('SET_PRIZES', response.data);
+          let state_payload = {'data': response.data, 'league_id': payload.league_id}
+          commit('SET_PRIZES', state_payload);
         }
       })
       .catch(error => {

@@ -207,7 +207,7 @@
         return this.league.paid_league_members_count/this.league.members_limit*100;
       },
       getPrizes() {
-        return this.$store.getters['PaidLeagues/paid_leagues_prizes'];
+        return this.$store.getters['PaidLeagues/paid_leagues_prizes'](this.league.id);
       },
       getJoiningConfirmation() {
         return this.$store.getters['PaidLeagues/joining_confirmation'];
@@ -222,8 +222,9 @@
     methods: {
       async getLeaguePrizes(id){
         this.leaderDialog = true;
-        await this.$store.commit('PaidLeagues/RESET_PRIZES');
-        await this.$store.dispatch('PaidLeagues/GET_PRIZES', {id: this.$route.params.id, league_id: id});
+        if (this.$store.getters['PaidLeagues/paid_leagues_prizes'](id).length == 0){
+          await this.$store.dispatch('PaidLeagues/GET_PRIZES', {id: this.$route.params.id, league_id: id, fields: 'id,rank_text,amount'});
+        }
         this.leaderDialog = false;
         this.prizeDialog = true;
       },
