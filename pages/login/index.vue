@@ -109,6 +109,12 @@
             xfbml: true,
             version: 'v3.2'
           });
+
+          FB.getLoginStatus((response) => {
+            if (response.status === 'connected') {
+              this.getUserData(response);
+            }
+          });
         };
 
         (function(d, s, id) {
