@@ -34,7 +34,11 @@
       }
     },
     mounted() {
-      this.getTeam();
+      if (!this.$cookies.get('at')) {
+        this.$router.push('/login');
+      }else{
+        this.getTeam();
+      }
     },
     components: {
       Back: () => import('~/components/Back'),

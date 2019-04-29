@@ -29,7 +29,11 @@
       }
     },
     mounted: function() {
-      this.getApiSeriesPhase();
+      if (!this.$cookies.get('at')) {
+        this.$router.push('/login');
+      }else{
+        this.getApiSeriesPhase();  
+      }
     },
     methods: {
       async getApiSeriesPhase(){

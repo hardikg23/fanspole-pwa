@@ -38,6 +38,11 @@
         return this.$store.getters['Matches/match'](this.$route.params.id);
       }
     },
+    mounted(){
+      if (!this.$cookies.get('at')) {
+        this.$router.push('/login');
+      }
+    },
     components: {
       Back: () => import('~/components/Back'),
       ManageTeam: () => import('~/components/ManageTeam'),
