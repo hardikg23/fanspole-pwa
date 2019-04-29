@@ -10,7 +10,7 @@
         <v-icon>poll</v-icon>
       </v-btn>
       <v-btn flat color="championship" to="/championship/leaderboard">
-        <span>Leaderboard</span>
+        <span>Leaders</span>
         <v-icon>poll</v-icon>
       </v-btn>
       <v-btn flat color="championship" to="/championship/gangs">
