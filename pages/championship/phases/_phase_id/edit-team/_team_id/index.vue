@@ -52,6 +52,7 @@
             });
             return false;
           });
+        this.$store.commit('Players/SET_APPLIED_FILTER', null);
         this.loading = false
       },
     }

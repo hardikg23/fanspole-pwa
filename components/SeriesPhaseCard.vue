@@ -29,7 +29,10 @@
         </v-flex>
       </v-layout>
       <v-layout row wrap grey lighten-4 ma-0>
-        <v-flex xs12 class='text-xs-center pa-2 text-uppercase font9 championship--text fontw600'>
+        <v-flex xs6 class='text-xs-center pa-2 text-uppercase cursor-p font9 championship white--text fontw600'>
+          <div @click="cardClick.call(this, phase)" class="pa-0 ma-0">Manange team</div>
+        </v-flex>
+        <v-flex xs6 class='text-xs-center pa-2 text-uppercase font9 championship--text fontw600'>
           <div v-if="classic_team">
             <nuxt-link :to="`/championship/teams/${classic_team.id}`">team preview</nuxt-link>
           </div>

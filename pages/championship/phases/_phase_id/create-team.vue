@@ -44,6 +44,7 @@
         if (this.$store.getters['Players/phase_players'](this.$route.params.phase_id).length == 0){
           await this.$store.dispatch('Players/GET_PHASE_PLAYERS', {id: this.$route.params.phase_id, fields: 'id,name,display_name,display_info,value,style,last_series_score,team{id,name_attr,jersey_photo,team_color}'})
         }
+        this.$store.commit('Players/SET_APPLIED_FILTER', null);
         this.loading = false
       }
     }
