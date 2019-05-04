@@ -32,8 +32,11 @@
       <table width="100%" cellpadding="0" cellspacing="0">
         <tbody>
           <tr align="center">
+            <td>
+              <v-btn v-on:click="selectedFilterClick()" v-bind:class="{'championship white--text' :getAppliedFilters && getAppliedFilters.id == -1}" class="ma-0 pa-2" style="width:100%; min-width:0px !important;"><span class="font7">SEL</span></v-btn>
+            </td>
             <td v-for="f in getFilters" :key="f.id">
-              <v-btn v-on:click.stop="filterClick.call(this, f)" v-bind:class="{'championship white--text' : f.id == getAppliedFilters.id}" class="ma-0 pa-2" style="width:40px; min-width:0px !important;">{{f.text}}</v-btn>
+              <v-btn v-on:click.stop="filterClick.call(this, f)" v-bind:class="{'championship white--text' : f.id == getAppliedFilters.id}" class="ma-0 pa-2" style="width:100%; min-width:0px !important;"><span class="font7">{{f.text}}</span></v-btn>
             </td>
           </tr>
         </tbody>
@@ -68,7 +71,7 @@
             <tr
               :key="props.item.id"
               @click="click_on_players(props.item)" 
-              v-bind:class="{'player-selected': getSelectedPlayers.indexOf(props.item.id) != -1, 'player-disabled': ((props.item.value > getBudget || getSelectedPlayers.length == 11) && getSelectedPlayers.indexOf(props.item.id) == -1), 'player-hide' : getAppliedFilters.team_ids.indexOf(props.item.team.id) == -1}"
+              v-bind:class="{'player-selected': getSelectedPlayers.indexOf(props.item.id) != -1, 'player-disabled': ((props.item.value > getBudget || getSelectedPlayers.length == 11) && getSelectedPlayers.indexOf(props.item.id) == -1), 'player-hide' : ((getAppliedFilters.team_ids && getAppliedFilters.team_ids.indexOf(props.item.team.id) == -1) || ((getAppliedFilters && getAppliedFilters.id == -1) &&getSelectedPlayers.indexOf(props.item.id) == -1))}"
             >
               <td class="text-xs-left pa-0 py-2 pl-1">
                 <img :alt="props.item.team.name_attr" v-bind:src="props.item.team.jersey_photo" style="width:40px;height: 40px;">
@@ -111,7 +114,7 @@
             <tr 
               :key="props.item.id"
               @click="click_on_players(props.item)" 
-              v-bind:class="{'player-selected': getSelectedPlayers.indexOf(props.item.id) != -1, 'player-disabled': ((props.item.value > getBudget || getSelectedPlayers.length == 11) && getSelectedPlayers.indexOf(props.item.id) == -1), 'player-hide' : getAppliedFilters.team_ids.indexOf(props.item.team.id) == -1}"
+              v-bind:class="{'player-selected': getSelectedPlayers.indexOf(props.item.id) != -1, 'player-disabled': ((props.item.value > getBudget || getSelectedPlayers.length == 11) && getSelectedPlayers.indexOf(props.item.id) == -1), 'player-hide' : ((getAppliedFilters.team_ids && getAppliedFilters.team_ids.indexOf(props.item.team.id) == -1) || ((getAppliedFilters && getAppliedFilters.id == -1) &&getSelectedPlayers.indexOf(props.item.id) == -1))}"
             >
               <td class="text-xs-left pa-0 py-2 pl-1">
                 <img :alt="props.item.team.name_attr" v-bind:src="props.item.team.jersey_photo" style="width:40px;height: 40px;">
@@ -154,7 +157,7 @@
             <tr 
               :key="props.item.id"
               @click="click_on_players(props.item)" 
-              v-bind:class="{'player-selected': getSelectedPlayers.indexOf(props.item.id) != -1, 'player-disabled': ((props.item.value > getBudget || getSelectedPlayers.length == 11) && getSelectedPlayers.indexOf(props.item.id) == -1), 'player-hide' : getAppliedFilters.team_ids.indexOf(props.item.team.id) == -1}"
+              v-bind:class="{'player-selected': getSelectedPlayers.indexOf(props.item.id) != -1, 'player-disabled': ((props.item.value > getBudget || getSelectedPlayers.length == 11) && getSelectedPlayers.indexOf(props.item.id) == -1), 'player-hide' : ((getAppliedFilters.team_ids && getAppliedFilters.team_ids.indexOf(props.item.team.id) == -1) || ((getAppliedFilters && getAppliedFilters.id == -1) &&getSelectedPlayers.indexOf(props.item.id) == -1))}"
             >
               <td class="text-xs-left pa-0 py-2 pl-1">
                 <img :alt="props.item.team.name_attr" v-bind:src="props.item.team.jersey_photo" style="width:40px;height: 40px;">
@@ -197,7 +200,7 @@
             <tr 
               :key="props.item.id"
               @click="click_on_players(props.item)" 
-              v-bind:class="{'player-selected': getSelectedPlayers.indexOf(props.item.id) != -1, 'player-disabled': ((props.item.value > getBudget || getSelectedPlayers.length == 11) && getSelectedPlayers.indexOf(props.item.id) == -1), 'player-hide' : getAppliedFilters.team_ids.indexOf(props.item.team.id) == -1}"
+              v-bind:class="{'player-selected': getSelectedPlayers.indexOf(props.item.id) != -1, 'player-disabled': ((props.item.value > getBudget || getSelectedPlayers.length == 11) && getSelectedPlayers.indexOf(props.item.id) == -1), 'player-hide' : ((getAppliedFilters.team_ids && getAppliedFilters.team_ids.indexOf(props.item.team.id) == -1) || ((getAppliedFilters && getAppliedFilters.id == -1) &&getSelectedPlayers.indexOf(props.item.id) == -1))}"
             >
               <td class="text-xs-left pa-0 py-2 pl-1">
                 <img :alt="props.item.team.name_attr" v-bind:src="props.item.team.jersey_photo" style="width:40px;height: 40px;">
@@ -491,6 +494,9 @@
       },
       filterClick(filter){
         this.$store.commit('Players/SET_APPLIED_FILTER', filter);
+      },
+      selectedFilterClick(){
+        this.$store.commit('Players/SET_APPLIED_FILTER', {id: -1});
       },
       async save_team(){
         this.loading = true;

@@ -95,23 +95,18 @@
       async update_gangs(val) {
         this.loading = true
         if(typeof(val) == "number"){
-
+          if (this.$store.getters['ClassicGangs/gangs'](val).length == 0){
+            await this.$store.dispatch('ClassicGangs/GET_GANGS', {id: val, fields: 'id,name,league_motto,league_members_count,league_code,user{id,display_name}'});
+          }
           this.loading = false
         }
-      },
-      to_number_format(number){
-        if(number != undefined){
-          return number.toLocaleString('en-IN')
-        }
-      },
-      viewTeamClick(id){
-        this.$router.push(`/championship/teams/${id}`);
       }
     },
     watch: {
       defaultSelected(val, oldVal) {
-        if(oldVal != undefined)
+        if(oldVal != undefined){
           this.update_gangs(val)
+        }
       }
     }
   }

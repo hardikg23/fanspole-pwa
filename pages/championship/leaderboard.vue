@@ -151,8 +151,9 @@
     },
     watch: {
       defaultSelected(val, oldVal) {
-        if(oldVal != undefined)
+        if(oldVal != undefined){
           this.update_leaderboard(val)
+        }
       }
     }
   }
