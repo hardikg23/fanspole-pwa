@@ -22,7 +22,9 @@
           <div class="font8 opacity06">Subs</div>
           <div>
             <span class="font-weight-bold font12" v-if="new_team">&#8734;/&#8734;</span>
-            <span class="font-weight-bold font12" v-else>{{getPaidTransfers}}/{{getFreeTransfers}}</span>
+            <span class="font-weight-bold font12" v-else>
+              <span v-html="getPaidTransfers"></span>/<span v-html="getFreeTransfers"></span>
+            </span>
           </div>
         </div>
       </v-flex>

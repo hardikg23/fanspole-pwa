@@ -190,7 +190,7 @@
           })
           .catch((error) => {
             this.showSnackBar = true;
-            this.formLoading = false;
+            this.loading = false;
             this.$nuxt.$emit('snackbarError', {
               snackbar: this.showSnackBar,
               message: error.data.error,
