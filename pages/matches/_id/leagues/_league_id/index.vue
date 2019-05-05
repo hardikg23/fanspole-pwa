@@ -167,7 +167,7 @@
         if (this.$store.getters['Matches/match'](this.$route.params.id) == undefined){
           await this.$store.dispatch('Matches/GET_MATCH', this.$route.params.id);  
         }
-        if (this.$store.getters['PaidLeagues/paid_league_members'](this.$route.params.league_id).length == 0){
+        if (this.$store.getters['PaidLeagues/paid_league_members'](this.$route.params.league_id).length == 0 && this.$store.getters['PaidLeagues/current_user_members'](this.$route.params.league_id).length == 0){
           await this.$store.dispatch('PaidLeagues/GET_PAID_LEAGUE', {id: this.$route.params.id, league_id: this.$route.params.league_id, fields: 'id,rank,event_team{id,team_no,score},user{team_name,image,id}'});
         }
         this.loading = false
