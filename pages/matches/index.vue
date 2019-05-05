@@ -45,6 +45,7 @@
       }
     },
     mounted: function() {
+      console.log("mount/matches");
       this.getApiMatches();
     },
     methods: {

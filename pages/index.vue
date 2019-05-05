@@ -223,7 +223,7 @@ The Company acknowledges that the ICC, BCCI/IPL and its franchises, respective n
         ]
       }
     },
-    beforeMount() {
+    mounted() {
       console.log("mount/index");
       if (this.$cookies.get('at') && this.$cookies.get('rt')) {
         this.$router.push(this.home_path);
