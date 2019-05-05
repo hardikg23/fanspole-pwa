@@ -38,10 +38,10 @@
       }
     },
     created(){
-      console.log("home/created" + process.server);
+      console.log(process);
     },
     mounted: function() {
-      console.log("home/mounted"+ process.server);
+      console.log(process);
       this.getApiSeriesPhase();
     },
     methods: {

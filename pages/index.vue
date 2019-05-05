@@ -197,18 +197,15 @@ The Company acknowledges that the ICC, BCCI/IPL and its franchises, respective n
 </template>
 
 <script>
+  import { HOME } from '~/constants/routes.js';
   import { LOGIN } from '~/constants/routes.js';
   import { SIGNUP } from '~/constants/routes.js';
   export default {
-    mounted() {
-      if (this.$cookies.get('at') && this.$cookies.get('rt')) {
-        this.$router.push('/matches');
-      }
-    },
     data() {
       return {
         login_path: LOGIN,
         signup_path: SIGNUP,
+        home_path: HOME,
         daily_mode: [
           {number: 1, title: "Select a Match", desc: "Select an upcoming match of your choice"},
           {number: 2, title: "Create your Fanspole Team", desc: "Use your sports knowledge to create a fantasy team using 100 credits"},
@@ -224,6 +221,11 @@ The Company acknowledges that the ICC, BCCI/IPL and its franchises, respective n
           {number: 2, title: "Auction", desc: "Bid for a players you want in your team or release players from your team"},
           {number: 3, title: "Create best team", desc: "player can be in only one team so make most of your skills and create best team"}
         ]
+      }
+    },
+    mounted() {
+      if (this.$cookies.get('at') && this.$cookies.get('rt')) {
+        this.$router.push(this.home_path);
       }
     }
   }
