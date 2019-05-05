@@ -232,7 +232,7 @@ The Company acknowledges that the ICC, BCCI/IPL and its franchises, respective n
   }
 </script>
 
-<style scoped>
+<style type="text/css" scoped>
   .grad1 {
     background-color: #1a237e;
     background-image: linear-gradient(to bottom, #1a237e , #000000);
