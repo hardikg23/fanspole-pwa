@@ -212,18 +212,19 @@ The Company acknowledges that the ICC, BCCI/IPL and its franchises, respective n
           {number: 3, title: "Join Free Contests", desc: "Participate in Cash or Practice Contests and go for glory!"}
         ],
         championship_mode: [
-          {number: 1, title: "Create Your Team for Tournament", desc: "Select an upcoming Tournament and manage your team for entire Tournament"},
-          {number: 2, title: "Paid and Free transfers", desc: "You will get Paid and Free transfers per match to manage your team"},
-          {number: 3, title: "Win Tournament prizes", desc: "Be in top managers and get paid for your efforts"}
+          {number: 4, title: "Create Your Team for Tournament", desc: "Select an upcoming Tournament and manage your team for entire Tournament"},
+          {number: 5, title: "Paid and Free transfers", desc: "You will get Paid and Free transfers per match to manage your team"},
+          {number: 6, title: "Win Tournament prizes", desc: "Be in top managers and get paid for your efforts"}
         ],
         auction_mode: [
-          {number: 1, title: "Join/Create Tournament", desc: "Join or Create Tournament and bid for the players"},
-          {number: 2, title: "Auction", desc: "Bid for a players you want in your team or release players from your team"},
-          {number: 3, title: "Create best team", desc: "player can be in only one team so make most of your skills and create best team"}
+          {number: 7, title: "Join/Create Tournament", desc: "Join or Create Tournament and bid for the players"},
+          {number: 8, title: "Auction", desc: "Bid for a players you want in your team or release players from your team"},
+          {number: 9, title: "Create best team", desc: "player can be in only one team so make most of your skills and create best team"}
         ]
       }
     },
-    mounted() {
+    beforeMount() {
+      console.log("mount/index");
       if (this.$cookies.get('at') && this.$cookies.get('rt')) {
         this.$router.push(this.home_path);
       }
