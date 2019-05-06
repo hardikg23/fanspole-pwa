@@ -96,7 +96,9 @@
           </v-layout>
           <v-layout row wrap pa-2 class="white">
             <v-flex xs12>
-              <v-btn large style="width:96%" color='primary'>LET'S PLAY</v-btn>
+              <nuxt-link to="/championship/home">
+                <v-btn large style="width:96%" color='primary'>LET'S PLAY</v-btn>
+              </nuxt-link>
             </v-flex>
           </v-layout>
         </v-tab-item>
@@ -201,6 +203,11 @@ The Company acknowledges that the ICC, BCCI/IPL and its franchises, respective n
   import { LOGIN } from '~/constants/routes.js';
   import { SIGNUP } from '~/constants/routes.js';
   export default {
+    async asyncData({app, redirect}) {
+      if (app.$cookies.get('at') && app.$cookies.get('rt')) {
+        redirect(HOME);
+      }
+    },
     data() {
       return {
         login_path: LOGIN,
@@ -223,12 +230,12 @@ The Company acknowledges that the ICC, BCCI/IPL and its franchises, respective n
         ]
       }
     },
-    mounted() {
-      console.log("mount/index");
-      if (this.$cookies.get('at') && this.$cookies.get('rt')) {
-        this.$router.push(this.home_path);
-      }
-    }
+    // mounted() {
+    //   console.log("mount/index");
+    //   if (this.$cookies.get('at') && this.$cookies.get('rt')) {
+    //     this.$router.push(this.home_path);
+    //   }
+    // }
   }
 </script>
 
