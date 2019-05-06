@@ -11,12 +11,6 @@
 
 <script>
   export default {
-    created(){
-      console.log("mode/created" + process.browser);
-    },
-    mounted: function() {
-      console.log("mode/mounted"+ process.server);
-    }
   }
 </script>
 

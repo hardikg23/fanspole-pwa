@@ -38,10 +38,8 @@
       }
     },
     created(){
-      console.log(process);
     },
     mounted: function() {
-      console.log(process);
       this.getApiSeriesPhase();
     },
     methods: {

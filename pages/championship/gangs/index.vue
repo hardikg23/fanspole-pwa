@@ -70,7 +70,6 @@
       }
     },
     mounted: function() {
-      console.log("gangs/mounted");
       this.getSeriesPhase();
     },
     methods: {

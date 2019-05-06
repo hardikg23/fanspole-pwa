@@ -176,10 +176,8 @@
         </v-flex>
         <v-flex xs12 class="text-xs-center grey--text text--lighten-2 font7 pt-2">
           <div>Disclaimer</div>
-          <div>All Images and Content used on Fanspole is either created or taken from open sources. If anyone has any objection or has rights related to site content, please contact us on admin@fanspole.com
-The Company hereby states and confirms that the Service is not affiliated in any way to and claims no association, in any capacity whatsoever, with the (i) International Cricket Council ("ICC") or any national cricket board or team, (ii) Board of Control for Cricket in India ("BCCI"), the Indian Premier League ("IPL") or any IPL franchises, or (iii) any other domestic cricket tournament/league, or tournament franchise/team. (iv) any international cricket tournament/league or tournament franchise/team including Cricket Australia ("CA"), Big Bash League ("BBL") and others.
-The Company acknowledges that the ICC, BCCI/IPL and its franchises, respective national cricket boards, domestic tournament organisers and franchises/teams/players, respectively, own all proprietary names and marks and image rights relating to the relevant tournament or competition.</div>
-        <hr>
+          <div>All Images and Content used on Fanspole is either created or taken from open sources. If anyone has any objection or has rights related to site content, please contact us on <a mailto="admin@fanspole.com">admin@fanspole.com</a>. The Company hereby states and confirms that the Service is not affiliated in any way to and claims no association, in any capacity whatsoever, with the (i) International Cricket Council (ICC) or any national cricket board or team, (ii) Board of Control for Cricket in India (BCCI), the Indian Premier League (IPL) or any IPL franchises, or (iii) any other domestic cricket tournament/league, or tournament franchise/team. (iv) any international cricket tournament/league or tournament franchise/team including Cricket Australia (CA), Big Bash League (BBL) and others. The Company acknowledges that the ICC, BCCI/IPL and its franchises, respective national cricket boards, domestic tournament organisers and franchises/teams/players, respectively, own all proprietary names and marks and image rights relating to the relevant tournament or competition.</div>
+          <hr/>
         </v-flex>
 
         <v-flex xs6 class="text-xs-center font-weight-bold grey darken-4">
@@ -190,7 +188,9 @@ The Company acknowledges that the ICC, BCCI/IPL and its franchises, respective n
         </v-flex>
 
         <v-flex xs12 class="font8 pa-2 text-xs-center">
-          <div>Icons made by <a href="http://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/"         title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/"        title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+          <div>
+            Icons made by <a href="http://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+          </div>
         </v-flex>
       </v-layout>
     </div>
@@ -198,7 +198,7 @@ The Company acknowledges that the ICC, BCCI/IPL and its franchises, respective n
   </section>
 </template>
 
-<script>
+<script type="text/javascript">
   import { HOME } from '~/constants/routes.js';
   import { LOGIN } from '~/constants/routes.js';
   import { SIGNUP } from '~/constants/routes.js';
@@ -229,13 +229,7 @@ The Company acknowledges that the ICC, BCCI/IPL and its franchises, respective n
           {number: 9, title: "Create best team", desc: "player can be in only one team so make most of your skills and create best team"}
         ]
       }
-    },
-    // mounted() {
-    //   console.log("mount/index");
-    //   if (this.$cookies.get('at') && this.$cookies.get('rt')) {
-    //     this.$router.push(this.home_path);
-    //   }
-    // }
+    }
   }
 </script>
 
