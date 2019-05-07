@@ -18,7 +18,7 @@ const getters = {
     return state.join_paid_leagues_count;
   },
   paid_leagues: state => {
-    return state.paid_leagues.sort(function(a, b){return b.prize_amount - a.prize_amount});
+    return state.paid_leagues;
   },
   paid_league: state => {
     return state.paid_league;
@@ -130,6 +130,27 @@ const mutations = {
     let i = state.paid_leagues.map(item => item.id).indexOf(payload['paid_league'].id)
     state.paid_leagues.splice(i, 1, payload['paid_league']);
     state.join_paid_leagues_count++
+  },
+  SORT_PAID_LEAGUES: (state, payload) => {
+    if(payload.id == 1){
+      if(!payload.desc){
+        state.paid_leagues = state.paid_leagues.sort(function(a, b){return parseInt(a.prize_amount) - parseInt(b.prize_amount)});
+      }else{
+        state.paid_leagues = state.paid_leagues.sort(function(a, b){return parseInt(b.prize_amount) - parseInt(a.prize_amount)});
+      }
+    }else if(payload.id == 2){
+      if(!payload.desc){
+        state.paid_leagues = state.paid_leagues.sort(function(a, b){return parseInt(a.members_limit) - parseInt(b.members_limit)});
+      }else{
+        state.paid_leagues = state.paid_leagues.sort(function(a, b){return parseInt(b.members_limit) - parseInt(a.members_limit)});
+      }
+    }else if(payload.id == 3){
+      if(!payload.desc){
+        state.paid_leagues = state.paid_leagues.sort(function(a, b){return parseInt(a.entry_fee) - parseInt(b.entry_fee)});
+      }else{
+        state.paid_leagues = state.paid_leagues.sort(function(a, b){return parseInt(b.entry_fee) - parseInt(a.entry_fee)});
+      }
+    }
   },
 }
 

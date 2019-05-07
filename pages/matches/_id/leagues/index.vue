@@ -27,6 +27,41 @@
       </div>
     </template>
 
+    <div class="mb-2 box_shadow_common">
+      <v-layout row wrap class="font8">
+        <v-flex xs12 class="pa-2 borderb">
+          All Contests
+        </v-flex>
+        <v-flex xs4 class="borderb font9 pa-1 text-xs-center white" @click="sortClick(1)">
+          <div v-bind:class="{'grey--text': order_by != 1}">
+            Prize Pool
+            <span v-if="order_by == 1">
+              <v-icon v-if="order_desc" style="font-size:1.3em;" class="red--text text--accent-4">arrow_downward</v-icon>
+              <v-icon v-else style="font-size:1.3em;" class="red--text text--accent-4">arrow_upward</v-icon>
+            </span>
+          </div>
+        </v-flex>
+        <v-flex xs4 class="borderb font9 pa-1 text-xs-center white" @click="sortClick(2)">
+          <div v-bind:class="{'grey--text': this.order_by != 2}">
+            Spots
+            <span v-if="order_by == 2">
+              <v-icon v-if="order_desc" style="font-size:1.3em;" class="red--text text--accent-4">arrow_downward</v-icon>
+              <v-icon v-else style="font-size:1.3em;" class="red--text text--accent-4">arrow_upward</v-icon>
+            </span>
+          </div>
+        </v-flex>
+        <v-flex xs4 class="borderb font9 pa-1 text-xs-center white" @click="sortClick(3)">
+          <div v-bind:class="{'grey--text': this.order_by != 3}">
+            Entry Fee
+            <span v-if="order_by == 3">
+              <v-icon v-if="order_desc" style="font-size:1.3em;" class="red--text text--accent-4">arrow_downward</v-icon>
+              <v-icon v-else style="font-size:1.3em;" class="red--text text--accent-4">arrow_upward</v-icon>
+            </span>
+          </div>
+        </v-flex>
+      </v-layout>
+    </div>
+
     <template v-for="league in getPaidLeagues" v-if="!loading">
       <PaidLeagueCard :key="league.id" :league="league"></PaidLeagueCard>
     </template>
@@ -68,7 +103,9 @@
     data() {
       return {
         title: 'CONTESTS',
-        loading: true
+        loading: true,
+        order_by: 1,
+        order_desc: true
       }
     },
     components: {
@@ -102,6 +139,14 @@
         await this.$store.commit('PaidLeagues/RESET_PAID_LEAGUES');
         await this.$store.dispatch('PaidLeagues/GET_PAID_LEAGUES', this.$route.params.id);
         this.loading = false
+      },
+      sortClick(id){
+        if(this.order_by == id){
+          this.order_desc = !this.order_desc
+        }else{
+          this.order_by = id
+        }
+        this.$store.commit('PaidLeagues/SORT_PAID_LEAGUES', {id: this.order_by, desc: this.order_desc});
       }
     }
   }

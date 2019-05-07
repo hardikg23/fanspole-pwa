@@ -5,7 +5,7 @@ const pkg = require('./package')
 
 const nodeExternals = require('webpack-node-externals')
 
-module.exports = {
+export default {
   mode: 'universal',
   /*
   ** Headers of the page
@@ -57,6 +57,8 @@ module.exports = {
 
   serverMiddleware: [
       { path: '/paytm/payment', handler: '~/server-middleware/postRequestHandler.js' },
+      { path: '/payumoney/failure', handler: '~/server-middleware/postRequestHandler.js' },
+      { path: '/payumoney/success', handler: '~/server-middleware/postRequestHandler.js' },
   ],
   /*
   ** Axios module configuration

@@ -12,8 +12,9 @@ import Me from './modules/Me';
 import MobileNumber from './modules/MobileNumber';
 import Notifications from './modules/Notifications';
 import Login from './modules/Login';
-import Players from './modules/Players';
 import PaidLeagues from './modules/PaidLeagues';
+import Payment from './modules/Payment';
+import Players from './modules/Players';
 import Redemptions from './modules/Redemptions';
 import Series from './modules/Series';
 import SeriesPhases from './modules/SeriesPhases';
@@ -37,8 +38,9 @@ export default () => {
       MobileNumber,
       Notifications,
       Login,
-      Players,
       PaidLeagues,
+      Payment,
+      Players,
       Redemptions,
       Series,
       SeriesPhases,
