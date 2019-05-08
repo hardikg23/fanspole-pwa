@@ -17,14 +17,14 @@
     
     <div v-if="!loading">
       <GangCard :gang="getGang"></GangCard>
-      <v-layout row wrap class="font8 pa-1 championship font-weight-bold white--text">
+      <v-layout row wrap class="font8 pa-1 black font-weight-bold white--text">
         <v-flex xs7 class="text-xs-left pl-2">
           TEAM
         </v-flex>
         <v-flex xs3 class="text-xs-center pr-4">
           SUBS
         </v-flex>
-        <v-flex xs2 class="text-xs-right pr-4">
+        <v-flex xs2 class="text-xs-center pr-4">
           RANK
         </v-flex>
       </v-layout>

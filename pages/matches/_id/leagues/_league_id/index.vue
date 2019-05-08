@@ -50,10 +50,10 @@
       </v-card>
       
       <v-layout row wrap class="font8 pa-1 black font-weight-bold white--text">
-        <v-flex xs6 class="text-xs-left pl-2">
+        <v-flex xs10 class="text-xs-left pl-2">
           TEAM
         </v-flex>
-        <v-flex xs6 class="text-xs-right pr-4">
+        <v-flex xs2 class="text-xs-center pr-4">
           RANK
         </v-flex>
       </v-layout>
@@ -71,7 +71,7 @@
               </nuxt-link>
             </div>
           </v-flex>
-          <v-flex xs2 class="text-xs-right pr-4 pt-3" style="height:50px;">
+          <v-flex xs2 class="text-xs-center pr-4 pt-3" style="height:50px;">
             <div>#{{to_number_format(member.rank)}}</div>
           </v-flex>
         </v-layout>
@@ -87,7 +87,7 @@
               </nuxt-link>
             </div>
           </v-flex>
-          <v-flex xs2 class="white text-xs-right pr-4 pt-3" style="height:50px;">
+          <v-flex xs2 class="white text-xs-center pr-4 pt-3" style="height:50px;">
             <div>#{{to_number_format(member.rank)}}</div>
           </v-flex>
         </v-layout>

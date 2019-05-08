@@ -33,14 +33,14 @@
         </v-layout>
       </v-card>
 
-      <v-layout row wrap class="font8 pa-1 championship font-weight-bold white--text">
+      <v-layout row wrap class="font8 pa-1 black font-weight-bold white--text">
         <v-flex xs7 class="text-xs-left pl-2">
           TEAM
         </v-flex>
         <v-flex xs3 class="text-xs-center pr-4">
           SUBS
         </v-flex>
-        <v-flex xs2 class="text-xs-right pr-4">
+        <v-flex xs2 class="text-xs-center pr-4">
           RANK
         </v-flex>
       </v-layout>
@@ -58,7 +58,7 @@
             /
             <span>{{getCurrentUserClassicTeam.sum_free_sub_used}}</span>
           </v-flex>
-          <v-flex xs2 class="text-xs-center pt-3" style="height:56px;">
+          <v-flex xs2 class="text-xs-center pr-4 pt-3" style="height:56px;">
             <div>#{{to_number_format(getCurrentUserClassicTeam.rank)}}</div>
           </v-flex>
         </v-layout>
