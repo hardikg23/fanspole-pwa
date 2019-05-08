@@ -8,12 +8,12 @@
           </div>
           <div style="display: inline-block;">
             <div style="z-index: -5;">
-              <img v-bind:src="player.team.jersey_photo" style="width:40px;height: 40px;">
+              <img v-bind:src="player.team.jersey_photo" style="width:44px;height: 44px;">
             </div>
-            <div v-bind:style="{backgroundColor: `${player.team.team_color}`}" class="white--text font7 box_shadow fontw600" style="min-width:75px;padding: 4px;">
+            <div v-bind:style="{backgroundColor: `${player.team.team_color}`}" class="white--text font7 box_shadow fontw600" style="min-width:66px;padding: 1px;">
               {{player.display_name}}
             </div>
-            <div class="white--text font6 pa-1">
+            <div class="white--text font8 fontw600 pa-0">
               <span v-html="player.display_info"></span>
             </div>
           </div>
