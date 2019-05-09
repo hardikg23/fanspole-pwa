@@ -203,7 +203,7 @@ const mutations = {
     if(ALL_ROUNDER < 1){
       state.created_team.balanced_ar = false
     }
-    if(BOWLER < 1){
+    if(BOWLER < 2){
       state.created_team.balanced_bowl = false
     }
     if((ALL_ROUNDER + BOWLER) < 5){
