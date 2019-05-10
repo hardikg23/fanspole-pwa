@@ -4,8 +4,9 @@
       <v-card md5 class='pa-0 box_shadow_common' ripple>
         <v-layout row wrap pa-2>
           <v-flex xs4 class="text-xs-center borderb">
-            <div class="font7 grey--text text-uppercase">Prize pool</div>
-            <div class="fontw600">&#8377;{{member.paid_league.prize_amount}}</div>
+            <div class="font7 grey--text text-uppercase" v-if="member.paid_league.prize_amount > 0">Prize pool</div>
+            <div class="fontw600" v-if="member.paid_league.prize_amount > 0">&#8377;{{member.paid_league.prize_amount}}</div>
+            <div class="fontw600 pt-2" v-else>{{member.paid_league.name}}</div>
           </v-flex>
           <v-flex xs4 class="text-xs-center borderb">
             <div class="font7 grey--text text-uppercase">Winners</div>

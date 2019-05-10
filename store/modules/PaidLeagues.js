@@ -157,7 +157,7 @@ const mutations = {
 const actions = {
   async GET_PAID_LEAGUES({ commit, dispatch }, payload) {
     await this.$axios
-      .get(`/api/matches/${payload}/paid_leagues.json?fields=id,prize_amount,entry_fee,paid_league_members_count,league_tags,members_limit,winner_count`)
+      .get(`/api/matches/${payload.id}/paid_leagues.json?fields=${payload.fields}`)
       .then(response => {
         if (response.status == 200) {
           commit('SET_PAID_LEAGUES', response.data);
@@ -222,13 +222,28 @@ const actions = {
   },
   async JOIN_CONTEST({ commit, dispatch }, payload) {
     await this.$axios
-      .post(`/api/matches/${payload.id}/paid_leagues/${payload.league_id}/join`, {team_id: payload.team_id, fields: "id,prize_amount,entry_fee,paid_league_members_count,league_tags,members_limit,winner_count"})
+      .post(`/api/matches/${payload.id}/paid_leagues/${payload.league_id}/join.json`, {team_id: payload.team_id, fields: "id,prize_amount,entry_fee,paid_league_members_count,league_tags,members_limit,winner_count"})
       .then(response => {
         if (response.status == 200) {
           commit('JOINED_CONTEST', response.data);
         }
       })
       .catch(error => {
+        return error;
+      });
+  },
+  async CREATE_CONTEST({ commit, dispatch }, payload) {
+    return await this.$axios
+      .post(`/api/matches/${payload.id}/paid_leagues.json`, payload.formData)
+      .then(response => {
+        if (response.status == 201){
+          return response.data;
+        }
+      })
+      .catch((error) => {
+        if (error.response.status == 422) {
+          throw error.response;
+        }
         return error;
       });
   }

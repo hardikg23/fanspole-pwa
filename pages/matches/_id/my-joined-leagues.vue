@@ -26,7 +26,7 @@
       <div v-if="getPaidLeagues.length > 0"> 
         <template class="blue-grey" v-for="league in getPaidLeagues">
           <div v-if="!locked(getMatch.event_time_in_millis)">
-            <PaidLeagueCard :key="league.id" :league="league"></PaidLeagueCard>
+            <PaidLeagueCard :key="league.id" :league="league" :joined="true"></PaidLeagueCard>
           </div>
           <div v-else>
             <CompletePaidLeagueCard :key="league.id" :member="league"></CompletePaidLeagueCard>
@@ -79,9 +79,9 @@
         await this.$store.commit('PaidLeagues/RESET_JOINED_PAID_LEAGUES');
         
         if(this.locked(this.getMatch.event_time_in_millis)){
-          var fields = 'id,winning_amount,refunded,rank,event_team{team_no,score},paid_league{id,prize_amount,entry_fee,members_limit,winner_count}'
+          var fields = 'id,winning_amount,refunded,rank,event_team{team_no,score},paid_league{id,name,prize_amount,entry_fee,members_limit,winner_count}'
         }else{
-          var fields = 'id,prize_amount,entry_fee,paid_league_members_count,members_limit,winner_count'
+          var fields = 'id,name,prize_amount,entry_fee,paid_league_members_count,members_limit,winner_count'
         }
         await this.$store.dispatch('PaidLeagues/GET_JOINED_PAID_LEAGUES', {id: this.$route.params.id, fields: fields});
         this.loading = false

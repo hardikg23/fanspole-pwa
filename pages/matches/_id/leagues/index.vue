@@ -31,12 +31,28 @@
       <v-layout row wrap class="font8">
         <v-flex xs1></v-flex>
         <v-flex xs5 class="text-xs-left pa-2">
-          <v-btn small class="white"><span class="font8 fontw600">Enter Contest Code</span></v-btn>
+          <div v-if="getTeamsCount == 0">
+            <v-btn small class="white" :to="`/matches/${this.$route.params.id}/create-team`">
+              <span class="font8 fontw600">Enter Contest Code</span>
+            </v-btn>
+          </div>
+          <div v-else>
+            <v-btn small class="white" :to="`/matches/${this.$route.params.id}/leagues/enter-contest-code`">
+              <span class="font8 fontw600">Enter Contest Code</span>
+            </v-btn>
+          </div>
         </v-flex>
         <v-flex xs5 class="text-xs-right pa-2">
-          <v-btn small class="white" :to="`/matches/${this.$route.params.id}/leagues/create-private-league`">
-            <span class="font8 fontw600">Create a Contest</span>
-          </v-btn>
+          <div v-if="getTeamsCount == 0">
+            <v-btn small class="white" :to="`/matches/${this.$route.params.id}/create-team`">
+              <span class="font8 fontw600">Create a Contest</span>
+            </v-btn>
+          </div>
+          <div v-else>
+            <v-btn small class="white" :to="`/matches/${this.$route.params.id}/leagues/create-private-league`">
+              <span class="font8 fontw600">Create a Contest</span>
+            </v-btn>
+          </div>
         </v-flex>
         <v-flex xs1></v-flex>
         <v-flex xs12 class="pa-2 borderb">
@@ -147,7 +163,7 @@
           await this.$store.dispatch('Matches/GET_MATCH', this.$route.params.id);  
         }
         await this.$store.commit('PaidLeagues/RESET_PAID_LEAGUES');
-        await this.$store.dispatch('PaidLeagues/GET_PAID_LEAGUES', this.$route.params.id);
+        await this.$store.dispatch('PaidLeagues/GET_PAID_LEAGUES', {id: this.$route.params.id, fields: 'id,name,prize_amount,entry_fee,paid_league_members_count,league_tags,members_limit,winner_count'});
         this.loading = false
       },
       sortClick(id){

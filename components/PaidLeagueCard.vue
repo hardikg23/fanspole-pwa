@@ -1,11 +1,24 @@
 <template>
   <v-container grid-list-md text-xs-center px-3 py-2>
     <v-card md5 ripple class="box_shadow_common">
+      <v-layout row grey lighten-4 ma-0 v-if="joined">
+        <v-flex xs10>
+          <div class="text-xs-left pa-1 grey--text">Share this contest with your friends</div>
+        </v-flex>
+        <v-flex xs2 mr-1>
+          <div class="text-xs-right mt-1">
+            <a href="whatsapp://send?text=The text to share!" data-action="share/whatsapp/share">
+              <v-icon class="grey--text">share</v-icon>
+            </a>
+          </div>
+        </v-flex>
+      </v-layout>
       <v-layout row wrap pa-2 @click="cardClick.call(this, league.id)">
         <v-flex xs6>
           <div class="text-xs-left">
-            <div class="font8 grey--text">Prize pool</div>
-            <div class="font18 fontw600 pt-1">&#8377;{{league.prize_amount}}</div>
+            <div class="font8 grey--text" v-if="league.prize_amount > 0">Prize pool</div>
+            <div class="font18 fontw600 pt-1" v-if="league.prize_amount > 0">&#8377;{{league.prize_amount}}</div>
+            <div class="fontw600 pt-2 font11" v-else>{{league.name}}</div>
           </div>
         </v-flex>
         <v-flex xs6>
@@ -190,6 +203,10 @@
       league: {
         type: Object,
         required: true
+      },
+      joined: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
