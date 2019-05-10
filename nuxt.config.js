@@ -52,6 +52,7 @@ export default {
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
     '@nuxtjs/sentry',
+    'nuxt-clipboard2',
     ['cookie-universal-nuxt', { parseJSON: true }]
   ],
 

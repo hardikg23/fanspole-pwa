@@ -7,9 +7,7 @@
         </v-flex>
         <v-flex xs2 mr-1>
           <div class="text-xs-right mt-1">
-            <a href="whatsapp://send?text=The text to share!" data-action="share/whatsapp/share">
-              <v-icon class="grey--text">share</v-icon>
-            </a>
+            <v-icon @click="shareClick.call(this)" class="grey--text">share</v-icon>
           </div>
         </v-flex>
       </v-layout>
@@ -193,6 +191,37 @@
         </v-card>
       </div>
     </v-dialog>
+
+    <v-dialog v-model="shareLeagueDialog">
+      <v-card>
+        <v-card-title class="headline primary white--text pa-2"><div class="font7 font-weight-bold text-uppercase">Share contest</div></v-card-title>
+        <v-layout row wrap pa-2>
+          <v-flex xs12 class="pa-2 text-xs-center grey--text fontw600">Share the contest code</v-flex>
+        </v-layout>
+        <v-layout row wrap class="mx-4" style="border: 1px solid grey;border-style: dotted;">
+          <v-flex xs7 class="text-xs-left pa-2">
+            <div class="ml-4">{{league.invite_code}}</div>
+          </v-flex>
+          <v-flex xs5 class="text-xs-right pa-2 font-weight-bold">
+            <div class="cursor-p primary--text" @click="copyContestCode(league.invite_code)" v-if="!copied">
+              COPY CODE
+            </div>
+            <div v-else class="green--text text--accent-4">
+              COPIED!
+            </div>
+          </v-flex>
+        </v-layout>
+        <v-layout row wrap pa-2 mt-3>
+          <v-flex xs12 class="grey--text font9 pl-3">Invite via:</v-flex>
+          <v-flex xs12 class="pa-2 text-xs-center grey--text fontw600">
+            <a :href="`whatsapp://send?text=${league.invite_link}`">
+              <img src="https://image.flaticon.com/icons/svg/134/134937.svg" width="40px"></img>
+            </a>
+          </v-flex>
+        </v-layout>
+      </v-card>
+    </v-dialog>
+
   </v-container>
 </template>
 
@@ -213,9 +242,11 @@
       return {
         prizeDialog: false,
         joinLeagueDialog: false,
+        shareLeagueDialog: false,
         addFundsDialog: false,
         leaderDialog: false,
         add_amount: 0,
+        copied: false,
         selected_team: '849404'
       }
     },
@@ -237,6 +268,14 @@
       }
     },
     methods: {
+      async copyContestCode(code) {
+        try {
+          await this.$copyText(code);
+          this.copied = true
+        } catch (e) {
+          console.error(e);
+        }
+      },
       async getLeaguePrizes(id){
         this.leaderDialog = true;
         if (this.$store.getters['PaidLeagues/paid_leagues_prizes'](id).length == 0){
@@ -247,6 +286,9 @@
       },
       cardClick(id){
         this.$router.push(`/matches/${this.$route.params.id}/leagues/${id}`);
+      },
+      shareClick(){
+        this.shareLeagueDialog = true
       },
       to_number_format(number){
         if(number != undefined){

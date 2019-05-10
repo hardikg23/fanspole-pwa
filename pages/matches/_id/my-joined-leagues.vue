@@ -81,7 +81,7 @@
         if(this.locked(this.getMatch.event_time_in_millis)){
           var fields = 'id,winning_amount,refunded,rank,event_team{team_no,score},paid_league{id,name,prize_amount,entry_fee,members_limit,winner_count}'
         }else{
-          var fields = 'id,name,prize_amount,entry_fee,paid_league_members_count,members_limit,winner_count'
+          var fields = 'id,name,prize_amount,entry_fee,paid_league_members_count,members_limit,winner_count,invite_code,invite_link'
         }
         await this.$store.dispatch('PaidLeagues/GET_JOINED_PAID_LEAGUES', {id: this.$route.params.id, fields: fields});
         this.loading = false
