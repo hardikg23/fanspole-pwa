@@ -27,8 +27,18 @@
       </div>
     </template>
 
-    <div class="mb-2 box_shadow_common">
+    <div class="mb-2 box_shadow_common" v-if="!loading">
       <v-layout row wrap class="font8">
+        <v-flex xs1></v-flex>
+        <v-flex xs5 class="text-xs-left pa-2">
+          <v-btn small class="white"><span class="font8 fontw600">Enter Contest Code</span></v-btn>
+        </v-flex>
+        <v-flex xs5 class="text-xs-right pa-2">
+          <v-btn small class="white" :to="`/matches/${this.$route.params.id}/leagues/create-private-league`">
+            <span class="font8 fontw600">Create a Contest</span>
+          </v-btn>
+        </v-flex>
+        <v-flex xs1></v-flex>
         <v-flex xs12 class="pa-2 borderb">
           All Contests
         </v-flex>
