@@ -196,7 +196,7 @@ const actions = {
   },
   async GET_PRIZES({ commit, dispatch }, payload) {
     await this.$axios
-      .get(`/api/matches/${payload.id}/paid_leagues/${payload.league_id}/prizes?fields=${payload.fields}`)
+      .get(`/api/matches/${payload.id}/paid_leagues/${payload.league_id}/prizes.json?fields=${payload.fields}`)
       .then(response => {
         if (response.status == 200) {
           let state_payload = {'data': response.data, 'league_id': payload.league_id}
@@ -209,7 +209,7 @@ const actions = {
   },
   async GET_JOINING_CONFIRMATION({ commit, dispatch }, payload) {
     await this.$axios
-      .post(`/api/matches/${payload.id}/paid_leagues/${payload.league_id}/joining_confirmation`)
+      .post(`/api/matches/${payload.id}/paid_leagues/${payload.league_id}/joining_confirmation.json`)
       .then(response => {
         if (response.status == 200) {
           commit('RESET_JOINING_CONFIRMATION');
@@ -221,14 +221,17 @@ const actions = {
       });
   },
   async JOIN_CONTEST({ commit, dispatch }, payload) {
-    await this.$axios
-      .post(`/api/matches/${payload.id}/paid_leagues/${payload.league_id}/join.json`, {team_id: payload.team_id, fields: "id,prize_amount,entry_fee,paid_league_members_count,league_tags,members_limit,winner_count"})
+    return await this.$axios
+      .post(`/api/matches/${payload.id}/paid_leagues/${payload.league_id}/join.json`, {team_id: payload.team_id, invite_code: payload.invite_code, fields: "id,prize_amount,entry_fee,paid_league_members_count,league_tags,members_limit,winner_count"})
       .then(response => {
         if (response.status == 200) {
           commit('JOINED_CONTEST', response.data);
         }
       })
-      .catch(error => {
+      .catch((error) => {
+        if (error.response.status == 422) {
+          throw error.response;
+        }
         return error;
       });
   },
@@ -237,6 +240,21 @@ const actions = {
       .post(`/api/matches/${payload.id}/paid_leagues.json`, payload.formData)
       .then(response => {
         if (response.status == 201){
+          return response.data;
+        }
+      })
+      .catch((error) => {
+        if (error.response.status == 422) {
+          throw error.response;
+        }
+        return error;
+      });
+  },
+  async GET_PAID_LEAGUE_FROM_INVITE_CODE({ commit, dispatch }, payload) {
+    return await this.$axios
+      .get(`/api/paid_leagues/invite_code/${payload.code}.json?fields=${payload.fields}`,)
+      .then(response => {
+        if (response.status == 200){
           return response.data;
         }
       })

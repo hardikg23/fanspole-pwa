@@ -12,6 +12,16 @@
       </v-toolbar-items>
     </v-toolbar>
 
+    <v-layout>
+      <v-flex xs12 class="text-xs-center pa-4" v-if="loading">
+        <v-progress-circular
+          indeterminate
+          :width="3"
+          color="primary"
+        ></v-progress-circular>
+      </v-flex>
+    </v-layout>
+
     <div class="white py-4" v-if="!loading">
       <v-form
         ref="form"

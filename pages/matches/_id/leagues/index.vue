@@ -37,7 +37,7 @@
             </v-btn>
           </div>
           <div v-else>
-            <v-btn small class="white" :to="`/matches/${this.$route.params.id}/leagues/enter-contest-code`">
+            <v-btn small class="white" :to="`/daily/enter-contest-code`">
               <span class="font8 fontw600">Enter Contest Code</span>
             </v-btn>
           </div>

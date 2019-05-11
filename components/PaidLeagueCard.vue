@@ -214,7 +214,7 @@
         <v-layout row wrap pa-2 mt-3>
           <v-flex xs12 class="grey--text font9 pl-3">Invite via:</v-flex>
           <v-flex xs12 class="pa-2 text-xs-center grey--text fontw600">
-            <a :href="`whatsapp://send?text=${league.invite_link}`">
+            <a :href="`https://api.whatsapp.com/send?text=${league.invite_link}`">
               <img src="https://image.flaticon.com/icons/svg/134/134937.svg" width="40px"></img>
             </a>
           </v-flex>
@@ -247,7 +247,7 @@
         leaderDialog: false,
         add_amount: 0,
         copied: false,
-        selected_team: '849404'
+        selected_team: null,
       }
     },
     computed: {
