@@ -128,6 +128,7 @@
       }
     },
     mounted: function() {
+      this.code = this.$route.query.code;
       this.loading = false
     },
     methods: {
