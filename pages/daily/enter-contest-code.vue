@@ -173,7 +173,7 @@
               button: false
             });
           }else if(joining_confirmation.popup == "create_team"){
-            this.$router.push(`/matches/${res.paid_league.paid_leagueable_id}/create-team`);
+            this.$router.push(`/matches/${this.paid_league.paid_leagueable_id}/create-team`);
           }
         }
       },
