@@ -32,24 +32,24 @@
         <v-flex xs1></v-flex>
         <v-flex xs5 class="text-xs-left pa-2">
           <div v-if="getTeamsCount == 0">
-            <v-btn small class="white" :to="`/matches/${this.$route.params.id}/create-team`">
+            <v-btn small class="primary--text" :to="`/matches/${this.$route.params.id}/create-team`">
               <span class="font8 fontw600">Enter Contest Code</span>
             </v-btn>
           </div>
           <div v-else>
-            <v-btn small class="white" :to="`/daily/enter-contest-code`">
+            <v-btn small class="primary--text" :to="`/daily/enter-contest-code`">
               <span class="font8 fontw600">Enter Contest Code</span>
             </v-btn>
           </div>
         </v-flex>
         <v-flex xs5 class="text-xs-right pa-2">
           <div v-if="getTeamsCount == 0">
-            <v-btn small class="white" :to="`/matches/${this.$route.params.id}/create-team`">
+            <v-btn small class="primary white--text" :to="`/matches/${this.$route.params.id}/create-team`">
               <span class="font8 fontw600">Create a Contest</span>
             </v-btn>
           </div>
           <div v-else>
-            <v-btn small class="white" :to="`/matches/${this.$route.params.id}/leagues/create-private-league`">
+            <v-btn small class="primary white--text" :to="`/matches/${this.$route.params.id}/leagues/create-private-league`">
               <span class="font8 fontw600">Create a Contest</span>
             </v-btn>
           </div>
