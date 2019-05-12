@@ -204,7 +204,7 @@
       },
       highestScoreText(a,b){
         if(a==b){
-          return 0;
+          return "=0";
         }else if(a > b){
           return "<span class='green--text text--accent-4 font-weight-bold'>+"+(a-b)+"</span>"
         }else{

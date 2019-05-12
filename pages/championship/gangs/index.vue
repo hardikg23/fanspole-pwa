@@ -37,7 +37,7 @@
       <div v-if="getGangs.length > 0">
         <template v-for="g in getGangs">
           <div>
-            <GangCard :key="g.id" :gang="g"></GangCard>
+            <ClassicGangCard :key="g.id" :gang="g"></ClassicGangCard>
           </div>
         </template>
       </div>
@@ -62,7 +62,7 @@
     components: {
       Header: () => import('~/components/Header'),
       BottomChampionship: () => import('~/components/BottomChampionship'),
-      GangCard: () => import('~/components/GangCard'),
+      ClassicGangCard: () => import('~/components/ClassicGangCard'),
     },
     computed: {
       getGangs(){

@@ -36,7 +36,7 @@
           {id: 5, icon: 'local_parking', text: 'Fantasy Points System', path: '/point-system'},
           {id: 6, icon: 'help_outline', text: 'How To Play', path: '/daily/how-to-play'},
           {id: 7, icon: 'whatshot', text: 'About Us', path: '/about-us'},
-          {id: 8, icon: 'android', text: 'Fanspole App'},
+          {id: 8, icon: 'notifications', text: 'Notifications', path: '/notifications'},
           {id: 9, icon: 'power_settings_new', text: 'Logout', path: '/logout'}
         ]
       }

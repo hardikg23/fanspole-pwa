@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-md px-3 py-2>
-    <v-card md5 class='pa-0 box_shadow_common' :to="`/gangs/${gang.id}?series_id=${gang.series_id}`">
+    <v-card md5 class='pa-0 box_shadow_common' :to="`/championship/phases/${gang.phase_id}/gangs/${gang.id}`">
       <v-layout row wrap ma-0 grey lighten-4>
         <v-flex xs12 class='text-xs-left pa-2 font9'>
           <div class="fontw600 font11">{{gang.name}}</div>
@@ -12,13 +12,9 @@
           <div>Manager</div>
           <div class="fontw600 pa-2">{{gang.user.display_name}}</div>
         </v-flex>
-        <v-flex xs3 class="text-xs-center">
+        <v-flex xs6 class="text-xs-center">
           <div>Members</div>
           <div class="fontw600 pa-2">{{gang.league_members_count}}</div>
-        </v-flex>
-        <v-flex xs3 class="text-xs-center">
-          <div>Rank</div>
-          <div class="fontw600 pa-2">{{gang.current_user_data && gang.current_user_data.rank}}</div>
         </v-flex>
         <v-flex xs12 class="text-xs-center" v-if="gang.league_code != undefined">
           <div class="fontw600 pa-2">Code:  {{gang.league_code}}</div>

@@ -1,7 +1,7 @@
 <template>
   <section class="mb65">
-    <v-toolbar color="championship">
-      <BackChampionship :showhome="true" />
+    <v-toolbar color="primary">
+      <Back :showhome="true" />
       <span class="white--text fontw600">{{title}}</span>
     </v-toolbar>
 
@@ -10,19 +10,19 @@
         <v-progress-circular
           indeterminate
           :width="3"
-          color="championship"
+          color="primary"
         ></v-progress-circular>
       </v-flex>
     </v-layout>
     
     <div v-if="!loading">
-      <ClassicGangCard :gang="getGang"></ClassicGangCard>
+      <GangCard :gang="getGang"></GangCard>
       <v-layout row wrap class="font8 pa-1 black font-weight-bold white--text">
         <v-flex xs7 class="text-xs-left pl-2">
           TEAM
         </v-flex>
         <v-flex xs3 class="text-xs-center pr-4">
-          SUBS
+          SCORE
         </v-flex>
         <v-flex xs2 class="text-xs-center pr-4">
           RANK
@@ -33,14 +33,11 @@
           <v-flex xs2 class="white pt-2 text-xs-center" style="height:56px;">
             <img :src="team.user.image" class="image imagec">
           </v-flex>
-          <v-flex xs5 class="white pa-2 pl-2" style="height:56px;" v-on:click.stop="viewTeamClick.call(this, team.id)"> 
+          <v-flex xs5 class="white pr-4 pt-3" style="height:56px;"> 
             <div class="fontw600 font9">{{team.user.team_name.substring(0, 18)}}</div>
-            <div class="font8">{{to_number_format(team.score)}} POINTS</div>
           </v-flex>
           <v-flex xs3 class="white text-xs-center pr-4 pt-3" style="height:56px;">
-            <span class="red--text text--accent-4">{{team.sum_paid_sub_used}}</span>
-            /
-            <span class="green--text text--accent-4">{{team.sum_free_sub_used}}</span>
+            <span class="">{{to_number_format(team.score)}}</span>
           </v-flex>
           <v-flex xs2 class="white text-xs-center pr-4 pt-3" style="height:56px;">
             <div>#{{to_number_format(team.rank)}}</div>
@@ -60,15 +57,15 @@
       }
     },
     components: {
-      BackChampionship: () => import('~/components/BackChampionship'),
-      ClassicGangCard: () => import('~/components/ClassicGangCard'),
+      Back: () => import('~/components/Back'),
+      GangCard: () => import('~/components/GangCard'),
     },
     computed: {
       getGang(){
-        return this.$store.getters['ClassicGangs/gang'];
+        return this.$store.getters['Gangs/gang'];
       },
       getMembers(){
-        return this.$store.getters['ClassicGangs/members'](this.$route.params.gang_id);
+        return this.$store.getters['Gangs/members'](this.$route.params.gang_id);
       }
     },
     mounted: function() {
@@ -76,13 +73,10 @@
     },
     methods: {
       async getApiGangMembers(){
-        if (this.$store.getters['ClassicGangs/members'](this.$route.params.gang_id).length == 0){
-          await this.$store.dispatch('ClassicGangs/GET_MEMBERS', {phase_id: this.$route.params.phase_id, gang_id: this.$route.params.gang_id, fields: 'id,name,league_motto,league_members_count,league_code,user{id,display_name}'});
+        if (this.$store.getters['Gangs/members'](this.$route.params.gang_id).length == 0){
+          await this.$store.dispatch('Gangs/GET_MEMBERS', {series_id: this.$route.query.series_id, gang_id: this.$route.params.gang_id, fields: 'id,name,league_motto,league_members_count,current_user_data,league_code,user{id,display_name}'});
         }
         this.loading = false
-      },
-      viewTeamClick(id){
-        this.$router.push(`/championship/teams/${id}`);
       },
       to_number_format(number){
         if(number != undefined){

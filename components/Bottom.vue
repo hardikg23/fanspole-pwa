@@ -9,9 +9,9 @@
         <span class="">Results</span>
         <v-icon>poll</v-icon>
       </v-btn>
-      <v-btn flat color="primary" :to="`${notifications_path}`">
-        <span class="">Notifications</span>
-        <v-icon>notifications</v-icon>
+      <v-btn flat color="primary" to="/gangs">
+        <span>Gangs</span>
+        <v-icon>group</v-icon>
       </v-btn>
       <v-btn flat color="primary" :to="`${more_path}`">
         <span class="">More</span>

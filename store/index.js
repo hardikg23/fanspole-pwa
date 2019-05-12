@@ -6,6 +6,7 @@ import ClassicGangs from './modules/ClassicGangs';
 import ClassicTeams from './modules/ClassicTeams';
 import ClassicTeamScores from './modules/ClassicTeamScores';
 import CreateTeam from './modules/CreateTeam';
+import Gangs from './modules/Gangs';
 import Common from './modules/Common';
 import Matches from './modules/Matches';
 import Me from './modules/Me';
@@ -33,6 +34,7 @@ export default () => {
       ClassicTeamScores,
       CreateTeam,
       Common,
+      Gangs,
       Matches,
       Me,
       MobileNumber,
