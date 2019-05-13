@@ -61,8 +61,7 @@
             </v-list-tile-avatar>
             <v-list-tile-content>
               <v-list-tile-title class="font12">
-                My Balance 
-                <span :class="`ftr pr-2 font-weight-bold ${bar_color}--text`">&#8377;{{current_balance}}</span>
+                My Balance
               </v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
@@ -103,7 +102,6 @@
         team_name: '',
         image: '',
         cricket_level: '',
-        current_balance: 0,
         is_logged_in: false
       }
     },
@@ -113,7 +111,6 @@
         this.team_name = localStorage.getItem('me_team_name');
         this.image = localStorage.getItem('me_image');
         this.cricket_level = localStorage.getItem('me_cricket_level');
-        this.current_balance = localStorage.getItem('me_current_balance');
       }
       if (this.$cookies.get('at') && this.$cookies.get('rt')) {
         this.is_logged_in = true

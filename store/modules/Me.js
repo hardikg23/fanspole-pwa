@@ -145,11 +145,18 @@ const actions = {
         commit('SET_SETTINGS', response.data);
       });
   },
-  async GET_APPROVED_DETAILS({ commit }, payload) {
+  async GET_VERIFY_PROFILE_DETAILS({ commit }, payload) {
     return await this.$axios
-      .get(`/api/me.json?fields=email,mobile_no,mobile_approved,pancard_status`)
+      .get(`/api/me.json?fields=${payload.fields}`)
       .then((response) => {
         commit('SET_APPROVED_DETAILS', response.data);
+      });
+  },
+  async GET_REDEMPTION_DETAILS({ commit }, payload) {
+    return await this.$axios
+      .get(`/api/me.json?fields=${payload.fields}`)
+      .then((response) => {
+        commit('SET_REDEMPTION_DETAILS', response.data);
       });
   },
   async GET_PROFILE({ commit }, payload) {

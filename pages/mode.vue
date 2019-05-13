@@ -6,6 +6,11 @@
     <v-card md5 ripple class="box_shadow_common ma-3 mode_card" color="championship" to="/championship/home">
       championship mode
     </v-card>
+    <a href="https://www.fanspole.com/auction">
+      <v-card md5 ripple class="box_shadow_common ma-3 mode_card" color="auction">
+        auction mode
+      </v-card>
+    </a>
   </section>
 </template>
 

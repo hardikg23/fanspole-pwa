@@ -13,27 +13,6 @@
         </v-card>
       </div>
     </template>
-  
-    <div>
-      <a href="https://beta.fanspole.com/daily/enter-contest-code?code=ay350fulo2w8339u2g7t">
-        <v-card md5 ripple class="box_shadow_common ma-3">
-          <v-layout row grey lighten-4 ma-0>
-            <v-flex xs12>
-              <div class="text-xs-left pa-1 primary white--text font11 fontw600 text-xs-center">New Feature - Private Contest!</div>
-            </v-flex>
-          </v-layout>
-          <v-layout row wrap pa-2>
-            <v-flex xs2 class="text-xs-center">
-              <v-icon style="font-size:3.5em;" class="primary--text">new_releases</v-icon>
-            </v-flex>
-            <v-flex xs10 class="font9 pl-3">
-              <div>Now you can create private invite only contest. <br><span class="primary--text fontw600">Join admin created private test contest for match CSK vs MI</span> <br>Give it a try and create your own contests</div>
-            </v-flex>
-          </v-layout>
-        </v-card>
-      </a>
-    </div>
-  
     <template v-for="match in getMatches" v-if="!loading">
       <div v-show="!locked(match.event_time_in_millis)">
         <MatchCard :key="match.id" :match="match"></MatchCard>

@@ -294,7 +294,7 @@
         }
       },
       async getApiAccountDetails(){
-        await this.$store.dispatch('Me/GET_APPROVED_DETAILS');
+        await this.$store.dispatch('Me/GET_VERIFY_PROFILE_DETAILS', {fields: 'email,mobile_no,mobile_approved,pancard_status'});
         this.loading = false
       },
       async otpClick(){
